@@ -10,11 +10,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="mobile-web-app-capable" content="yes">
     <title>
-        Open MPW - HackMD
+        OpenMPW
     </title>
-    <link rel="icon" type="image/png" href="https://hackmd.io/favicon.png">
-    <link rel="apple-touch-icon" href="https://hackmd.io/apple-touch-icon.png">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" integrity="sha256-3iu9jgsy9TpTwXKb7bNQzqWekRX7pPK+2OLj3R922fo=" crossorigin="anonymous" />
@@ -34,28 +31,28 @@
 </head>
 
 <body>
-    <div id="doc" class="markdown-body container-fluid comment-enabled" data-hard-breaks="true"><h1 id="Open-MPW" data-id="Open-MPW"><a class="anchor hidden-xs" href="#Open-MPW" title="Open-MPW"><span class="octicon octicon-link"></span></a><span>Open MPW</span></h1><p><a href="https://www.skywatertechnology.com/mpw/open-source-mpw-program/" target="_blank" rel="noopener" style=""><span>https://www.skywatertechnology.com/mpw/open-source-mpw-program/</span></a></p><hr><h2 id="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" data-id="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々"><a class="anchor hidden-xs" href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々"><span class="octicon octicon-link"></span></a><span>20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</span></h2><h3 id="OpenMPWの概要" data-id="OpenMPWの概要"><a class="anchor hidden-xs" href="#OpenMPWの概要" title="OpenMPWの概要"><span class="octicon octicon-link"></span></a><span>OpenMPWの概要</span></h3><ul>
+    <div id="doc" class="markdown-body container-fluid comment-enabled comment-inner" data-hard-breaks="true"><h1 class="raw"><span>OpenMPW</span></h1><p><a href="https://www.skywatertechnology.com/mpw/open-source-mpw-program/" target="_blank" rel="noopener"><span>https://www.skywatertechnology.com/mpw/open-source-mpw-program/</span></a></p><hr><h2 class="raw"><span>20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</span></h2><h3 class="raw"><span>OpenMPWの概要</span></h3><ul>
 <li><span>無料でLSIを焼いてくれる</span></li>
 <li><span>Caravel repo(RISC-V+IOの何か)のユーザースペースに実装する</span></li>
-</ul><h3 id="必要要件" data-id="必要要件"><a class="anchor hidden-xs" href="#必要要件" title="必要要件"><span class="octicon octicon-link"></span></a><span>必要要件</span></h3><ul>
+</ul><h3 class="raw"><span>必要要件</span></h3><ul>
 <li><span>ライセンス諸々</span></li>
 <li><span>Apache 2.0ライセンスのLICENEファイル</span></li>
 <li><span>GDSIIレイアウト(再現可能)</span></li>
 <li><span>Caravel repoのテストハーネスとパッドフレームの使用</span></li>
 <li><span>OpenLANEフローのOpenMPWプリチェックツールでの合格</span></li>
-</ul><h3 id="まとめ" data-id="まとめ"><a class="anchor hidden-xs" href="#まとめ" title="まとめ"><span class="octicon octicon-link"></span></a><span>まとめ</span></h3><ul>
+</ul><h3 class="raw"><span>まとめ</span></h3><ul>
 <li><span>Caravelをforkして改造</span></li>
 <li><span>OpenLANEで通るならおｋ</span></li>
-</ul><h3 id="各種リンク" data-id="各種リンク"><a class="anchor hidden-xs" href="#各種リンク" title="各種リンク"><span class="octicon octicon-link"></span></a><span>各種リンク</span></h3><ul>
+</ul><h3 class="raw"><span>各種リンク</span></h3><ul>
 <li><a href="https://github.com/efabless/openlane" target="_blank" rel="noopener"><span>OpenLANE</span></a><span> : RTLからGDSII吐くやつ</span></li>
 <li><a href="https://github.com/efabless/caravel" target="_blank" rel="noopener"><span>Caravel</span></a><span> : パッドフレーム</span></li>
 <li><a href="https://github.com/efabless/caravel_user_project" target="_blank" rel="noopener"><span>Caravel User Project</span></a></li>
 <li><a href="https://github.com/efabless/open_mpw_precheck" target="_blank" rel="noopener"><span>プリチェックツール</span></a></li>
 <li><a href="https://efabless.com/projects/shuttle_name/MPW-ONE" target="_blank" rel="noopener"><span>MPW-ONE</span></a></li>
-</ul><hr><h2 id="LSIを焼こう！" data-id="LSIを焼こう！"><a class="anchor hidden-xs" href="#LSIを焼こう！" title="LSIを焼こう！"><span class="octicon octicon-link"></span></a><span>LSIを焼こう！</span></h2><p><span>概要はefablessの動画</span><sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup><span>を見れば大体わかる。また使うツールのバージョンやCaravelの概要はこのドキュメント</span><sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup><span>に書いてある。シャトル毎に形式が変わるのでMPW3の概要が出たら更新したい。</span></p><h3 id="必要なもの" data-id="必要なもの"><a class="anchor hidden-xs" href="#必要なもの" title="必要なもの"><span class="octicon octicon-link"></span></a><span>必要なもの</span></h3><ul>
+</ul><hr><h2 class="raw"><span>LSIを焼こう！(未完成)</span></h2><p><span>概要はefablessの動画</span><sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup><span>を見れば大体わかる。また使うツールのバージョンやCaravelの概要はこのドキュメント</span><sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup><span>に書いてある。シャトル毎に形式が変わるのでMPW3の概要が出たら更新したい。</span></p><h3 class="raw"><span>必要なもの</span></h3><ul>
 <li><span>OpenLANE : RTLをGDSIIに変換する</span></li>
 <li><span>Caravel_user_project  : これのUser Project Areaに自分のデザインを加える</span></li>
-</ul><h3 id="1OpenLANEのインストール" data-id="1OpenLANEのインストール"><a class="anchor hidden-xs" href="#1OpenLANEのインストール" title="1OpenLANEのインストール"><span class="octicon octicon-link"></span></a><span>1.OpenLANEのインストール</span></h3><p><span>Dockerは事前にインストールしてデーモンを起動しておく。cloneしてmakeするだけ。</span><sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+</ul><h3 class="raw"><span>1.OpenLANEのインストール</span></h3><p><span>Dockerは事前にインストールしてデーモンを起動しておく。cloneしてmakeするだけ。</span><sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
 <span></span>
 <span></span>
 <span></span>
@@ -64,26 +61,63 @@ cd openlane/
 make openlane
 make pdk
 make test 
-</div></div></code></pre><h3 id="2Caravelのインストール" data-id="2Caravelのインストール"><a class="anchor hidden-xs" href="#2Caravelのインストール" title="2Caravelのインストール"><span class="octicon octicon-link"></span></a><span>2.Caravelのインストール</span></h3><p><span>基本的に、forkしたCaravel_user_projectのリポジトリ</span><sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup><span>上で全てを進めていく</span></p><pre><code class="bash hljs"><div class="wrapper"><div class="gutter linenumber"><span></span></div><div class="code">git <span class="hljs-built_in">clone</span> git@github.com:efabless/caravel_user_project.git
-</div></div></code></pre><h3 id="3CaravelのUser-Project-Areaに自分のデザインを追加する56" data-id="3CaravelのUser-Project-Areaに自分のデザインを追加する56"><a class="anchor hidden-xs" href="#3CaravelのUser-Project-Areaに自分のデザインを追加する56" title="3CaravelのUser-Project-Areaに自分のデザインを追加する56"><span class="octicon octicon-link"></span></a><span>3.CaravelのUser Project Areaに自分のデザインを追加する</span><sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup><sup class="footnote-ref"><a href="#fn6" id="fnref6">[6]</a></sup></h3><p><span>基本的に以下の流れで作る</span></p><ol>
+</div></div></code></pre><h3 class="raw"><span>2.Caravelのインストール</span></h3><p><span>基本的に、forkしたCaravel_user_projectのリポジトリ</span><sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup><span>上で全てを進めていく</span></p><pre><code class="bash hljs"><div class="wrapper"><div class="gutter linenumber"><span></span></div><div class="code">git <span class="hljs-built_in">clone</span> git@github.com:efabless/caravel_user_project.git
+</div></div></code></pre><h3 class="raw"><span>3.CaravelのUser Project Areaに自分のデザインを追加する</span><sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup><sup class="footnote-ref"><a href="#fn6" id="fnref6">[6]</a></sup></h3><p><span>基本的に以下の流れで作る</span></p><ol>
 <li><code>user_project_wrapper</code><span>に自分のデザインを書き込む</span></li>
 <li><code>caravel_user_project/openlane/user_project_wrapper/config.tcl</code><span>を編集する</span></li>
-</ol><h4 id="1user_project_wrapperに自分のデザインを書き込む" data-id="1user_project_wrapperに自分のデザインを書き込む"><a class="anchor hidden-xs" href="#1user_project_wrapperに自分のデザインを書き込む" title="1user_project_wrapperに自分のデザインを書き込む"><span class="octicon octicon-link"></span></a><span>1.</span><code>user_project_wrapper</code><span>に自分のデザインを書き込む</span></h4><p><code>caravel_user_project/verilog/rtl/user_project_wrapper.v</code><span>のIOをそのままに中身を自作のデザインに置き換えると、ピン割り当ての設定ファイルをそのまま利用できるので非常に楽。</span><sup class="footnote-ref"><a href="#fn7" id="fnref7">[7]</a></sup></p><p><span>CaravelのUser Project Areaは</span></p><ul>
+</ol><h4 class="raw"><span>1.</span><code>user_project_wrapper</code><span>に自分のデザインを書き込む</span></h4><p><code>caravel_user_project/verilog/rtl/user_project_wrapper.v</code><span>のIOをそのままに中身を自作のデザインに置き換えると、ピン割り当ての設定ファイルをそのまま利用できるので非常に楽。</span><sup class="footnote-ref"><a href="#fn7" id="fnref7">[7]</a></sup></p><p><span>CaravelのUser Project Areaは</span></p><ul>
 <li><span>SoC側とWishboneバスで繋がっている</span></li>
 <li><span>SoC側と128本のデバッグ用の線で繋がっている</span></li>
 <li><span>外部と38本のIOポートで繋がっている</span></li>
-</ul><p><span>SoCとのデータ転送には基本的にWishboneバスを利用するので、Wishboneの仕様を各自で調べ、仕様に沿ったIOを持ったデザインを自分で作ってほしい。</span></p><p><span>GPIOのin/outに関しては謎のテクノロジーでinput/output/inenb/outenbに分離されている</span><sup class="footnote-ref"><a href="#fn8" id="fnref8">[8]</a></sup><span>ので深く考えずに自分のデザインと繋げてよい。</span></p><p><span>Wishboneと接続するに当たり、ユーザーは自作のデザインにアドレスを</span><code>0x30000000</code><span>から</span><code>0x80000000-1</code><span>までで自由に割り当てできる。</span><sup class="footnote-ref"><a href="#fn9" id="fnref9">[9]</a></sup></p><h4 id="2-caravel_user_projectopenlaneuser_project_wrapperconfigtclを編集する" data-id="2-caravel_user_projectopenlaneuser_project_wrapperconfigtclを編集する"><a class="anchor hidden-xs" href="#2-caravel_user_projectopenlaneuser_project_wrapperconfigtclを編集する" title="2-caravel_user_projectopenlaneuser_project_wrapperconfigtclを編集する"><span class="octicon octicon-link"></span></a><span>2. </span><code>caravel_user_project/openlane/user_project_wrapper/config.tcl</code><span>を編集する</span></h4><p><code>user_projecto_wrapper.v</code><span>のみを編集する場合は特に何もしなくてよいが、自分のデザインは複数のVerilogファイルから構成される場合が殆どなので、GDSIIに変換する前にOpenLANEに追加したVerilogファイルを教えてやる必要がある。そのために</span><code>config.tcl</code><span>を編集する。</span><sup class="footnote-ref"><a href="#fn10" id="fnref10">[10]</a></sup><span> OpenMPWでは</span><code>./verilog/rtl</code><span>以下に自分のデザイン用のディレクトリを作るのを推奨している。</span><sup class="footnote-ref"><a href="#fn10" id="fnref10:1">[10:1]</a></sup></p><p><code>config.tcl</code><span>を編集する訳だが、選択肢が２つある</span></p><ol>
+</ul><p><span>SoCとのデータ転送には基本的にWishboneバスを利用するので、Wishboneの仕様を各自で調べ、仕様に沿ったIOを持ったデザインを自分で作ってほしい。</span></p><p><span>GPIOに関してはUser Project Areaからは謎のテクノロジーでinput/output/inenb/outenbに分離されている</span><sup class="footnote-ref"><a href="#fn8" id="fnref8">[8]</a></sup><span>ように見えるので深く考えずに自分のデザインと繋げてよい。</span></p><p><span>Wishboneと接続するに当たり、ユーザーは自作のデザインにアドレスを</span><code>0x30000000</code><span>から</span><code>0x80000000-1</code><span>までで自由に割り当てできる。</span><sup class="footnote-ref"><a href="#fn9" id="fnref9">[9]</a></sup></p><h4 class="raw"><span>2. </span><code>caravel_user_project/openlane/user_project_wrapper/config.tcl</code><span>を編集する</span></h4><p><code>user_projecto_wrapper.v</code><span>のみを編集する場合は特に何もしなくてよいが、自分のデザインは複数のVerilogファイルから構成される場合が殆どなので、GDSIIに変換する前にOpenLANEに追加したVerilogファイルを教えてやる必要がある。そのために</span><code>config.tcl</code><span>を編集する。</span><sup class="footnote-ref"><a href="#fn10" id="fnref10">[10]</a></sup><span> OpenMPWでは</span><code>./verilog/rtl</code><span>以下に自分のデザイン用のディレクトリを作るのを推奨している。</span><sup class="footnote-ref"><a href="#fn10" id="fnref10:1">[10:1]</a></sup></p><p><code>config.tcl</code><span>を編集する訳だが、選択肢が２つある</span></p><ol>
 <li><span>Insert Design macroに対応させる</span></li>
 <li><span>Flattening Designに対応させる</span></li>
-</ol><p><span>この２つの違いについてはここ</span><sup class="footnote-ref"><a href="#fn11" id="fnref11">[11]</a></sup><span>に解説を譲る。2の方法の方が最適化が効く(多分)のでこの方法を解説する。</span></p><p><span>TODO:続き書け</span></p><p><span>コンフィグファイルの各変数の解説はここ</span><sup class="footnote-ref"><a href="#fn12" id="fnref12">[12]</a></sup><span>にある</span></p><h3 id="4OpenLANEでforkしたCaravelプロジェクトをGDSIIにする13" data-id="4OpenLANEでforkしたCaravelプロジェクトをGDSIIにする13"><a class="anchor hidden-xs" href="#4OpenLANEでforkしたCaravelプロジェクトをGDSIIにする13" title="4OpenLANEでforkしたCaravelプロジェクトをGDSIIにする13"><span class="octicon octicon-link"></span></a><span>4.OpenLANEでforkしたCaravelプロジェクトをGDSIIにする</span><sup class="footnote-ref"><a href="#fn13" id="fnref13">[13]</a></sup></h3><p><span>初めに環境変数を２つ追加してmakeする。</span></p><pre><code class="bash hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+</ol><p><span>この２つの違いについてはここ</span><sup class="footnote-ref"><a href="#fn11" id="fnref11">[11]</a></sup><span>に解説を譲る。2の方法の方が最適化が効く(多分)のでこの方法を解説する。</span></p><p><span>以下はデフォルトの</span><code>config.tcl</code><span>だが、</span></p><pre><code class="bash hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span></div><div class="code"><span class="hljs-built_in">set</span> ::env(CLOCK_PORT) <span class="hljs-string">"user_clock2"</span>
+<span class="hljs-built_in">set</span> ::env(CLOCK_NET) <span class="hljs-string">"mprj.clk"</span>
+
+<span class="hljs-built_in">set</span> ::env(CLOCK_PERIOD) <span class="hljs-string">"10"</span>
+
+<span class="hljs-comment">## Internal Macros</span>
+<span class="hljs-comment">### Macro Placement</span>
+<span class="hljs-built_in">set</span> ::env(MACRO_PLACEMENT_CFG) <span class="hljs-variable">$script_dir</span>/macro.cfg
+
+<span class="hljs-comment">### Black-box verilog and views</span>
+<span class="hljs-built_in">set</span> ::env(VERILOG_FILES_BLACKBOX) <span class="hljs-string">"\
+	<span class="hljs-variable">$script_dir</span>/../../caravel/verilog/rtl/defines.v \
+	<span class="hljs-variable">$script_dir</span>/../../verilog/rtl/user_proj_example.v"</span>
+
+<span class="hljs-built_in">set</span> ::env(EXTRA_LEFS) <span class="hljs-string">"\
+	<span class="hljs-variable">$script_dir</span>/../../lef/user_proj_example.lef"</span>
+
+<span class="hljs-built_in">set</span> ::env(EXTRA_GDS_FILES) <span class="hljs-string">"\
+	<span class="hljs-variable">$script_dir</span>/../../gds/user_proj_example.gds"</span>
+</div></div></code></pre><p><span>TODO:Quick StartとHarden Your Designの内容をどうしていいかわからん</span></p><p><span>コンフィグファイルの各変数の解説はここ</span><sup class="footnote-ref"><a href="#fn12" id="fnref12">[12]</a></sup><span>にある</span></p><h3 class="raw"><span>4.OpenLANEでforkしたCaravelプロジェクトをGDSIIにする</span><sup class="footnote-ref"><a href="#fn13" id="fnref13">[13]</a></sup></h3><p><span>初めに環境変数を２つ追加してmakeする。</span></p><pre><code class="bash hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
 <span></span>
 <span></span></div><div class="code"><span class="hljs-built_in">export</span> OPENLANE_ROOT=&lt;openlane-installation-path&gt;
 <span class="hljs-built_in">export</span> OPENLANE_TAG=&lt;latest-openlane-tag&gt;
 make openlane
-</div></div></code></pre><p><span>TODO:続き書け</span></p><h3 id="5プリチェックツールを走らせる14" data-id="5プリチェックツールを走らせる14"><a class="anchor hidden-xs" href="#5プリチェックツールを走らせる14" title="5プリチェックツールを走らせる14"><span class="octicon octicon-link"></span></a><span>5.プリチェックツールを走らせる</span><sup class="footnote-ref"><a href="#fn14" id="fnref14">[14]</a></sup></h3><p><span>以下のコマンドをforkしたcaravelリポジトリの直下で実行する</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+</div></div></code></pre><p><span>TODO:続き書け</span></p><h3 class="raw"><span>5.プリチェックツールを走らせる</span><sup class="footnote-ref"><a href="#fn14" id="fnref14">[14]</a></sup></h3><p><span>以下のコマンドをforkしたcaravelリポジトリの直下で実行する</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
 <span></span></div><div class="code">make precheck // プリチェックツールのインストール
 make run-precheck // プリチェックツールを走らせる
-</div></div></code></pre><p><span>既にプリチェックツールがインストールされている場合は1つ目は必要ない</span></p><hr class="footnotes-sep"><section class="footnotes">
+</div></div></code></pre><p><span>既にプリチェックツールがインストールされている場合は1つ目は必要ない</span></p><h3 class="raw"><span>6.プログラミング</span></h3><p><span>ここ</span><sup class="footnote-ref"><a href="#fn15" id="fnref15">[15]</a></sup><span>らへんを読めば出来る</span></p><p><span>TODO:続き書け</span></p><hr class="footnotes-sep"><section class="footnotes">
 <ol class="footnotes-list">
 <li id="fn1" class="footnote-item"><p><a href="https://youtu.be/jBrBqhVNgDo?t=1326" target="_blank" rel="noopener"><span>https://youtu.be/jBrBqhVNgDo?t=1326</span></a> <a href="#fnref1" class="footnote-backref">↩︎</a> <a href="#fnref1:1" class="footnote-backref">↩︎</a></p>
 </li>
@@ -113,6 +147,8 @@ make run-precheck // プリチェックツールを走らせる
 </li>
 <li id="fn14" class="footnote-item"><p><span>明記されてないけどefablessの動画</span><sup class="footnote-ref"><a href="#fn1" id="fnref1:1">[1:1]</a></sup><span>でそうしてました</span> <a href="#fnref14" class="footnote-backref">↩︎</a></p>
 </li>
+<li id="fn15" class="footnote-item"><p><a href="https://github.com/efabless/caravel_user_project/tree/main/verilog/dv#simulation-environment-setup" target="_blank" rel="noopener"><span>https://github.com/efabless/caravel_user_project/tree/main/verilog/dv#simulation-environment-setup</span></a> <a href="#fnref15" class="footnote-backref">↩︎</a></p>
+</li>
 </ol>
 </section></div>
     <div class="ui-toc dropup unselectable hidden-print" style="display:none;">
@@ -130,13 +166,14 @@ make run-precheck // プリチェックツールを走らせる
 <li><a href="#各種リンク" title="各種リンク">各種リンク</a></li>
 </ul>
 </li>
-<li class=""><a href="#LSIを焼こう！" title="LSIを焼こう！">LSIを焼こう！</a><ul class="nav">
+<li class=""><a href="#LSIを焼こう！未完成" title="LSIを焼こう！(未完成)">LSIを焼こう！(未完成)</a><ul class="nav">
 <li><a href="#必要なもの" title="必要なもの">必要なもの</a></li>
 <li><a href="#1OpenLANEのインストール" title="1.OpenLANEのインストール">1.OpenLANEのインストール</a></li>
 <li><a href="#2Caravelのインストール" title="2.Caravelのインストール">2.Caravelのインストール</a></li>
-<li class=""><a href="#3CaravelのUser-Project-Areaに自分のデザインを追加する56" title="3.CaravelのUser Project Areaに自分のデザインを追加する[5][6]">3.CaravelのUser Project Areaに自分のデザインを追加する[5][6]</a></li>
+<li><a href="#3CaravelのUser-Project-Areaに自分のデザインを追加する56" title="3.CaravelのUser Project Areaに自分のデザインを追加する[5][6]">3.CaravelのUser Project Areaに自分のデザインを追加する[5][6]</a></li>
 <li><a href="#4OpenLANEでforkしたCaravelプロジェクトをGDSIIにする13" title="4.OpenLANEでforkしたCaravelプロジェクトをGDSIIにする[13]">4.OpenLANEでforkしたCaravelプロジェクトをGDSIIにする[13]</a></li>
 <li><a href="#5プリチェックツールを走らせる14" title="5.プリチェックツールを走らせる[14]">5.プリチェックツールを走らせる[14]</a></li>
+<li class=""><a href="#6プログラミング" title="6.プログラミング">6.プログラミング</a></li>
 </ul>
 </li>
 </ul>
@@ -149,20 +186,21 @@ make run-precheck // プリチェックツールを走らせる
     <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;" null null>
         <div class="toc"><ul class="nav">
 <li class=""><a href="#Open-MPW" title="Open MPW">Open MPW</a><ul class="nav">
-<li class=""><a href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a><ul class="nav">
+<li><a href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a><ul class="nav">
 <li><a href="#OpenMPWの概要" title="OpenMPWの概要">OpenMPWの概要</a></li>
-<li class=""><a href="#必要要件" title="必要要件">必要要件</a></li>
+<li><a href="#必要要件" title="必要要件">必要要件</a></li>
 <li><a href="#まとめ" title="まとめ">まとめ</a></li>
-<li class=""><a href="#各種リンク" title="各種リンク">各種リンク</a></li>
+<li><a href="#各種リンク" title="各種リンク">各種リンク</a></li>
 </ul>
 </li>
-<li class=""><a href="#LSIを焼こう！" title="LSIを焼こう！">LSIを焼こう！</a><ul class="nav">
-<li class=""><a href="#必要なもの" title="必要なもの">必要なもの</a></li>
-<li class=""><a href="#1OpenLANEのインストール" title="1.OpenLANEのインストール">1.OpenLANEのインストール</a></li>
-<li class=""><a href="#2Caravelのインストール" title="2.Caravelのインストール">2.Caravelのインストール</a></li>
-<li class=""><a href="#3CaravelのUser-Project-Areaに自分のデザインを追加する56" title="3.CaravelのUser Project Areaに自分のデザインを追加する[5][6]">3.CaravelのUser Project Areaに自分のデザインを追加する[5][6]</a></li>
-<li class=""><a href="#4OpenLANEでforkしたCaravelプロジェクトをGDSIIにする13" title="4.OpenLANEでforkしたCaravelプロジェクトをGDSIIにする[13]">4.OpenLANEでforkしたCaravelプロジェクトをGDSIIにする[13]</a></li>
+<li class=""><a href="#LSIを焼こう！未完成" title="LSIを焼こう！(未完成)">LSIを焼こう！(未完成)</a><ul class="nav">
+<li><a href="#必要なもの" title="必要なもの">必要なもの</a></li>
+<li><a href="#1OpenLANEのインストール" title="1.OpenLANEのインストール">1.OpenLANEのインストール</a></li>
+<li><a href="#2Caravelのインストール" title="2.Caravelのインストール">2.Caravelのインストール</a></li>
+<li><a href="#3CaravelのUser-Project-Areaに自分のデザインを追加する56" title="3.CaravelのUser Project Areaに自分のデザインを追加する[5][6]">3.CaravelのUser Project Areaに自分のデザインを追加する[5][6]</a></li>
+<li><a href="#4OpenLANEでforkしたCaravelプロジェクトをGDSIIにする13" title="4.OpenLANEでforkしたCaravelプロジェクトをGDSIIにする[13]">4.OpenLANEでforkしたCaravelプロジェクトをGDSIIにする[13]</a></li>
 <li><a href="#5プリチェックツールを走らせる14" title="5.プリチェックツールを走らせる[14]">5.プリチェックツールを走らせる[14]</a></li>
+<li class=""><a href="#6プログラミング" title="6.プログラミング">6.プログラミング</a></li>
 </ul>
 </li>
 </ul>
