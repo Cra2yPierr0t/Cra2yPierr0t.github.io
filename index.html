@@ -12,6 +12,7 @@
     <title>
         OpenMPW
     </title>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" integrity="sha256-3iu9jgsy9TpTwXKb7bNQzqWekRX7pPK+2OLj3R922fo=" crossorigin="anonymous" />
@@ -95,7 +96,7 @@ set <span class="token operator">::</span><span class="token function">env</span
 <code>make user_project_wrapper</code></p><h3 id="5プリチェックツールを走らせる1415" data-id="5プリチェックツールを走らせる1415"><a class="anchor hidden-xs" href="#5プリチェックツールを走らせる1415" title="5プリチェックツールを走らせる1415"><span class="octicon octicon-link"></span></a><span>5.プリチェックツールを走らせる</span><sup class="footnote-ref"><a href="#fn14" id="fnref14">[14]</a></sup><sup class="footnote-ref"><a href="#fn15" id="fnref15">[15]</a></sup></h3><p><span>以下のコマンドをforkしたcaravelリポジトリの直下で実行する</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
 <span></span></div><div class="code">make precheck // プリチェックツールのインストール
 make run-precheck // プリチェックツールを走らせる
-</div></div></code></pre><p><span>既にプリチェックツールがインストールされている場合は1つ目は必要ない</span></p><h3 id="6プログラミング" data-id="6プログラミング"><a class="anchor hidden-xs" href="#6プログラミング" title="6プログラミング"><span class="octicon octicon-link"></span></a><span>6.プログラミング</span></h3><p><span>ここ</span><sup class="footnote-ref"><a href="#fn16" id="fnref16">[16]</a></sup><span>らへんを読めば出来る</span></p><p><span>TODO:続き書け</span></p><hr class="footnotes-sep"><section class="footnotes">
+</div></div></code></pre><p><span>既にプリチェックツールがインストールされている場合は1つ目は必要ない</span></p><h3 id="6プログラミング" data-id="6プログラミング"><a class="anchor hidden-xs" href="#6プログラミング" title="6プログラミング"><span class="octicon octicon-link"></span></a><span>6.プログラミング</span></h3><p><span>ここ</span><sup class="footnote-ref"><a href="#fn16" id="fnref16">[16]</a></sup><span>らへんを読めば出来る</span><sup class="footnote-ref"><a href="#fn17" id="fnref17">[17]</a></sup></p><p><span>TODO:続き書け</span></p><hr class="footnotes-sep"><section class="footnotes">
 <ol class="footnotes-list">
 <li id="fn1" class="footnote-item"><p><a href="https://youtu.be/jBrBqhVNgDo?t=1326" target="_blank" rel="noopener"><span>https://youtu.be/jBrBqhVNgDo?t=1326</span></a> <a href="#fnref1" class="footnote-backref">↩︎</a> <a href="#fnref1:1" class="footnote-backref">↩︎</a></p>
 </li>
@@ -129,6 +130,8 @@ make run-precheck // プリチェックツールを走らせる
 </li>
 <li id="fn16" class="footnote-item"><p><a href="https://github.com/efabless/caravel_user_project/tree/main/verilog/dv#simulation-environment-setup" target="_blank" rel="noopener"><span>https://github.com/efabless/caravel_user_project/tree/main/verilog/dv#simulation-environment-setup</span></a> <a href="#fnref16" class="footnote-backref">↩︎</a></p>
 </li>
+<li id="fn17" class="footnote-item"><p><span>export SKYWATER_COMMIT=c094b6e83a4f9298e47f696ec5a7fd53535ec5eb</span> <a href="#fnref17" class="footnote-backref">↩︎</a></p>
+</li>
 </ol>
 </section></div>
     <div class="ui-toc dropup unselectable hidden-print" style="display:none;">
@@ -146,14 +149,14 @@ make run-precheck // プリチェックツールを走らせる
 <li><a href="#各種リンク" title="各種リンク">各種リンク</a></li>
 </ul>
 </li>
-<li><a href="#LSIを焼こう！未完成" title="LSIを焼こう！(未完成)">LSIを焼こう！(未完成)</a><ul class="nav">
+<li class=""><a href="#LSIを焼こう！未完成" title="LSIを焼こう！(未完成)">LSIを焼こう！(未完成)</a><ul class="nav">
 <li><a href="#必要なもの" title="必要なもの">必要なもの</a></li>
 <li><a href="#1OpenLANEのインストール" title="1.OpenLANEのインストール">1.OpenLANEのインストール</a></li>
 <li><a href="#2Caravelのインストール" title="2.Caravelのインストール">2.Caravelのインストール</a></li>
 <li><a href="#3CaravelのUser-Project-Areaに自分のデザインを追加する67" title="3.CaravelのUser Project Areaに自分のデザインを追加する[6][7]">3.CaravelのUser Project Areaに自分のデザインを追加する[6][7]</a></li>
 <li><a href="#4OpenLANEでforkしたCaravelプロジェクトをGDSIIにする13" title="4.OpenLANEでforkしたCaravelプロジェクトをGDSIIにする[13]">4.OpenLANEでforkしたCaravelプロジェクトをGDSIIにする[13]</a></li>
 <li><a href="#5プリチェックツールを走らせる1415" title="5.プリチェックツールを走らせる[14][15]">5.プリチェックツールを走らせる[14][15]</a></li>
-<li><a href="#6プログラミング" title="6.プログラミング">6.プログラミング</a></li>
+<li class=""><a href="#6プログラミング" title="6.プログラミング">6.プログラミング</a></li>
 </ul>
 </li>
 </ul>
@@ -173,14 +176,14 @@ make run-precheck // プリチェックツールを走らせる
 <li><a href="#各種リンク" title="各種リンク">各種リンク</a></li>
 </ul>
 </li>
-<li><a href="#LSIを焼こう！未完成" title="LSIを焼こう！(未完成)">LSIを焼こう！(未完成)</a><ul class="nav">
+<li class=""><a href="#LSIを焼こう！未完成" title="LSIを焼こう！(未完成)">LSIを焼こう！(未完成)</a><ul class="nav">
 <li><a href="#必要なもの" title="必要なもの">必要なもの</a></li>
 <li><a href="#1OpenLANEのインストール" title="1.OpenLANEのインストール">1.OpenLANEのインストール</a></li>
 <li><a href="#2Caravelのインストール" title="2.Caravelのインストール">2.Caravelのインストール</a></li>
 <li><a href="#3CaravelのUser-Project-Areaに自分のデザインを追加する67" title="3.CaravelのUser Project Areaに自分のデザインを追加する[6][7]">3.CaravelのUser Project Areaに自分のデザインを追加する[6][7]</a></li>
 <li><a href="#4OpenLANEでforkしたCaravelプロジェクトをGDSIIにする13" title="4.OpenLANEでforkしたCaravelプロジェクトをGDSIIにする[13]">4.OpenLANEでforkしたCaravelプロジェクトをGDSIIにする[13]</a></li>
 <li><a href="#5プリチェックツールを走らせる1415" title="5.プリチェックツールを走らせる[14][15]">5.プリチェックツールを走らせる[14][15]</a></li>
-<li><a href="#6プログラミング" title="6.プログラミング">6.プログラミング</a></li>
+<li class=""><a href="#6プログラミング" title="6.プログラミング">6.プログラミング</a></li>
 </ul>
 </li>
 </ul>
