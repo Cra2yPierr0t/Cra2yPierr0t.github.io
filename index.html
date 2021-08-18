@@ -49,7 +49,7 @@
 <li><a href="https://github.com/efabless/caravel_user_project" target="_blank" rel="noopener"><span>Caravel User Project</span></a></li>
 <li><a href="https://github.com/efabless/open_mpw_precheck" target="_blank" rel="noopener"><span>プリチェックツール</span></a></li>
 <li><a href="https://efabless.com/projects/shuttle_name/MPW-ONE" target="_blank" rel="noopener"><span>MPW-ONE</span></a></li>
-</ul><hr><h2 id="LSIを焼こう！未完成" data-id="LSIを焼こう！未完成"><a class="anchor hidden-xs" href="#LSIを焼こう！未完成" title="LSIを焼こう！未完成"><span class="octicon octicon-link"></span></a><span>LSIを焼こう！(未完成)</span></h2><p><span>概要はefablessの動画</span><sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup><span>を見れば大体わかる。また使うツールのバージョンやCaravelの概要はこのドキュメント</span><sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup><span>に書いてある。シャトル毎に形式が変わるのでMPW3の概要が出たら更新したい。</span></p><h3 id="必要なもの" data-id="必要なもの"><a class="anchor hidden-xs" href="#必要なもの" title="必要なもの"><span class="octicon octicon-link"></span></a><span>必要なもの</span></h3><ul>
+</ul><hr><h2 id="LSIを焼こう！未完成" data-id="LSIを焼こう！未完成"><a class="anchor hidden-xs" href="#LSIを焼こう！未完成" title="LSIを焼こう！未完成"><span class="octicon octicon-link"></span></a><span>LSIを焼こう！(未完成)</span></h2><p><span style="color: red"><span> 現状PDKのビルドに失敗するので動きません、試さないで下さい </span></span></p><p><span>概要はefablessの動画</span><sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup><span>を見れば大体わかる。また使うツールのバージョンやCaravelの概要はこのドキュメント</span><sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup><span>に書いてある。シャトル毎に形式が変わるのでMPW3の概要が出たら更新したい。</span></p><h3 id="必要なもの" data-id="必要なもの"><a class="anchor hidden-xs" href="#必要なもの" title="必要なもの"><span class="octicon octicon-link"></span></a><span>必要なもの</span></h3><ul>
 <li><span>OpenLANE : RTLをGDSII</span><sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup><span>に変換する</span></li>
 <li><span>Caravel_user_project  : これのUser Project Areaに自分のデザインを加える</span></li>
 </ul><h3 id="1OpenLANEのインストール" data-id="1OpenLANEのインストール"><a class="anchor hidden-xs" href="#1OpenLANEのインストール" title="1OpenLANEのインストール"><span class="octicon octicon-link"></span></a><span>1.OpenLANEのインストール</span></h3><p><span>Dockerは事前にインストールしてデーモンを起動しておく。cloneしてmakeするだけ。</span><sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
@@ -73,9 +73,7 @@ make test
 </ul><p><span>SoCとのデータ転送には基本的にWishboneバスを利用するので、Wishboneの仕様を各自で調べ、仕様に沿ったIOを持ったデザインを自分で作ってほしい。</span></p><p><span>GPIOに関してはUser Project Areaからは謎のテクノロジーでinput/output/inenb/outenbに分離されている</span><sup class="footnote-ref"><a href="#fn10" id="fnref10">[10]</a></sup><span>ように見えるので深く考えずに自分のデザインと繋げてよい。</span></p><p><span>Wishboneと接続するに当たり、ユーザーは自作のデザインにアドレスを</span><code>0x30000000</code><span>から</span><code>0x80000000-1</code><span>までで自由に割り当てできる。</span><sup class="footnote-ref"><a href="#fn11" id="fnref11">[11]</a></sup></p><h4 id="2-configtclを編集する" data-id="2-configtclを編集する"><a class="anchor hidden-xs" href="#2-configtclを編集する" title="2-configtclを編集する"><span class="octicon octicon-link"></span></a><span>2. </span><code>config.tcl</code><span>を編集する</span></h4><p><code>user_project_wrapper.v</code><span>のみを編集する場合は特に何もしなくてよいが、自分のデザインは複数のVerilogファイルから構成される場合が殆どなので、GDSIIに変換する前に追加したVerilogファイルをOpenLANEに教えてやる必要がある。そのために</span><code>config.tcl</code><span>を編集する。</span><sup class="footnote-ref"><a href="#fn9" id="fnref9:1">[9:1]</a></sup></p><p><span>まずは環境変数を２つ追加する。以下をビルドしたPDKとopenlaneのパスに各自書き換える。</span></p><pre><code class="bash hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
 <span></span></div><div class="code"><span class="hljs-built_in">export</span> PDK_ROOT=/path/to/pdk
 <span class="hljs-built_in">export</span> OPENLANE_ROOT=/path/to/openlane
-</div></div></code></pre><p><span>次に、</span><code>caravel_user_project/openlane/user_project_wrapper/config.tcl</code><span>の以下の変数を編集する。</span><br>
-<code>VERILOG_FILES_BLACKBOX</code><span>には</span><code>user_project_example.v</code><span>を消して自分のVerilogファイルを書き込む。</span><br>
-<code>defines.v</code><span>はそのままでよい。また</span><code>EXTRA_LEFS</code><span>と</span><code>EXTRA_GDS_FILES</code><span>には</span><code>user_proj_example.*</code><span>を消して、代わりにモジュール</span><code>user_project_wrapper</code><span>の一階層したのモジュールの名前を入れる。つまり</span><code>user_project_wrapper</code><span>がモジュール</span><code>wrapper1.v</code><span>と</span><code>wrapper2.v</code><span>で出来ている場合、</span><code>EXTRA_LEFS</code><span>には</span><code>wrapper1.lef</code><span>, </span><code>wrapper2.lef</code><span>と書き換え、</span><code>EXTRA_GDS_FILES</code><span>には</span><code>wrapper1.gds</code><span>, </span><code>wrapper2.gds</code><span>と書き換えてやる。どうしてもわからない場合、これ</span><sup class="footnote-ref"><a href="#fn12" id="fnref12">[12]</a></sup><span>が参考になる。</span></p><pre><code class="cpp hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+</div></div></code></pre><p><span>次に、</span><code>caravel_user_project/openlane/user_project_wrapper/config.tcl</code><span>の以下の変数を編集する。</span></p><p><code>VERILOG_FILES_BLACKBOX</code><span>には</span><code>user_project_example.v</code><span>を消して自分のVerilogファイルを書き込む。</span><code>defines.v</code><span>はそのままでよい。また</span><code>EXTRA_LEFS</code><span>と</span><code>EXTRA_GDS_FILES</code><span>には</span><code>user_proj_example.*</code><span>を消して、代わりにモジュール</span><code>user_project_wrapper</code><span>の一階層したのモジュールの名前を入れる。つまり</span><code>user_project_wrapper</code><span>がモジュール</span><code>wrapper1.v</code><span>と</span><code>wrapper2.v</code><span>で出来ている場合、</span><code>EXTRA_LEFS</code><span>には</span><code>wrapper1.lef</code><span>, </span><code>wrapper2.lef</code><span>と書き換え、</span><code>EXTRA_GDS_FILES</code><span>には</span><code>wrapper1.gds</code><span>, </span><code>wrapper2.gds</code><span>と書き換えてやる。どうしてもわからない場合、これ</span><sup class="footnote-ref"><a href="#fn12" id="fnref12">[12]</a></sup><span>が参考になる。</span></p><pre><code class="cpp hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
 <span></span>
 <span></span>
 <span></span>
@@ -127,7 +125,7 @@ make run-precheck // プリチェックツールを走らせる
 </li>
 <li id="fn14" class="footnote-item"><p><span>明記されてないけどefablessの動画</span><sup class="footnote-ref"><a href="#fn1" id="fnref1:1">[1:1]</a></sup><span>でそうしてました</span> <a href="#fnref14" class="footnote-backref">↩︎</a></p>
 </li>
-<li id="fn15" class="footnote-item"><p><span>あったわ </span><a href="https://github.com/efabless/caravel_user_project/blob/main/docs/source/index.rst#running-open-mpw-precheck-locally" rel="noopener" target="_blank"><span>https://github.com/efabless/caravel_user_project/blob/main/docs/source/index.rst#running-open-mpw-precheck-locally</span></a> <a href="#fnref15" class="footnote-backref">↩︎</a></p>
+<li id="fn15" class="footnote-item"><p><span>あったわ </span><a href="https://github.com/efabless/caravel_user_project/blob/main/docs/source/index.rst#running-open-mpw-precheck-locally" target="_blank" rel="noopener"><span>https://github.com/efabless/caravel_user_project/blob/main/docs/source/index.rst#running-open-mpw-precheck-locally</span></a> <a href="#fnref15" class="footnote-backref">↩︎</a></p>
 </li>
 <li id="fn16" class="footnote-item"><p><a href="https://github.com/efabless/caravel_user_project/tree/main/verilog/dv#simulation-environment-setup" target="_blank" rel="noopener"><span>https://github.com/efabless/caravel_user_project/tree/main/verilog/dv#simulation-environment-setup</span></a> <a href="#fnref16" class="footnote-backref">↩︎</a></p>
 </li>
@@ -140,7 +138,7 @@ make run-precheck // プリチェックツールを走らせる
             </a>
             <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
                 <div class="toc"><ul class="nav">
-<li><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
+<li class=""><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
 <li><a href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a><ul class="nav">
 <li><a href="#OpenMPWの概要" title="OpenMPWの概要">OpenMPWの概要</a></li>
 <li><a href="#必要要件" title="必要要件">必要要件</a></li>
@@ -167,7 +165,7 @@ make run-precheck // プリチェックツールを走らせる
     </div>
     <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;" null null>
         <div class="toc"><ul class="nav">
-<li><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
+<li class=""><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
 <li><a href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a><ul class="nav">
 <li><a href="#OpenMPWの概要" title="OpenMPWの概要">OpenMPWの概要</a></li>
 <li><a href="#必要要件" title="必要要件">必要要件</a></li>
