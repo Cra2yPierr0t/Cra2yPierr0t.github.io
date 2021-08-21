@@ -113,7 +113,8 @@ set <span class="token operator">::</span><span class="token function">env</span
 </div></div></code></pre><h3 id="6プリチェックツールを走らせる1516" data-id="6プリチェックツールを走らせる1516"><a class="anchor hidden-xs" href="#6プリチェックツールを走らせる1516" title="6プリチェックツールを走らせる1516"><span class="octicon octicon-link"></span></a><span>6.プリチェックツールを走らせる</span><sup class="footnote-ref"><a href="#fn15" id="fnref15">[15]</a></sup><sup class="footnote-ref"><a href="#fn16" id="fnref16">[16]</a></sup></h3><p><span>以下のコマンドをforkしたcaravelリポジトリの直下で実行する</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
 <span></span></div><div class="code">make precheck // プリチェックツールのインストール
 make run-precheck // プリチェックツールを走らせる
-</div></div></code></pre><p><span>既にプリチェックツールがインストールされている場合は1つ目は必要ない</span></p><h3 id="7プログラミング" data-id="7プログラミング"><a class="anchor hidden-xs" href="#7プログラミング" title="7プログラミング"><span class="octicon octicon-link"></span></a><span>7.プログラミング</span></h3><p><span>テストベンチ又はファームウェアのプログラムの書き方を解説する。サンプルプログラムは</span><code>verilog/dv/</code><span>以下に色々入っているので参考にするとよい。</span></p><p><span>以下はまだ1つも試していないので参考にするのはおすすめ出来ない</span></p><h4 id="User-Project-Areaから外部へ出ているGPIO" data-id="User-Project-Areaから外部へ出ているGPIO"><a class="anchor hidden-xs" href="#User-Project-Areaから外部へ出ているGPIO" title="User-Project-Areaから外部へ出ているGPIO"><span class="octicon octicon-link"></span></a><span>User Project Areaから外部へ出ているGPIO</span></h4><h5 id="Configuration" data-id="Configuration"><a class="anchor hidden-xs" href="#Configuration" title="Configuration"><span class="octicon octicon-link"></span></a><span>Configuration</span></h5><p><span>このGPIOは38本存在するが、それぞれにコンフィグ用のレジスタ(グローバル変数として扱える)</span><code>reg_mprj_io_0</code><span>~</span><code>reg_mprj_io_37</code><span>が存在する。それぞれに以下の値を設定出来る。</span></p><table>
+</div></div></code></pre><p><span>既にプリチェックツールがインストールされている場合は1つ目は必要ない</span></p><h3 id="7プログラミングシミュレーション" data-id="7プログラミングシミュレーション"><a class="anchor hidden-xs" href="#7プログラミングシミュレーション" title="7プログラミングシミュレーション"><span class="octicon octicon-link"></span></a><span>7.プログラミング/シミュレーション</span></h3><p><span>テストベンチ又はファームウェアのプログラムの書き方を解説する。サンプルプログラムは</span><code>verilog/dv/</code><span>以下に色々入っているので参考にするとよい。</span></p><p><span>以下はまだ1つも試していないので参考にするのはおすすめ出来ない</span></p><h4 id="General" data-id="General"><a class="anchor hidden-xs" href="#General" title="General"><span class="octicon octicon-link"></span></a><span>General</span></h4><p><span>ここではCaravelでファームウェア又はテストベンチを書く際の概要と必要事項を説明する。</span></p><p><span>コンパイルとシミュレーション環境に関してはDockerイメージが提供されている。</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span></div><div class="code">docker pull efabless/dv_setup:latest
+</div></div></code></pre><h4 id="User-Project-Areaから外部へ出ているGPIO" data-id="User-Project-Areaから外部へ出ているGPIO"><a class="anchor hidden-xs" href="#User-Project-Areaから外部へ出ているGPIO" title="User-Project-Areaから外部へ出ているGPIO"><span class="octicon octicon-link"></span></a><span>User Project Areaから外部へ出ているGPIO</span></h4><h5 id="Configuration" data-id="Configuration"><a class="anchor hidden-xs" href="#Configuration" title="Configuration"><span class="octicon octicon-link"></span></a><span>Configuration</span></h5><p><span>このGPIOは38本存在するが、それぞれにコンフィグ用のレジスタ(グローバル変数として扱える)</span><code>reg_mprj_io_0</code><span>~</span><code>reg_mprj_io_37</code><span>が存在する。それぞれに以下の値を設定出来る。</span></p><table>
 <thead>
 <tr>
 <th><span>値</span></th>
@@ -180,7 +181,25 @@ make run-precheck // プリチェックツールを走らせる
 </div></div></code></pre><p><span>一見無限ループだが、謎のテクノロジーでループを抜けるので機械的にコピペすればいい。</span></p><h5 id="Data" data-id="Data"><a class="anchor hidden-xs" href="#Data" title="Data"><span class="octicon octicon-link"></span></a><span>Data</span></h5><p><span>GPIOを</span><code>GPIO_USER_MODE_STD_*</code><span>に設定した場合にのみ(多分)(未検証)、以下のレジスタを介してGPIOからSoC側にデータを入出力することが可能である。</span></p><ul>
 <li><code>reg_mprj_datal</code><span> : 最初の32本の値を入出力</span></li>
 <li><code>reg_mprj_datah</code><span> : 残りの6本の値を入出力</span></li>
-</ul><p><span>ここ</span><sup class="footnote-ref"><a href="#fn18" id="fnref18">[18]</a></sup><span>らへんを読めば出来る</span></p><p><span>TODO:続き書け</span></p><hr class="footnotes-sep"><section class="footnotes">
+</ul><h4 id="User-Project-AreaとSoCをつなぐLogic-Analyzer線" data-id="User-Project-AreaとSoCをつなぐLogic-Analyzer線"><a class="anchor hidden-xs" href="#User-Project-AreaとSoCをつなぐLogic-Analyzer線" title="User-Project-AreaとSoCをつなぐLogic-Analyzer線"><span class="octicon octicon-link"></span></a><span>User Project AreaとSoCをつなぐLogic Analyzer線</span></h4><p><span>User Project AreaとSoCは128本のLogic Analyzer線(以下LA線)で接続されており、名前とは裏腹にデータのやり取りが可能である。</span></p><h5 id="Configuration1" data-id="Configuration"><a class="anchor hidden-xs" href="#Configuration1" title="Configuration1"><span class="octicon octicon-link"></span></a><span>Configuration</span></h5><p><span>各LA線の入出力は</span><code>reg_la0_oenb</code><span> ~ </span><code>reg_la3_oenb</code><span>と</span><code>reg_la0_ienb</code><span> ~ </span><code>reg_la3_oenb</code><span>という各32ビットのレジスタで設定できる。1でSoC側への入力、0でSoC側から出力と考えればよい</span><sup class="footnote-ref"><a href="#fn18" id="fnref18">[18]</a></sup><span>。</span></p><pre><code class="c hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span></div><div class="code"><span class="token comment">//  LA probes [31:0], [127:64] をCPUへの入力に設定 </span>
+<span class="token comment">// Configure LA probes [63:32] をCPUからの出力に設定</span>
+reg_la0_oenb <span class="token operator">=</span> reg_la0_iena <span class="token operator">=</span> <span class="token number">0xFFFFFFFF</span><span class="token punctuation">;</span>    <span class="token comment">// [31:0]</span>
+reg_la1_oenb <span class="token operator">=</span> reg_la1_iena <span class="token operator">=</span> <span class="token number">0x00000000</span><span class="token punctuation">;</span>    <span class="token comment">// [63:32]</span>
+reg_la2_oenb <span class="token operator">=</span> reg_la2_iena <span class="token operator">=</span> <span class="token number">0xFFFFFFFF</span><span class="token punctuation">;</span>    <span class="token comment">// [95:64]</span>
+reg_la3_oenb <span class="token operator">=</span> reg_la3_iena <span class="token operator">=</span> <span class="token number">0xFFFFFFFF</span><span class="token punctuation">;</span>    <span class="token comment">// [127:96]</span>
+</div></div></code></pre><p><span>一括だけでなく、各ビット毎に設定可能</span></p><h5 id="Data1" data-id="Data"><a class="anchor hidden-xs" href="#Data1" title="Data1"><span class="octicon octicon-link"></span></a><span>Data</span></h5><p><span>LA線を介したデータのやり取りは</span><code>reg_la0_data</code><span> ~ </span><code>reg_la3_data</code><span>というレジスタを介して行うことが出来る。以下の例では、上記の設定でLA線の</span><code>[63:32]</code><span>を出力に設定したため、SoC側からUser Project Areaへ値</span><code>0xdeadbeef</code><span>を出力している。</span></p><pre><code class="c hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+<span></span>
+<span></span>
+<span></span></div><div class="code">buffer0 <span class="token operator">=</span> reg_la0_data<span class="token punctuation">;</span>    <span class="token comment">// [31:0]</span>
+reg_la1_data <span class="token operator">=</span> <span class="token number">0xdeadbeef</span><span class="token punctuation">;</span> <span class="token comment">// [63:32]</span>
+buffer2 <span class="token operator">=</span> reg_la2_data<span class="token punctuation">;</span>    <span class="token comment">// [95:64]</span>
+buffer3 <span class="token operator">=</span> reg_la3_data<span class="token punctuation">;</span>    <span class="token comment">// [127:96]</span>
+</div></div></code></pre><p><span>このLA線を使ってSoC側からUser Project Areaにいい感じに分周したクロックとかリセットを入力出来たりするらしい。需要があったら書く(つかれた)。</span></p><p><span>ここ</span><sup class="footnote-ref"><a href="#fn19" id="fnref19">[19]</a></sup><span>らへんを読めば出来る</span></p><p><span>TODO:続き書け</span></p><hr class="footnotes-sep"><section class="footnotes">
 <ol class="footnotes-list">
 <li id="fn1" class="footnote-item"><p><span>気軽にLSIが焼けたらうれしいので</span> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
 </li>
@@ -206,7 +225,7 @@ make run-precheck // プリチェックツールを走らせる
 </li>
 <li id="fn12" class="footnote-item"><p><a href="https://caravel-harness.readthedocs.io/en/latest/memory-mapped-io-summary.html" target="_blank" rel="noopener"><span>https://caravel-harness.readthedocs.io/en/latest/memory-mapped-io-summary.html</span></a> <a href="#fnref12" class="footnote-backref">↩︎</a></p>
 </li>
-<li id="fn13" class="footnote-item"><p><span>つまり</span><code>user_project_wrapper</code><span>がモジュール</span><code>wrapper1.v</code><span>と</span><code>wrapper2.v</code><span>で出来ている場合、</span><code>EXTRA_LEFS</code><span>には</span><code>wrapper1.lef</code><span>, </span><code>wrapper2.lef</code><span>と書き換え、</span><code>EXTRA_GDS_FILES</code><span>には</span><code>wrapper1.gds</code><span>, </span><code>wrapper2.gds</code><span>と書き換えてやる。どうしてもわからない場合、これ</span><sup class="footnote-ref"><a href="#fn19" id="fnref19">[19]</a></sup><span>が参考になる。</span> <a href="#fnref13" class="footnote-backref">↩︎</a></p>
+<li id="fn13" class="footnote-item"><p><span>つまり</span><code>user_project_wrapper</code><span>がモジュール</span><code>wrapper1.v</code><span>と</span><code>wrapper2.v</code><span>で出来ている場合、</span><code>EXTRA_LEFS</code><span>には</span><code>wrapper1.lef</code><span>, </span><code>wrapper2.lef</code><span>と書き換え、</span><code>EXTRA_GDS_FILES</code><span>には</span><code>wrapper1.gds</code><span>, </span><code>wrapper2.gds</code><span>と書き換えてやる。どうしてもわからない場合、これ</span><sup class="footnote-ref"><a href="#fn20" id="fnref20">[20]</a></sup><span>が参考になる。</span> <a href="#fnref13" class="footnote-backref">↩︎</a></p>
 </li>
 <li id="fn14" class="footnote-item"><p><a href="https://github.com/efabless/caravel_user_project/blob/main/docs/source/index.rst#hardening-the-user-project-macro-using-openlane" target="_blank" rel="noopener"><span>https://github.com/efabless/caravel_user_project/blob/main/docs/source/index.rst#hardening-the-user-project-macro-using-openlane</span></a> <a href="#fnref14" class="footnote-backref">↩︎</a></p>
 </li>
@@ -216,9 +235,11 @@ make run-precheck // プリチェックツールを走らせる
 </li>
 <li id="fn17" class="footnote-item"><p><span>シフトレジスタになってるからどうとか</span> <a href="#fnref17" class="footnote-backref">↩︎</a></p>
 </li>
-<li id="fn18" class="footnote-item"><p><a href="https://github.com/efabless/caravel_user_project/tree/main/verilog/dv#simulation-environment-setup" target="_blank" rel="noopener"><span>https://github.com/efabless/caravel_user_project/tree/main/verilog/dv#simulation-environment-setup</span></a> <a href="#fnref18" class="footnote-backref">↩︎</a></p>
+<li id="fn18" class="footnote-item"><p><span>1nputと0utputで覚えやすいね！！！</span> <a href="#fnref18" class="footnote-backref">↩︎</a></p>
 </li>
-<li id="fn19" class="footnote-item"><p><a href="https://github.com/konradwilk/caravel_user_project/blob/submission-mpw-two/openlane/user_project_wrapper/config.tcl" target="_blank" rel="noopener"><span>https://github.com/konradwilk/caravel_user_project/blob/submission-mpw-two/openlane/user_project_wrapper/config.tcl</span></a> <a href="#fnref19" class="footnote-backref">↩︎</a></p>
+<li id="fn19" class="footnote-item"><p><a href="https://github.com/efabless/caravel_user_project/tree/main/verilog/dv#simulation-environment-setup" target="_blank" rel="noopener"><span>https://github.com/efabless/caravel_user_project/tree/main/verilog/dv#simulation-environment-setup</span></a> <a href="#fnref19" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn20" class="footnote-item"><p><a href="https://github.com/konradwilk/caravel_user_project/blob/submission-mpw-two/openlane/user_project_wrapper/config.tcl" target="_blank" rel="noopener"><span>https://github.com/konradwilk/caravel_user_project/blob/submission-mpw-two/openlane/user_project_wrapper/config.tcl</span></a> <a href="#fnref20" class="footnote-backref">↩︎</a></p>
 </li>
 </ol>
 </section></div>
@@ -230,22 +251,22 @@ make run-precheck // プリチェックツールを走らせる
             <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
                 <div class="toc"><ul class="nav">
 <li class=""><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
-<li><a href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a><ul class="nav">
-<li><a href="#OpenMPWの概要" title="OpenMPWの概要">OpenMPWの概要</a></li>
-<li><a href="#必要要件" title="必要要件">必要要件</a></li>
+<li class=""><a href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a><ul class="nav">
+<li class=""><a href="#OpenMPWの概要" title="OpenMPWの概要">OpenMPWの概要</a></li>
+<li class=""><a href="#必要要件" title="必要要件">必要要件</a></li>
 <li><a href="#まとめ" title="まとめ">まとめ</a></li>
 <li><a href="#各種リンク" title="各種リンク">各種リンク</a></li>
 </ul>
 </li>
-<li class=""><a href="#LSIを焼こう！1-未完成" title="LSIを焼こう！[1] (未完成)">LSIを焼こう！[1] (未完成)</a><ul class="nav">
+<li><a href="#LSIを焼こう！1-未完成" title="LSIを焼こう！[1] (未完成)">LSIを焼こう！[1] (未完成)</a><ul class="nav">
 <li><a href="#必要なもの" title="必要なもの">必要なもの</a></li>
 <li><a href="#1Caravelのインストール" title="1.Caravelのインストール">1.Caravelのインストール</a></li>
 <li><a href="#2PDKのビルド" title="2.PDKのビルド">2.PDKのビルド</a></li>
 <li><a href="#3OpenLANEのインストール" title="3.OpenLANEのインストール">3.OpenLANEのインストール</a></li>
-<li class=""><a href="#4CaravelのUser-Project-Areaに自分のデザインを追加する67" title="4.CaravelのUser Project Areaに自分のデザインを追加する[6][7]">4.CaravelのUser Project Areaに自分のデザインを追加する[6][7]</a></li>
+<li><a href="#4CaravelのUser-Project-Areaに自分のデザインを追加する67" title="4.CaravelのUser Project Areaに自分のデザインを追加する[6][7]">4.CaravelのUser Project Areaに自分のデザインを追加する[6][7]</a></li>
 <li><a href="#5OpenLANEでforkしたCaravelプロジェクトをGDSIIにする14" title="5.OpenLANEでforkしたCaravelプロジェクトをGDSIIにする[14]">5.OpenLANEでforkしたCaravelプロジェクトをGDSIIにする[14]</a></li>
 <li><a href="#6プリチェックツールを走らせる1516" title="6.プリチェックツールを走らせる[15][16]">6.プリチェックツールを走らせる[15][16]</a></li>
-<li><a href="#7プログラミング" title="7.プログラミング">7.プログラミング</a></li>
+<li><a href="#7プログラミングシミュレーション" title="7.プログラミング/シミュレーション">7.プログラミング/シミュレーション</a></li>
 </ul>
 </li>
 </ul>
@@ -258,22 +279,22 @@ make run-precheck // プリチェックツールを走らせる
     <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;" null null>
         <div class="toc"><ul class="nav">
 <li class=""><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
-<li><a href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a><ul class="nav">
-<li><a href="#OpenMPWの概要" title="OpenMPWの概要">OpenMPWの概要</a></li>
-<li><a href="#必要要件" title="必要要件">必要要件</a></li>
+<li class=""><a href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a><ul class="nav">
+<li class=""><a href="#OpenMPWの概要" title="OpenMPWの概要">OpenMPWの概要</a></li>
+<li class=""><a href="#必要要件" title="必要要件">必要要件</a></li>
 <li><a href="#まとめ" title="まとめ">まとめ</a></li>
 <li><a href="#各種リンク" title="各種リンク">各種リンク</a></li>
 </ul>
 </li>
-<li class=""><a href="#LSIを焼こう！1-未完成" title="LSIを焼こう！[1] (未完成)">LSIを焼こう！[1] (未完成)</a><ul class="nav">
+<li><a href="#LSIを焼こう！1-未完成" title="LSIを焼こう！[1] (未完成)">LSIを焼こう！[1] (未完成)</a><ul class="nav">
 <li><a href="#必要なもの" title="必要なもの">必要なもの</a></li>
 <li><a href="#1Caravelのインストール" title="1.Caravelのインストール">1.Caravelのインストール</a></li>
 <li><a href="#2PDKのビルド" title="2.PDKのビルド">2.PDKのビルド</a></li>
 <li><a href="#3OpenLANEのインストール" title="3.OpenLANEのインストール">3.OpenLANEのインストール</a></li>
-<li class=""><a href="#4CaravelのUser-Project-Areaに自分のデザインを追加する67" title="4.CaravelのUser Project Areaに自分のデザインを追加する[6][7]">4.CaravelのUser Project Areaに自分のデザインを追加する[6][7]</a></li>
+<li><a href="#4CaravelのUser-Project-Areaに自分のデザインを追加する67" title="4.CaravelのUser Project Areaに自分のデザインを追加する[6][7]">4.CaravelのUser Project Areaに自分のデザインを追加する[6][7]</a></li>
 <li><a href="#5OpenLANEでforkしたCaravelプロジェクトをGDSIIにする14" title="5.OpenLANEでforkしたCaravelプロジェクトをGDSIIにする[14]">5.OpenLANEでforkしたCaravelプロジェクトをGDSIIにする[14]</a></li>
 <li><a href="#6プリチェックツールを走らせる1516" title="6.プリチェックツールを走らせる[15][16]">6.プリチェックツールを走らせる[15][16]</a></li>
-<li><a href="#7プログラミング" title="7.プログラミング">7.プログラミング</a></li>
+<li><a href="#7プログラミングシミュレーション" title="7.プログラミング/シミュレーション">7.プログラミング/シミュレーション</a></li>
 </ul>
 </li>
 </ul>
