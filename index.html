@@ -35,6 +35,7 @@
 <li><span>無料でLSIを焼いてくれるプロジェクト</span></li>
 <li><span>現在MPW-ONEとMPW-TWOが完了していてMPW-THREEの発表待ち</span></li>
 <li><span>Caravel(RISC-V+IOのフレーム)のUser Project Areaに自分のデザインを実装する</span></li>
+<li><span>IBMとかもデザインを投稿している</span></li>
 </ul><h3 id="必要要件" data-id="必要要件"><a class="anchor hidden-xs" href="#必要要件" title="必要要件"><span class="octicon octicon-link"></span></a><span>必要要件</span></h3><ul>
 <li><span>ライセンス諸々</span></li>
 <li><span>再現可能なGDSIIレイアウト</span></li>
@@ -114,6 +115,16 @@ set <span class="token operator">::</span><span class="token function">env</span
 <span></span></div><div class="code">make precheck // プリチェックツールのインストール
 make run-precheck // プリチェックツールを走らせる
 </div></div></code></pre><p><span>既にプリチェックツールがインストールされている場合は1つ目は必要ない</span></p><h3 id="7プログラミングシミュレーション" data-id="7プログラミングシミュレーション"><a class="anchor hidden-xs" href="#7プログラミングシミュレーション" title="7プログラミングシミュレーション"><span class="octicon octicon-link"></span></a><span>7.プログラミング/シミュレーション</span></h3><p><span>テストベンチ又はファームウェアのプログラムの書き方を解説する。サンプルプログラムは</span><code>verilog/dv/</code><span>以下に色々入っているので参考にするとよい。</span></p><p><span>以下はまだ1つも試していないので参考にするのはおすすめ出来ない</span></p><h4 id="General" data-id="General"><a class="anchor hidden-xs" href="#General" title="General"><span class="octicon octicon-link"></span></a><span>General</span></h4><p><span>ここではCaravelでファームウェア又はテストベンチを書く際の概要と必要事項を説明する。</span></p><p><span>コンパイルとシミュレーション環境に関してはDockerイメージが提供されている。</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span></div><div class="code">docker pull efabless/dv_setup:latest
+</div></div></code></pre><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+<span></span>
+<span></span></div><div class="code">export PDK_PATH=&lt;pdk-location/sky130A&gt;
+export CARAVEL_ROOT=&lt;caravel_root&gt;
+export UPRJ_ROOT=&lt;user_project_root&gt;
+</div></div></code></pre><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span></div><div class="code">docker run -it -v $CARAVEL_ROOT:$CARAVEL_ROOT -v $PDK_PATH:$PDK_PATH -v $UPRJ_ROOT:$UPRJ_ROOT -e CARAVEL_ROOT=$CARAVEL_ROOT -e PDK_PATH=$PDK_PATH -e UPRJ_ROOT=$UPRJ_ROOT -u $(id -u $USER):$(id -g $USER) efabless/dv_setup:latest
+</div></div></code></pre><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span></div><div class="code">cd $UPRJ_ROOT/verilog/dv/
+</div></div></code></pre><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+<span></span></div><div class="code">cd &lt;dv-test&gt;
+make
 </div></div></code></pre><h4 id="User-Project-Areaから外部へ出ているGPIO" data-id="User-Project-Areaから外部へ出ているGPIO"><a class="anchor hidden-xs" href="#User-Project-Areaから外部へ出ているGPIO" title="User-Project-Areaから外部へ出ているGPIO"><span class="octicon octicon-link"></span></a><span>User Project Areaから外部へ出ているGPIO</span></h4><h5 id="Configuration" data-id="Configuration"><a class="anchor hidden-xs" href="#Configuration" title="Configuration"><span class="octicon octicon-link"></span></a><span>Configuration</span></h5><p><span>このGPIOは38本存在するが、それぞれにコンフィグ用のレジスタ(グローバル変数として扱える)</span><code>reg_mprj_io_0</code><span>~</span><code>reg_mprj_io_37</code><span>が存在する。それぞれに以下の値を設定出来る。</span></p><table>
 <thead>
 <tr>
@@ -250,10 +261,10 @@ buffer3 <span class="token operator">=</span> reg_la3_data<span class="token pun
             </a>
             <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
                 <div class="toc"><ul class="nav">
-<li class=""><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
-<li class=""><a href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a><ul class="nav">
-<li class=""><a href="#OpenMPWの概要" title="OpenMPWの概要">OpenMPWの概要</a></li>
-<li class=""><a href="#必要要件" title="必要要件">必要要件</a></li>
+<li><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
+<li><a href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a><ul class="nav">
+<li><a href="#OpenMPWの概要" title="OpenMPWの概要">OpenMPWの概要</a></li>
+<li><a href="#必要要件" title="必要要件">必要要件</a></li>
 <li><a href="#まとめ" title="まとめ">まとめ</a></li>
 <li><a href="#各種リンク" title="各種リンク">各種リンク</a></li>
 </ul>
@@ -278,10 +289,10 @@ buffer3 <span class="token operator">=</span> reg_la3_data<span class="token pun
     </div>
     <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;" null null>
         <div class="toc"><ul class="nav">
-<li class=""><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
-<li class=""><a href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a><ul class="nav">
-<li class=""><a href="#OpenMPWの概要" title="OpenMPWの概要">OpenMPWの概要</a></li>
-<li class=""><a href="#必要要件" title="必要要件">必要要件</a></li>
+<li><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
+<li><a href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a><ul class="nav">
+<li><a href="#OpenMPWの概要" title="OpenMPWの概要">OpenMPWの概要</a></li>
+<li><a href="#必要要件" title="必要要件">必要要件</a></li>
 <li><a href="#まとめ" title="まとめ">まとめ</a></li>
 <li><a href="#各種リンク" title="各種リンク">各種リンク</a></li>
 </ul>
