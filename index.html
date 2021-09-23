@@ -34,7 +34,7 @@
 </head>
 
 <body>
-    <div id="doc" class="markdown-body container-fluid comment-enabled comment-inner" data-hard-breaks="true"><h1 id="OpenMPW" data-id="OpenMPW"><a class="anchor hidden-xs" href="#OpenMPW" title="OpenMPW"><span class="octicon octicon-link"></span></a><span>OpenMPW</span></h1><p><span>連絡は@Cra2yPierr0tマデ</span></p><p><a href="https://www.skywatertechnology.com/mpw/open-source-mpw-program/" target="_blank" rel="noopener"><span>https://www.skywatertechnology.com/mpw/open-source-mpw-program/</span></a></p><hr><h2 id="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" data-id="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々"><a class="anchor hidden-xs" href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々"><span class="octicon octicon-link"></span></a><span>20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</span></h2><h3 id="OpenMPWの概要" data-id="OpenMPWの概要"><a class="anchor hidden-xs" href="#OpenMPWの概要" title="OpenMPWの概要"><span class="octicon octicon-link"></span></a><span>OpenMPWの概要</span></h3><ul>
+    <div id="doc" class="markdown-body container-fluid comment-enabled" data-hard-breaks="true"><h1 id="OpenMPW" data-id="OpenMPW"><a class="anchor hidden-xs" href="#OpenMPW" title="OpenMPW"><span class="octicon octicon-link"></span></a><span>OpenMPW</span></h1><p><span>連絡は@Cra2yPierr0tマデ</span></p><p><a href="https://www.skywatertechnology.com/mpw/open-source-mpw-program/" target="_blank" rel="noopener"><span>https://www.skywatertechnology.com/mpw/open-source-mpw-program/</span></a></p><hr><h2 id="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" data-id="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々"><a class="anchor hidden-xs" href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々"><span class="octicon octicon-link"></span></a><span>20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</span></h2><h3 id="OpenMPWの概要" data-id="OpenMPWの概要"><a class="anchor hidden-xs" href="#OpenMPWの概要" title="OpenMPWの概要"><span class="octicon octicon-link"></span></a><span>OpenMPWの概要</span></h3><ul>
 <li><span>無料でLSIを焼いてくれるプロジェクト</span></li>
 <li><span>現在MPW-ONEとMPW-TWOが完了していてMPW-THREEの発表待ち</span></li>
 <li><span>Caravel(RISC-V+IOのフレーム)のUser Project Areaに自分のデザインを実装する</span></li>
@@ -60,26 +60,20 @@
 <li><span>OpenLANE : RTLをGDSII</span><sup class="footnote-ref"><a href="#fn4" id="fnref4" style="">[4]</a></sup><span>に変換するツールフロー</span></li>
 <li><span>自分のデザイン : Wishboneと接続出来るやつ(詳細は下の4-1)</span></li>
 <li><span>時間 : いっぱい</span></li>
-</ul><h3 id="1各種インストール-amp-ビルド" data-id="1各種インストール-amp-ビルド"><a class="anchor hidden-xs" href="#1各種インストール-amp-ビルド" title="1各種インストール-amp-ビルド"><span class="octicon octicon-link"></span></a><span>1.各種インストール &amp; ビルド</span></h3><h4 id="1Caravelのインストール" data-id="1Caravelのインストール"><a class="anchor hidden-xs" href="#1Caravelのインストール" title="1Caravelのインストール"><span class="octicon octicon-link"></span></a><span>1.Caravelのインストール</span></h4><p><span>基本的に、forkしたCaravel_user_projectのリポジトリ</span><sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup><span>上で全てを進めていく</span></p><pre data-original-title="" title=""><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+</ul><h3 id="1各種インストール-amp-ビルド" data-id="1各種インストール-amp-ビルド"><a class="anchor hidden-xs" href="#1各種インストール-amp-ビルド" title="1各種インストール-amp-ビルド"><span class="octicon octicon-link"></span></a><span>1.各種インストール &amp; ビルド</span></h3><h4 id="1Caravelのインストール" data-id="1Caravelのインストール"><a class="anchor hidden-xs" href="#1Caravelのインストール" title="1Caravelのインストール"><span class="octicon octicon-link"></span></a><span>1.Caravelのインストール</span></h4><p><span>基本的に、forkしたCaravel_user_projectのリポジトリ</span><sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup><span>上で全てを進めていく</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
 <span></span>
-<span></span></div><div class="code">git clone git@github.com:efabless/caravel_user_project.git
+<span></span></div><div class="code">git clone git@github.com:efabless/caravel_user_project.git -b mpw-3
 cd caravel_user_project
 make install
-</div></div></code></pre><h4 id="2PDKのビルド" data-id="2PDKのビルド"><a class="anchor hidden-xs" href="#2PDKのビルド" title="2PDKのビルド"><span class="octicon octicon-link"></span></a><span>2.PDKのビルド</span></h4><p><span>5分くらい掛かる</span></p><pre data-original-title="" title=""><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
-<span></span>
+</div></div></code></pre><h4 id="2PDKのビルド" data-id="2PDKのビルド"><a class="anchor hidden-xs" href="#2PDKのビルド" title="2PDKのビルド"><span class="octicon octicon-link"></span></a><span>2.PDKのビルド</span></h4><p><span>5分くらい掛かる</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
 <span></span>
 <span></span></div><div class="code">mkdir ~/pdks
 export PDK_ROOT=~/pdks
-export SKYWATER_COMMIT=c094b6e83a4f9298e47f696ec5a7fd53535ec5eb
 make pdk
-</div></div></code></pre><h4 id="3OpenLANEのインストール" data-id="3OpenLANEのインストール"><a class="anchor hidden-xs" href="#3OpenLANEのインストール" title="3OpenLANEのインストール"><span class="octicon octicon-link"></span></a><span>3.OpenLANEのインストール</span></h4><p><span>Dockerは事前にインストールしてデーモンを起動しておく。</span></p><pre data-original-title="" title=""><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
-<span></span>
-<span></span>
+</div></div></code></pre><h4 id="3OpenLANEのインストール" data-id="3OpenLANEのインストール"><a class="anchor hidden-xs" href="#3OpenLANEのインストール" title="3OpenLANEのインストール"><span class="octicon octicon-link"></span></a><span>3.OpenLANEのインストール</span></h4><p><span>Dockerは事前にインストールしてデーモンを起動しておく。</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
 <span></span>
 <span></span></div><div class="code">mkdir ~/openlane
 export OPENLANE_ROOT=~/openlane
-export OPENLANE_TAG=v0.15
-export IMAGE_NAME=efabless/openlane:v0.15
 make openlane
 </div></div></code></pre><h3 id="2デザインを自作する" data-id="2デザインを自作する"><a class="anchor hidden-xs" href="#2デザインを自作する" title="2デザインを自作する"><span class="octicon octicon-link"></span></a><span>2.デザインを自作する</span></h3><h4 id="Caravelの概要" data-id="Caravelの概要"><a class="anchor hidden-xs" href="#Caravelの概要" title="Caravelの概要"><span class="octicon octicon-link"></span></a><span>Caravelの概要</span></h4><p><span>我々はcaravelのUser Project Areaに自分のデザインを挿入する訳だが、そのデザインを作り始める前に、User Project Areaについて多少知っておく必要がある。</span><br>
 <span>以下がCaravelパッドフレームの概略図</span></p><p><img src="https://i.imgur.com/vrYRcXt.png" alt="caravelの概要" loading="lazy"></p><p><span>User Project Areaについて抑えておくべき事項は3つ</span></p><ul>
@@ -207,7 +201,7 @@ make openlane
 <span>GPIO出力</span></li>
 <li><span>io_oenb[37:0]</span><br>
 <span>GPIO出力イネーブル。Highで出力、Lowで入力。</span></li>
-</ul><p><span>ピンの位置はここ</span><sup class="footnote-ref"><a href="#fn7" id="fnref7" style="">[7]</a></sup><span>のmprj_io。</span></p><h4 id="割り込み" data-id="割り込み"><a class="anchor hidden-xs" href="#割り込み" title="割り込み"><span class="octicon octicon-link"></span></a><strong><span>割り込み</span></strong></h4><p><span>次に割り込みについて説明する。CaravelではUser Project Areaから割り込み信号を出す事が可能である。</span></p><p><span>割り込みは、信号線</span><code>user_irq[2:0]</code><span>の内どのビットを立てても引き起こす事が(多分)可能である。 割り込みベクタはアドレス0である。正確な情報はこの動画</span><sup class="footnote-ref"><a href="#fn8" id="fnref8">[8]</a></sup><span>以外に存在しない。</span></p><p><span>またサンプルコード</span><sup class="footnote-ref"><a href="#fn9" id="fnref9">[9]</a></sup><span>を一度目を通すことを強くおすすめする。</span></p><p><span>以上を組み合わせてキミだけのデザインを自作しよう！！</span></p><h3 id="3デザインをCaravelに載せる1011" data-id="3デザインをCaravelに載せる1011"><a class="anchor hidden-xs" href="#3デザインをCaravelに載せる1011" title="3デザインをCaravelに載せる1011"><span class="octicon octicon-link"></span></a><span>3.デザインをCaravelに載せる</span><sup class="footnote-ref"><a href="#fn10" id="fnref10">[10]</a></sup><sup class="footnote-ref"><a href="#fn11" id="fnref11">[11]</a></sup></h3><p><span>基本的に以下の流れで作る</span></p><ol>
+</ul><p><span>ピンの位置はここ</span><sup class="footnote-ref"><a href="#fn7" id="fnref7">[7]</a></sup><span>のmprj_io。</span></p><h4 id="割り込み" data-id="割り込み"><a class="anchor hidden-xs" href="#割り込み" title="割り込み"><span class="octicon octicon-link"></span></a><strong><span>割り込み</span></strong></h4><p><span>次に割り込みについて説明する。CaravelではUser Project Areaから割り込み信号を出す事が可能である。</span></p><p><span>割り込みは、信号線</span><code>user_irq[2:0]</code><span>の内どのビットを立てても引き起こす事が(多分)可能である。 割り込みベクタはアドレス0である。正確な情報はこの動画</span><sup class="footnote-ref"><a href="#fn8" id="fnref8">[8]</a></sup><span>以外に存在しない。</span></p><p><span>またサンプルコード</span><sup class="footnote-ref"><a href="#fn9" id="fnref9">[9]</a></sup><span>を一度目を通すことを強くおすすめする。</span></p><p><span>以上を組み合わせてキミだけのデザインを自作しよう！！</span></p><h3 id="3デザインをCaravelに載せる1011" data-id="3デザインをCaravelに載せる1011"><a class="anchor hidden-xs" href="#3デザインをCaravelに載せる1011" title="3デザインをCaravelに載せる1011"><span class="octicon octicon-link"></span></a><span>3.デザインをCaravelに載せる</span><sup class="footnote-ref"><a href="#fn10" id="fnref10">[10]</a></sup><sup class="footnote-ref"><a href="#fn11" id="fnref11">[11]</a></sup></h3><p><span>基本的に以下の流れで作る</span></p><ol>
 <li><code>caravel_user_project/verilog/rtl/user_project_wrapper/</code><span>に自分のデザインを入れる</span></li>
 <li><code>config.tcl</code><span>を編集する</span></li>
 </ol><h4 id="1user_project_wrapperに自分のデザインを書き込む" data-id="1user_project_wrapperに自分のデザインを書き込む"><a class="anchor hidden-xs" href="#1user_project_wrapperに自分のデザインを書き込む" title="1user_project_wrapperに自分のデザインを書き込む"><span class="octicon octicon-link"></span></a><span>1.</span><code>user_project_wrapper</code><span>に自分のデザインを書き込む</span></h4><p><code>caravel_user_project/verilog/rtl/user_project_wrapper.v</code><span>のIOをそのままに中身を自作のデザインに置き換えると、ピン割り当ての設定ファイルをそのまま利用できるので非常に楽。</span><sup class="footnote-ref"><a href="#fn12" id="fnref12">[12]</a></sup><br>
@@ -398,7 +392,7 @@ make run-precheck // プリチェックツールを走らせる
             </a>
             <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
                 <div class="toc"><ul class="nav">
-<li><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
+<li class=""><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
 <li><a href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a><ul class="nav">
 <li><a href="#OpenMPWの概要" title="OpenMPWの概要">OpenMPWの概要</a></li>
 <li><a href="#必要要件" title="必要要件">必要要件</a></li>
@@ -406,8 +400,8 @@ make run-precheck // プリチェックツールを走らせる
 <li><a href="#各種リンク" title="各種リンク">各種リンク</a></li>
 </ul>
 </li>
-<li><a href="#LSIを焼こう！1-未完成" title="LSIを焼こう！[1] (未完成)">LSIを焼こう！[1] (未完成)</a><ul class="nav">
-<li><a href="#必要なもの" title="必要なもの">必要なもの</a></li>
+<li class=""><a href="#LSIを焼こう！1-未完成" title="LSIを焼こう！[1] (未完成)">LSIを焼こう！[1] (未完成)</a><ul class="nav">
+<li class=""><a href="#必要なもの" title="必要なもの">必要なもの</a></li>
 <li><a href="#1各種インストール-amp-ビルド" title="1.各種インストール &amp; ビルド">1.各種インストール &amp; ビルド</a></li>
 <li><a href="#2デザインを自作する" title="2.デザインを自作する">2.デザインを自作する</a></li>
 <li><a href="#3デザインをCaravelに載せる1011" title="3.デザインをCaravelに載せる[10][11]">3.デザインをCaravelに載せる[10][11]</a></li>
@@ -425,7 +419,7 @@ make run-precheck // プリチェックツールを走らせる
     </div>
     <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;" null null>
         <div class="toc"><ul class="nav">
-<li><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
+<li class=""><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
 <li><a href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a><ul class="nav">
 <li><a href="#OpenMPWの概要" title="OpenMPWの概要">OpenMPWの概要</a></li>
 <li><a href="#必要要件" title="必要要件">必要要件</a></li>
@@ -433,8 +427,8 @@ make run-precheck // プリチェックツールを走らせる
 <li><a href="#各種リンク" title="各種リンク">各種リンク</a></li>
 </ul>
 </li>
-<li><a href="#LSIを焼こう！1-未完成" title="LSIを焼こう！[1] (未完成)">LSIを焼こう！[1] (未完成)</a><ul class="nav">
-<li><a href="#必要なもの" title="必要なもの">必要なもの</a></li>
+<li class=""><a href="#LSIを焼こう！1-未完成" title="LSIを焼こう！[1] (未完成)">LSIを焼こう！[1] (未完成)</a><ul class="nav">
+<li class=""><a href="#必要なもの" title="必要なもの">必要なもの</a></li>
 <li><a href="#1各種インストール-amp-ビルド" title="1.各種インストール &amp; ビルド">1.各種インストール &amp; ビルド</a></li>
 <li><a href="#2デザインを自作する" title="2.デザインを自作する">2.デザインを自作する</a></li>
 <li><a href="#3デザインをCaravelに載せる1011" title="3.デザインをCaravelに載せる[10][11]">3.デザインをCaravelに載せる[10][11]</a></li>
