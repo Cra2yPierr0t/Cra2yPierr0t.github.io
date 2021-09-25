@@ -10,10 +10,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="mobile-web-app-capable" content="yes">
     <title>
-        OpenMPW - HackMD
+        OpenMPW
     </title>
-    <link rel="icon" type="image/png" href="https://hackmd.io/favicon.png">
-    <link rel="apple-touch-icon" href="https://hackmd.io/apple-touch-icon.png">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -36,7 +34,7 @@
 <body>
     <div id="doc" class="markdown-body container-fluid comment-enabled" data-hard-breaks="true"><h1 id="OpenMPW" data-id="OpenMPW"><a class="anchor hidden-xs" href="#OpenMPW" title="OpenMPW"><span class="octicon octicon-link"></span></a><span>OpenMPW</span></h1><p><span>連絡は@Cra2yPierr0tマデ</span></p><p><a href="https://www.skywatertechnology.com/mpw/open-source-mpw-program/" target="_blank" rel="noopener"><span>https://www.skywatertechnology.com/mpw/open-source-mpw-program/</span></a></p><hr><h2 id="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" data-id="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々"><a class="anchor hidden-xs" href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々"><span class="octicon octicon-link"></span></a><span>20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</span></h2><h3 id="OpenMPWの概要" data-id="OpenMPWの概要"><a class="anchor hidden-xs" href="#OpenMPWの概要" title="OpenMPWの概要"><span class="octicon octicon-link"></span></a><span>OpenMPWの概要</span></h3><ul>
 <li><span>無料でLSIを焼いてくれるプロジェクト</span></li>
-<li><span>現在MPW-ONEとMPW-TWOが完了していてMPW-THREEの発表待ち</span></li>
+<li><span>現在MPW-ONEとMPW-TWOが完了していて現在MPW-THREEの募集中</span></li>
 <li><span>Caravel(RISC-V+IOのフレーム)のUser Project Areaに自分のデザインを実装する</span></li>
 <li><span>IBMとかもデザインを投稿している</span></li>
 </ul><h3 id="必要要件" data-id="必要要件"><a class="anchor hidden-xs" href="#必要要件" title="必要要件"><span class="octicon octicon-link"></span></a><span>必要要件</span></h3><ul>
@@ -57,8 +55,8 @@
 </ul><hr><h2 id="LSIを焼こう！1-未完成" data-id="LSIを焼こう！1-未完成"><a class="anchor hidden-xs" href="#LSIを焼こう！1-未完成" title="LSIを焼こう！1-未完成"><span class="octicon octicon-link"></span></a><span>LSIを焼こう！</span><sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup><span> (未完成)</span></h2><p><span>概要はefablessの動画</span><sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup><span>を見れば大体わかる。また使うツールのバージョンやCaravelの概要はこのドキュメント</span><sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup><span>に書いてある。</span><s><span>シャトル毎に形式が変わるのでMPW3の概要が出たら更新する。</span></s></p><p><span style="color:red"><span> 9/17にMPW3がOpenになりました、早急に対応します。</span></span></p><p><span>Analogも対応出来るみたいだけど需要があったら書く</span></p><h3 id="必要なもの" data-id="必要なもの"><a class="anchor hidden-xs" href="#必要なもの" title="必要なもの"><span class="octicon octicon-link"></span></a><span>必要なもの</span></h3><ul>
 <li><span>Caravel_user_project  : これのUser Project Areaに自分のデザインを加える</span></li>
 <li><span>PDK</span></li>
-<li><span>OpenLANE : RTLをGDSII</span><sup class="footnote-ref"><a href="#fn4" id="fnref4" style="">[4]</a></sup><span>に変換するツールフロー</span></li>
-<li><span>自分のデザイン : Wishboneと接続出来るやつ(詳細は下の4-1)</span></li>
+<li><span>OpenLANE : RTLをGDSII</span><sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup><span>に変換するツールフロー</span></li>
+<li><span>自分のデザイン : Wishboneと接続出来るやつ</span></li>
 <li><span>時間 : いっぱい</span></li>
 </ul><h3 id="1各種インストール-amp-ビルド" data-id="1各種インストール-amp-ビルド"><a class="anchor hidden-xs" href="#1各種インストール-amp-ビルド" title="1各種インストール-amp-ビルド"><span class="octicon octicon-link"></span></a><span>1.各種インストール &amp; ビルド</span></h3><h4 id="1Caravelのインストール" data-id="1Caravelのインストール"><a class="anchor hidden-xs" href="#1Caravelのインストール" title="1Caravelのインストール"><span class="octicon octicon-link"></span></a><span>1.Caravelのインストール</span></h4><p><span>基本的に、forkしたCaravel_user_projectのリポジトリ</span><sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup><span>上で全てを進めていく</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
 <span></span>
@@ -230,21 +228,21 @@ make openlane
 <li><code>defines.v</code><span>はそのままでよい。</span></li>
 <li><code>EXTRA_LEFS</code><span>と</span><code>EXTRA_GDS_FILES</code><span>には</span><code>user_proj_example.(lef/gds)</code><span>を消して、代わりにモジュール</span><code>user_project_wrapper</code><span>の一階層下のモジュールの名前を入れる。</span><sup class="footnote-ref"><a href="#fn16" id="fnref16">[16]</a></sup></li>
 </ul><p><span>最後に</span><code>MACRO_PLACEMENT_CFG</code><span>の行を削除する。</span></p><pre><code class="cpp hljs"><div class="wrapper"><div class="gutter linenumber"><span></span></div><div class="code">set <span class="token operator">::</span><span class="token function">env</span><span class="token punctuation">(</span>MACRO_PLACEMENT_CFG<span class="token punctuation">)</span> $script_dir<span class="token operator">/</span>macro<span class="token punctuation">.</span>cfg
-</div></div></code></pre><h3 id="3テストベンチを書く" data-id="3テストベンチを書く"><a class="anchor hidden-xs" href="#3テストベンチを書く" title="3テストベンチを書く"><span class="octicon octicon-link"></span></a><span>3.テストベンチを書く</span></h3><p><span>テストベンチ又の書き方を解説する。サンプルは</span><code>verilog/dv/</code><span>以下に色々入っているので参考にするとよい。</span></p><p><code>verilog/dv/</code><span>以下で作業を行う。</span></p><p><span>以下はまだ1つも試していないので参考にするのはおすすめ出来ない</span></p><h4 id="General" data-id="General"><a class="anchor hidden-xs" href="#General" title="General"><span class="octicon octicon-link"></span></a><span>General</span></h4><p><span>ここではCaravelでファームウェア又はテストベンチを書く際の概要と必要事項を説明する。</span></p><p><span>コンパイルとシミュレーション環境に関してはDockerイメージが提供されている。</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span></div><div class="code">docker pull efabless/dv_setup:latest
+</div></div></code></pre><h3 id="3テストベンチファームウェアを書く" data-id="3テストベンチファームウェアを書く"><a class="anchor hidden-xs" href="#3テストベンチファームウェアを書く" title="3テストベンチファームウェアを書く"><span class="octicon octicon-link"></span></a><span>3.テストベンチ/ファームウェアを書く</span></h3><p><span>オレオレLSIが完成したら、それが正しく動作するか確かめる必要がある。そういうわけでテストベンチ又はファームウェアの書き方を解説する。サンプルは</span><code>verilog/dv/</code><span>以下に色々入っているので参考にするとよい。</span></p><p><code>verilog/dv/</code><span>以下で作業を行う。</span></p><h4 id="General" data-id="General"><a class="anchor hidden-xs" href="#General" title="General"><span class="octicon octicon-link"></span></a><span>General</span></h4><p><span>ここではCaravelでファームウェア又はテストベンチの実行方法を解説する。</span></p><p><span>コンパイルとシミュレーション環境に関してはDockerイメージが提供されている。</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span></div><div class="code">docker pull efabless/dv_setup:latest
 </div></div></code></pre><p><span>環境変数の設定</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
 <span></span>
 <span></span></div><div class="code">export PDK_PATH=&lt;pdk-location/sky130A&gt;
 export CARAVEL_ROOT=&lt;caravel_root&gt;
 export UPRJ_ROOT=&lt;user_project_root&gt;
-</div></div></code></pre><p><span>コンテナをスタート</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span></div><div class="code">docker run -it -v $CARAVEL_ROOT:$CARAVEL_ROOT -v $PDK_PATH:$PDK_PATH -v $UPRJ_ROOT:$UPRJ_ROOT -e CARAVEL_ROOT=$CARAVEL_ROOT -e PDK_PATH=$PDK_PATH -e UPRJ_ROOT=$UPRJ_ROOT -u $(id -u $USER):$(id -g $USER) efabless/dv_setup:latest
+</div></div></code></pre><p><span>コンテナをスタート</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span></div><div class="code">docker run -it -v $CARAVEL_ROOT:$CARAVEL_ROOT -v $PDK_PATH:$PDK_PATH -v $UPRJ_ROOT:$UPRJ_ROOT -v $PDK_ROOT:$PDK_ROOT -e CARAVEL_ROOT=$CARAVEL_ROOT -e PDK_PATH=$PDK_PATH -e UPRJ_ROOT=$UPRJ_ROOT -e PDK_ROOT=$PDK_ROOT -u $(id -u $USER):$(id -g $USER) efabless/dv_setup:latest
 </div></div></code></pre><p><span>dvディレクトリに移動</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span></div><div class="code">cd $UPRJ_ROOT/verilog/dv/
-</div></div></code></pre><p><span>ターゲットを指定してシミュレーションを走らせる。</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+</div></div></code></pre><p><span>テストが入ったディレクトリでmakeしてシミュレーションを走らせる。</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
 <span></span></div><div class="code">cd &lt;dv-test&gt;
 make
 </div></div></code></pre><p><code>SIM=GL make</code><span>でゲートレベル</span><sup class="footnote-ref"><a href="#fn17" id="fnref17">[17]</a></sup><span>のシミュレーションも出来る。</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
 <span></span></div><div class="code">cd &lt;dv-test&gt;
 SIM=GL make
-</div></div></code></pre><p><span>ここまで解説してもそもそもプログラムとかテストベンチとかMakefileの書き方とか何もわからないと思うので、以降ではそれぞれ解説していく。</span></p><p><span>TODO: はよかけ</span></p><h4 id="User-Project-Areaから外部へ出ているGPIO" data-id="User-Project-Areaから外部へ出ているGPIO"><a class="anchor hidden-xs" href="#User-Project-Areaから外部へ出ているGPIO" title="User-Project-Areaから外部へ出ているGPIO"><span class="octicon octicon-link"></span></a><span>User Project Areaから外部へ出ているGPIO</span></h4><h5 id="Configuration" data-id="Configuration"><a class="anchor hidden-xs" href="#Configuration" title="Configuration"><span class="octicon octicon-link"></span></a><span>Configuration</span></h5><p><span>このGPIOは38本存在するが、それぞれにコンフィグ用のレジスタ(グローバル変数として扱える)</span><code>reg_mprj_io_0</code><span>~</span><code>reg_mprj_io_37</code><span>が存在する。それぞれに以下の値を設定出来る。</span></p><table>
+</div></div></code></pre><p><span>ここまで解説してもそもそもプログラムとかテストベンチとかMakefileの書き方とか何もわからないと思うので、以降ではそれぞれ解説していく。</span></p><h4 id="Makefileの書き方" data-id="Makefileの書き方"><a class="anchor hidden-xs" href="#Makefileの書き方" title="Makefileの書き方"><span class="octicon octicon-link"></span></a><span>Makefileの書き方</span></h4><p><span>他のdv以下のディレクトリからコピペでいい。ただ43行目あたりに</span><code>PATTERN = 〜</code><span>と書いてある行があるので好きな名前に変えるとよい。</span></p><h4 id="User-Project-Areaから外部へ出ているGPIO" data-id="User-Project-Areaから外部へ出ているGPIO"><a class="anchor hidden-xs" href="#User-Project-Areaから外部へ出ているGPIO" title="User-Project-Areaから外部へ出ているGPIO"><span class="octicon octicon-link"></span></a><span>User Project Areaから外部へ出ているGPIO</span></h4><h5 id="Configuration" data-id="Configuration"><a class="anchor hidden-xs" href="#Configuration" title="Configuration"><span class="octicon octicon-link"></span></a><span>Configuration</span></h5><p><span>このGPIOは38本存在するが、それぞれにコンフィグ用のレジスタ(グローバル変数として扱える)</span><code>reg_mprj_io_0</code><span>~</span><code>reg_mprj_io_37</code><span>が存在する。それぞれに以下の値を設定出来る。</span></p><table>
 <thead>
 <tr>
 <th><span>値</span></th>
@@ -392,7 +390,7 @@ make run-precheck // プリチェックツールを走らせる
             </a>
             <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
                 <div class="toc"><ul class="nav">
-<li class=""><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
+<li><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
 <li><a href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a><ul class="nav">
 <li><a href="#OpenMPWの概要" title="OpenMPWの概要">OpenMPWの概要</a></li>
 <li><a href="#必要要件" title="必要要件">必要要件</a></li>
@@ -400,12 +398,12 @@ make run-precheck // プリチェックツールを走らせる
 <li><a href="#各種リンク" title="各種リンク">各種リンク</a></li>
 </ul>
 </li>
-<li class=""><a href="#LSIを焼こう！1-未完成" title="LSIを焼こう！[1] (未完成)">LSIを焼こう！[1] (未完成)</a><ul class="nav">
-<li class=""><a href="#必要なもの" title="必要なもの">必要なもの</a></li>
+<li><a href="#LSIを焼こう！1-未完成" title="LSIを焼こう！[1] (未完成)">LSIを焼こう！[1] (未完成)</a><ul class="nav">
+<li><a href="#必要なもの" title="必要なもの">必要なもの</a></li>
 <li><a href="#1各種インストール-amp-ビルド" title="1.各種インストール &amp; ビルド">1.各種インストール &amp; ビルド</a></li>
 <li><a href="#2デザインを自作する" title="2.デザインを自作する">2.デザインを自作する</a></li>
 <li><a href="#3デザインをCaravelに載せる1011" title="3.デザインをCaravelに載せる[10][11]">3.デザインをCaravelに載せる[10][11]</a></li>
-<li><a href="#3テストベンチを書く" title="3.テストベンチを書く">3.テストベンチを書く</a></li>
+<li><a href="#3テストベンチファームウェアを書く" title="3.テストベンチ/ファームウェアを書く">3.テストベンチ/ファームウェアを書く</a></li>
 <li><a href="#4GDSIIのビルド21" title="4.GDSIIのビルド[21]">4.GDSIIのビルド[21]</a></li>
 <li><a href="#5プリチェックツールを走らせる2223" title="5.プリチェックツールを走らせる[22][23]">5.プリチェックツールを走らせる[22][23]</a></li>
 </ul>
@@ -419,7 +417,7 @@ make run-precheck // プリチェックツールを走らせる
     </div>
     <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;" null null>
         <div class="toc"><ul class="nav">
-<li class=""><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
+<li><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
 <li><a href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a><ul class="nav">
 <li><a href="#OpenMPWの概要" title="OpenMPWの概要">OpenMPWの概要</a></li>
 <li><a href="#必要要件" title="必要要件">必要要件</a></li>
@@ -427,12 +425,12 @@ make run-precheck // プリチェックツールを走らせる
 <li><a href="#各種リンク" title="各種リンク">各種リンク</a></li>
 </ul>
 </li>
-<li class=""><a href="#LSIを焼こう！1-未完成" title="LSIを焼こう！[1] (未完成)">LSIを焼こう！[1] (未完成)</a><ul class="nav">
-<li class=""><a href="#必要なもの" title="必要なもの">必要なもの</a></li>
+<li><a href="#LSIを焼こう！1-未完成" title="LSIを焼こう！[1] (未完成)">LSIを焼こう！[1] (未完成)</a><ul class="nav">
+<li><a href="#必要なもの" title="必要なもの">必要なもの</a></li>
 <li><a href="#1各種インストール-amp-ビルド" title="1.各種インストール &amp; ビルド">1.各種インストール &amp; ビルド</a></li>
 <li><a href="#2デザインを自作する" title="2.デザインを自作する">2.デザインを自作する</a></li>
 <li><a href="#3デザインをCaravelに載せる1011" title="3.デザインをCaravelに載せる[10][11]">3.デザインをCaravelに載せる[10][11]</a></li>
-<li><a href="#3テストベンチを書く" title="3.テストベンチを書く">3.テストベンチを書く</a></li>
+<li><a href="#3テストベンチファームウェアを書く" title="3.テストベンチ/ファームウェアを書く">3.テストベンチ/ファームウェアを書く</a></li>
 <li><a href="#4GDSIIのビルド21" title="4.GDSIIのビルド[21]">4.GDSIIのビルド[21]</a></li>
 <li><a href="#5プリチェックツールを走らせる2223" title="5.プリチェックツールを走らせる[22][23]">5.プリチェックツールを走らせる[22][23]</a></li>
 </ul>
