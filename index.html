@@ -32,7 +32,7 @@
 </head>
 
 <body>
-    <div id="doc" class="markdown-body container-fluid comment-enabled" data-hard-breaks="true"><h1 id="OpenMPW" data-id="OpenMPW"><a class="anchor hidden-xs" href="#OpenMPW" title="OpenMPW"><span class="octicon octicon-link"></span></a><span>OpenMPW</span></h1><p><span>連絡は@Cra2yPierr0tマデ</span></p><p><a href="https://www.skywatertechnology.com/mpw/open-source-mpw-program/" target="_blank" rel="noopener"><span>https://www.skywatertechnology.com/mpw/open-source-mpw-program/</span></a></p><hr><h2 id="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" data-id="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々"><a class="anchor hidden-xs" href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々"><span class="octicon octicon-link"></span></a><span>20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</span></h2><h3 id="OpenMPWの概要" data-id="OpenMPWの概要"><a class="anchor hidden-xs" href="#OpenMPWの概要" title="OpenMPWの概要"><span class="octicon octicon-link"></span></a><span>OpenMPWの概要</span></h3><ul>
+    <div id="doc" class="markdown-body container-fluid comment-enabled comment-inner" data-hard-breaks="true"><h1 id="OpenMPW" data-id="OpenMPW"><a class="anchor hidden-xs" href="#OpenMPW" title="OpenMPW"><span class="octicon octicon-link"></span></a><span>OpenMPW</span></h1><p><span>連絡は@Cra2yPierr0tマデ</span></p><p><a href="https://www.skywatertechnology.com/mpw/open-source-mpw-program/" target="_blank" rel="noopener"><span>https://www.skywatertechnology.com/mpw/open-source-mpw-program/</span></a></p><hr><h2 id="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" data-id="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々"><a class="anchor hidden-xs" href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々"><span class="octicon octicon-link"></span></a><span>20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</span></h2><h3 id="OpenMPWの概要" data-id="OpenMPWの概要"><a class="anchor hidden-xs" href="#OpenMPWの概要" title="OpenMPWの概要"><span class="octicon octicon-link"></span></a><span>OpenMPWの概要</span></h3><ul>
 <li><span>無料でLSIを焼いてくれるプロジェクト</span></li>
 <li><span>現在MPW-ONEとMPW-TWOが完了していて現在MPW-THREEの募集中</span></li>
 <li><span>Caravel(RISC-V+IOのフレーム)のUser Project Areaに自分のデザインを実装する</span></li>
@@ -752,7 +752,9 @@ reg_la3_oenb <span class="token operator">=</span> reg_la3_iena <span class="tok
 reg_la1_data <span class="token operator">=</span> <span class="token number">0xdeadbeef</span><span class="token punctuation">;</span> <span class="token comment">// [63:32]</span>
 buffer2 <span class="token operator">=</span> reg_la2_data<span class="token punctuation">;</span>    <span class="token comment">// [95:64]</span>
 buffer3 <span class="token operator">=</span> reg_la3_data<span class="token punctuation">;</span>    <span class="token comment">// [127:96]</span>
-</div></div></code></pre><p><span>このLA線を使ってSoC側からUser Project Areaにいい感じに分周したクロックとかリセットを入力出来たりするらしい。需要があったら書く(つかれた)。</span></p><p><span>ここ</span><sup class="footnote-ref"><a href="#fn17" id="fnref17">[17]</a></sup><span>らへんを読めば出来る</span></p><h3 id="4GDSIIのビルド18" data-id="4GDSIIのビルド18"><a class="anchor hidden-xs" href="#4GDSIIのビルド18" title="4GDSIIのビルド18"><span class="octicon octicon-link"></span></a><span>4.GDSIIのビルド</span><sup class="footnote-ref"><a href="#fn18" id="fnref18">[18]</a></sup></h3><p><span>以下を実行すればgds以下にGDSIIが生える。</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span></div><div class="code">make user_project_wrapper
+</div></div></code></pre><p><span>このLA線を使ってSoC側からUser Project Areaにいい感じに分周したクロックとかリセットを入力出来たりするらしい。需要があったら書く(つかれた)。</span></p><p><span>ここ</span><sup class="footnote-ref"><a href="#fn17" id="fnref17">[17]</a></sup><span>らへんを読めば出来る</span></p><h3 id="4GDSIIのビルド18" data-id="4GDSIIのビルド18"><a class="anchor hidden-xs" href="#4GDSIIのビルド18" title="4GDSIIのビルド18"><span class="octicon octicon-link"></span></a><span>4.GDSIIのビルド</span><sup class="footnote-ref"><a href="#fn18" id="fnref18">[18]</a></sup></h3><p><span>以下を実行すればgds以下にGDSIIが生える。</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+<span></span></div><div class="code">make &lt;my_design&gt;
+make user_project_wrapper
 </div></div></code></pre><h3 id="5プリチェックツールを走らせる1920" data-id="5プリチェックツールを走らせる1920"><a class="anchor hidden-xs" href="#5プリチェックツールを走らせる1920" title="5プリチェックツールを走らせる1920"><span class="octicon octicon-link"></span></a><span>5.プリチェックツールを走らせる</span><sup class="footnote-ref"><a href="#fn19" id="fnref19">[19]</a></sup><sup class="footnote-ref"><a href="#fn20" id="fnref20">[20]</a></sup></h3><p><span>以下のコマンドをforkしたcaravelリポジトリの直下で実行する</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
 <span></span></div><div class="code">make precheck // プリチェックツールのインストール
 make run-precheck // プリチェックツールを走らせる
@@ -809,18 +811,18 @@ make run-precheck // プリチェックツールを走らせる
             </a>
             <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
                 <div class="toc"><ul class="nav">
-<li class=""><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
-<li class=""><a href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a><ul class="nav">
-<li class=""><a href="#OpenMPWの概要" title="OpenMPWの概要">OpenMPWの概要</a></li>
-<li class=""><a href="#必要要件" title="必要要件">必要要件</a></li>
-<li class=""><a href="#まとめ" title="まとめ">まとめ</a></li>
-<li class=""><a href="#各種リンク" title="各種リンク">各種リンク</a></li>
+<li><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
+<li><a href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a><ul class="nav">
+<li><a href="#OpenMPWの概要" title="OpenMPWの概要">OpenMPWの概要</a></li>
+<li><a href="#必要要件" title="必要要件">必要要件</a></li>
+<li><a href="#まとめ" title="まとめ">まとめ</a></li>
+<li><a href="#各種リンク" title="各種リンク">各種リンク</a></li>
 </ul>
 </li>
-<li class=""><a href="#LSIを焼こう！1-未完成" title="LSIを焼こう！[1] (未完成)">LSIを焼こう！[1] (未完成)</a><ul class="nav">
-<li class=""><a href="#必要なもの" title="必要なもの">必要なもの</a></li>
-<li class=""><a href="#1各種インストール-amp-ビルド" title="1.各種インストール &amp; ビルド">1.各種インストール &amp; ビルド</a></li>
-<li class=""><a href="#2デザインを自作する" title="2.デザインを自作する">2.デザインを自作する</a></li>
+<li><a href="#LSIを焼こう！1-未完成" title="LSIを焼こう！[1] (未完成)">LSIを焼こう！[1] (未完成)</a><ul class="nav">
+<li><a href="#必要なもの" title="必要なもの">必要なもの</a></li>
+<li><a href="#1各種インストール-amp-ビルド" title="1.各種インストール &amp; ビルド">1.各種インストール &amp; ビルド</a></li>
+<li><a href="#2デザインを自作する" title="2.デザインを自作する">2.デザインを自作する</a></li>
 <li><a href="#3デザインをCaravelに載せる1011" title="3.デザインをCaravelに載せる[10][11]">3.デザインをCaravelに載せる[10][11]</a></li>
 <li><a href="#3テストベンチファームウェアを書く" title="3.テストベンチ/ファームウェアを書く">3.テストベンチ/ファームウェアを書く</a></li>
 <li><a href="#4GDSIIのビルド18" title="4.GDSIIのビルド[18]">4.GDSIIのビルド[18]</a></li>
@@ -836,18 +838,18 @@ make run-precheck // プリチェックツールを走らせる
     </div>
     <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;" null null>
         <div class="toc"><ul class="nav">
-<li class=""><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
-<li class=""><a href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a><ul class="nav">
-<li class=""><a href="#OpenMPWの概要" title="OpenMPWの概要">OpenMPWの概要</a></li>
-<li class=""><a href="#必要要件" title="必要要件">必要要件</a></li>
-<li class=""><a href="#まとめ" title="まとめ">まとめ</a></li>
-<li class=""><a href="#各種リンク" title="各種リンク">各種リンク</a></li>
+<li><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
+<li><a href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a><ul class="nav">
+<li><a href="#OpenMPWの概要" title="OpenMPWの概要">OpenMPWの概要</a></li>
+<li><a href="#必要要件" title="必要要件">必要要件</a></li>
+<li><a href="#まとめ" title="まとめ">まとめ</a></li>
+<li><a href="#各種リンク" title="各種リンク">各種リンク</a></li>
 </ul>
 </li>
-<li class=""><a href="#LSIを焼こう！1-未完成" title="LSIを焼こう！[1] (未完成)">LSIを焼こう！[1] (未完成)</a><ul class="nav">
-<li class=""><a href="#必要なもの" title="必要なもの">必要なもの</a></li>
-<li class=""><a href="#1各種インストール-amp-ビルド" title="1.各種インストール &amp; ビルド">1.各種インストール &amp; ビルド</a></li>
-<li class=""><a href="#2デザインを自作する" title="2.デザインを自作する">2.デザインを自作する</a></li>
+<li><a href="#LSIを焼こう！1-未完成" title="LSIを焼こう！[1] (未完成)">LSIを焼こう！[1] (未完成)</a><ul class="nav">
+<li><a href="#必要なもの" title="必要なもの">必要なもの</a></li>
+<li><a href="#1各種インストール-amp-ビルド" title="1.各種インストール &amp; ビルド">1.各種インストール &amp; ビルド</a></li>
+<li><a href="#2デザインを自作する" title="2.デザインを自作する">2.デザインを自作する</a></li>
 <li><a href="#3デザインをCaravelに載せる1011" title="3.デザインをCaravelに載せる[10][11]">3.デザインをCaravelに載せる[10][11]</a></li>
 <li><a href="#3テストベンチファームウェアを書く" title="3.テストベンチ/ファームウェアを書く">3.テストベンチ/ファームウェアを書く</a></li>
 <li><a href="#4GDSIIのビルド18" title="4.GDSIIのビルド[18]">4.GDSIIのビルド[18]</a></li>
