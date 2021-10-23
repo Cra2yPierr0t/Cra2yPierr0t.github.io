@@ -10,10 +10,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="mobile-web-app-capable" content="yes">
     <title>
-        OpenMPW - HackMD
+        OpenMPW
     </title>
-    <link rel="icon" type="image/png" href="https://hackmd.io/favicon.png">
-    <link rel="apple-touch-icon" href="https://hackmd.io/apple-touch-icon.png">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -34,7 +32,7 @@
 </head>
 
 <body>
-    <div id="doc" class="markdown-body container-fluid comment-inner comment-enabled" data-hard-breaks="true"><h1 id="OpenMPW" data-id="OpenMPW"><a class="anchor hidden-xs" href="#OpenMPW" title="OpenMPW"><span class="octicon octicon-link"></span></a><span>OpenMPW</span></h1><p><span>連絡は@Cra2yPierr0tマデ</span></p><p><a href="https://www.skywatertechnology.com/mpw/open-source-mpw-program/" target="_blank" rel="noopener"><span>https://www.skywatertechnology.com/mpw/open-source-mpw-program/</span></a></p><hr><h2 id="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" data-id="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々"><a class="anchor hidden-xs" href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々"><span class="octicon octicon-link"></span></a><span>20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</span></h2><h3 id="OpenMPWの概要" data-id="OpenMPWの概要"><a class="anchor hidden-xs" href="#OpenMPWの概要" title="OpenMPWの概要"><span class="octicon octicon-link"></span></a><span>OpenMPWの概要</span></h3><ul>
+    <div id="doc" class="markdown-body container-fluid comment-enabled" data-hard-breaks="true"><h1 id="OpenMPW" data-id="OpenMPW"><a class="anchor hidden-xs" href="#OpenMPW" title="OpenMPW"><span class="octicon octicon-link"></span></a><span>OpenMPW</span></h1><p><span>連絡は@Cra2yPierr0tマデ</span></p><p><a href="https://www.skywatertechnology.com/mpw/open-source-mpw-program/" target="_blank" rel="noopener"><span>https://www.skywatertechnology.com/mpw/open-source-mpw-program/</span></a></p><hr><h2 id="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" data-id="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々"><a class="anchor hidden-xs" href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々"><span class="octicon octicon-link"></span></a><span>20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</span></h2><h3 id="OpenMPWの概要" data-id="OpenMPWの概要"><a class="anchor hidden-xs" href="#OpenMPWの概要" title="OpenMPWの概要"><span class="octicon octicon-link"></span></a><span>OpenMPWの概要</span></h3><ul>
 <li><span>無料でLSIを焼いてくれるプロジェクト</span></li>
 <li><span>現在MPW-ONEとMPW-TWOが完了していて現在MPW-THREEの募集中</span></li>
 <li><span>Caravel(RISC-V+IOのフレーム)のUser Project Areaに自分のデザインを実装する</span></li>
@@ -264,11 +262,7 @@ make openlane
 <li><code>caravel_user_project/verilog/rtl/&lt;my_design&gt;</code><span>に自分のデザインを入れる</span></li>
 <li><code>caravel_user_project/openlane/&lt;my_design&gt;/config.tcl</code><span>を編集する</span></li>
 <li><code>caravel_user_project/openlane/user_project_wrapper/config.tcl</code><span>を編集する</span></li>
-</ol><h4 id="1caravel_user_projectverilogrtlltmy_designgtに自分のデザインを入れる" data-id="1caravel_user_projectverilogrtlltmy_designgtに自分のデザインを入れる"><a class="anchor hidden-xs" href="#1caravel_user_projectverilogrtlltmy_designgtに自分のデザインを入れる" title="1caravel_user_projectverilogrtlltmy_designgtに自分のデザインを入れる"><span class="octicon octicon-link"></span></a><span>1.</span><code>caravel_user_project/verilog/rtl/&lt;my_design&gt;</code><span>に自分のデザインを入れる</span></h4><p><span>まず</span><code>/verilog/rtl/</code><span>以下に自分のデザインのディレクトリを作成する。そのディレクトリに自分のデザインを入れる。</span></p><h4 id="2-caravel_user_projectopenlaneltmy_designgtconfigtclを編集する" data-id="2-caravel_user_projectopenlaneltmy_designgtconfigtclを編集する"><a class="anchor hidden-xs" href="#2-caravel_user_projectopenlaneltmy_designgtconfigtclを編集する" title="2-caravel_user_projectopenlaneltmy_designgtconfigtclを編集する"><span class="octicon octicon-link"></span></a><span>2. </span><code>caravel_user_project/openlane/&lt;my_design&gt;/config.tcl</code><span>を編集する</span></h4><p><span>wrapperに自分のデザインを挿入する前に、一旦OpenLANEで.gdsと.lefを生成する必要がある。そのために何をどうhardenするかOpenLANEに教えるための</span><code>config.tcl</code><span>を、caravelの</span><code>openlane/&lt;my_design&gt;/</code><span>以下に作る。</span></p><p><span>以下をたたき台を置いておく</span></p><pre><code class="tcl hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
+</ol><h4 id="1caravel_user_projectverilogrtlltmy_designgtに自分のデザインを入れる" data-id="1caravel_user_projectverilogrtlltmy_designgtに自分のデザインを入れる"><a class="anchor hidden-xs" href="#1caravel_user_projectverilogrtlltmy_designgtに自分のデザインを入れる" title="1caravel_user_projectverilogrtlltmy_designgtに自分のデザインを入れる"><span class="octicon octicon-link"></span></a><span>1.</span><code>caravel_user_project/verilog/rtl/&lt;my_design&gt;</code><span>に自分のデザインを入れる</span></h4><p><span>まず</span><code>/verilog/rtl/</code><span>以下に自分のデザインのディレクトリを作成する。そのディレクトリに自分のデザインを入れる。</span></p><h4 id="2-caravel_user_projectopenlaneltmy_designgtconfigtclを編集する" data-id="2-caravel_user_projectopenlaneltmy_designgtconfigtclを編集する"><a class="anchor hidden-xs" href="#2-caravel_user_projectopenlaneltmy_designgtconfigtclを編集する" title="2-caravel_user_projectopenlaneltmy_designgtconfigtclを編集する"><span class="octicon octicon-link"></span></a><span>2. </span><code>caravel_user_project/openlane/&lt;my_design&gt;/config.tcl</code><span>を編集する</span></h4><p><span>wrapperに自分のデザインを挿入する前に一旦OpenLANEで.gdsと.lefを生成する必要がある。そのために何をどうhardenするかOpenLANEに教えるための</span><code>config.tcl</code><span>を、caravelの</span><code>openlane/&lt;my_design&gt;/</code><span>以下に作る。</span></p><p><span>以下をたたき台を置いておくので、下の表に従って編集するとよい</span></p><pre><code class="tcl hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
 <span></span>
 <span></span>
 <span></span>
@@ -294,7 +288,7 @@ make openlane
 <span></span>
 <span></span></div><div class="code"><span class="hljs-built_in">set</span> script_dir [file dirname [file normalize [info script]]]
 
-<span class="hljs-built_in">set</span> ::env(ROUTING_CORES) 8 <span class="hljs-comment">#</span>
+<span class="hljs-built_in">set</span> ::env(ROUTING_CORES) 8 <span class="hljs-comment">#これで配線に使うスレッド数を指定できる</span>
 
 <span class="hljs-built_in">set</span> ::env(DESIGN_NAME) computer
 
@@ -304,14 +298,11 @@ make openlane
 
 <span class="hljs-built_in">set</span> ::env(VERILOG_FILES) <span class="hljs-string">"\
     $::env(CARAVEL_ROOT)/verilog/rtl/defines.v \
-    <span class="hljs-variable">$script_dir</span>/../../verilog/rtl/jacaranda-8/UART/UART.v \
+    <span class="hljs-variable">$script_dir</span>/../../verilog/rtl/jacaranda-8/UART/UART.v \ 
     <span class="hljs-variable">$script_dir</span>/../../verilog/rtl/jacaranda-8/wishbone.v"</span>
 
 <span class="hljs-built_in">set</span> ::env(CLOCK_PORT) wb_clk_i
-<span class="hljs-built_in">set</span> ::env(CLOCK_NET) wb_clk_i
 <span class="hljs-built_in">set</span> ::env(CLOCK_PERIOD) 10
-
-<span class="hljs-built_in">set</span> ::env(PL_TARGET_DENSITY) 0.30
 
 <span class="hljs-built_in">set</span> ::env(FP_SIZING) absolute
 <span class="hljs-built_in">set</span> ::env(DIE_AREA) <span class="hljs-string">"0 0 2000 2000"</span>
@@ -320,8 +311,36 @@ make openlane
 
 <span class="hljs-built_in">set</span> ::env(VDD_NETS) [list {vccd1}]
 <span class="hljs-built_in">set</span> ::env(GND_NETS) [list {vssd1}]
-
-</div></div></code></pre><h4 id="3-caravel_user_projectopenlaneuser_project_wrapperconfigtclを編集する" data-id="3-caravel_user_projectopenlaneuser_project_wrapperconfigtclを編集する"><a class="anchor hidden-xs" href="#3-caravel_user_projectopenlaneuser_project_wrapperconfigtclを編集する" title="3-caravel_user_projectopenlaneuser_project_wrapperconfigtclを編集する"><span class="octicon octicon-link"></span></a><span>3. </span><code>caravel_user_project/openlane/user_project_wrapper/config.tcl</code><span>を編集する</span></h4><p><code>user_project_wrapper.v</code><span>のみを編集する場合は特に何もしなくてよいが、自作のデザインは複数のVerilogファイルから構成される場合が殆どなので、GDSIIに変換する前にVerilogファイル達をOpenLANEに教えてやる必要がある。そのために</span><code>config.tcl</code><span>を編集する。</span><sup class="footnote-ref"><a href="#fn12" id="fnref12">[12]</a></sup></p><p><span>まずは環境変数を２つ追加する。以下をビルドしたPDKとopenlaneのパスに各自書き換える。</span></p><pre><code class="bash hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+</div></div></code></pre><table>
+<thead>
+<tr>
+<th><span>変数</span></th>
+<th><span>意味</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>ROUTING_CORES</span></td>
+<td><span>配線に使うスレッド数</span></td>
+</tr>
+<tr>
+<td><span>DESIGN_NAME</span></td>
+<td><span>合成するトップデザインの名前</span></td>
+</tr>
+<tr>
+<td><span>VERILOG_FILES</span></td>
+<td><span>合成するVerilogファイル, defines.vは残しておく</span></td>
+</tr>
+<tr>
+<td><span>CLOCK_PORT</span></td>
+<td><span>トップへのクロック入力ポート, 複数指定できる</span></td>
+</tr>
+<tr>
+<td><span>DIE_AREA</span></td>
+<td><span>使うダイの大きさ、最大 0 0 2920 3520</span></td>
+</tr>
+</tbody>
+</table><h4 id="3-caravel_user_projectopenlaneuser_project_wrapperconfigtclを編集する" data-id="3-caravel_user_projectopenlaneuser_project_wrapperconfigtclを編集する"><a class="anchor hidden-xs" href="#3-caravel_user_projectopenlaneuser_project_wrapperconfigtclを編集する" title="3-caravel_user_projectopenlaneuser_project_wrapperconfigtclを編集する"><span class="octicon octicon-link"></span></a><span>3. </span><code>caravel_user_project/openlane/user_project_wrapper/config.tcl</code><span>を編集する</span></h4><p><code>user_project_wrapper.v</code><span>のみを編集する場合は特に何もしなくてよいが、自作のデザインは複数のVerilogファイルから構成される場合が殆どなので、GDSIIに変換する前にVerilogファイル達をOpenLANEに教えてやる必要がある。そのために</span><code>config.tcl</code><span>を編集する。</span><sup class="footnote-ref"><a href="#fn12" id="fnref12">[12]</a></sup></p><p><span>まずは環境変数を２つ追加する。以下をビルドしたPDKとopenlaneのパスに各自書き換える。</span></p><pre><code class="bash hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
 <span></span></div><div class="code"><span class="hljs-built_in">export</span> PDK_ROOT=/path/to/pdk
 <span class="hljs-built_in">export</span> OPENLANE_ROOT=/path/to/openlane
 </div></div></code></pre><p><span>次に、</span><code>caravel_user_project/openlane/user_project_wrapper/config.tcl</code><span>の以下の変数を編集する。</span></p><pre><code class="tcl hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
@@ -790,18 +809,18 @@ make run-precheck // プリチェックツールを走らせる
             </a>
             <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
                 <div class="toc"><ul class="nav">
-<li><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
-<li><a href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a><ul class="nav">
-<li><a href="#OpenMPWの概要" title="OpenMPWの概要">OpenMPWの概要</a></li>
-<li><a href="#必要要件" title="必要要件">必要要件</a></li>
-<li><a href="#まとめ" title="まとめ">まとめ</a></li>
-<li><a href="#各種リンク" title="各種リンク">各種リンク</a></li>
+<li class=""><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
+<li class=""><a href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a><ul class="nav">
+<li class=""><a href="#OpenMPWの概要" title="OpenMPWの概要">OpenMPWの概要</a></li>
+<li class=""><a href="#必要要件" title="必要要件">必要要件</a></li>
+<li class=""><a href="#まとめ" title="まとめ">まとめ</a></li>
+<li class=""><a href="#各種リンク" title="各種リンク">各種リンク</a></li>
 </ul>
 </li>
-<li><a href="#LSIを焼こう！1-未完成" title="LSIを焼こう！[1] (未完成)">LSIを焼こう！[1] (未完成)</a><ul class="nav">
-<li><a href="#必要なもの" title="必要なもの">必要なもの</a></li>
-<li><a href="#1各種インストール-amp-ビルド" title="1.各種インストール &amp; ビルド">1.各種インストール &amp; ビルド</a></li>
-<li><a href="#2デザインを自作する" title="2.デザインを自作する">2.デザインを自作する</a></li>
+<li class=""><a href="#LSIを焼こう！1-未完成" title="LSIを焼こう！[1] (未完成)">LSIを焼こう！[1] (未完成)</a><ul class="nav">
+<li class=""><a href="#必要なもの" title="必要なもの">必要なもの</a></li>
+<li class=""><a href="#1各種インストール-amp-ビルド" title="1.各種インストール &amp; ビルド">1.各種インストール &amp; ビルド</a></li>
+<li class=""><a href="#2デザインを自作する" title="2.デザインを自作する">2.デザインを自作する</a></li>
 <li><a href="#3デザインをCaravelに載せる1011" title="3.デザインをCaravelに載せる[10][11]">3.デザインをCaravelに載せる[10][11]</a></li>
 <li><a href="#3テストベンチファームウェアを書く" title="3.テストベンチ/ファームウェアを書く">3.テストベンチ/ファームウェアを書く</a></li>
 <li><a href="#4GDSIIのビルド18" title="4.GDSIIのビルド[18]">4.GDSIIのビルド[18]</a></li>
@@ -817,18 +836,18 @@ make run-precheck // プリチェックツールを走らせる
     </div>
     <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;" null null>
         <div class="toc"><ul class="nav">
-<li><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
-<li><a href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a><ul class="nav">
-<li><a href="#OpenMPWの概要" title="OpenMPWの概要">OpenMPWの概要</a></li>
-<li><a href="#必要要件" title="必要要件">必要要件</a></li>
-<li><a href="#まとめ" title="まとめ">まとめ</a></li>
-<li><a href="#各種リンク" title="各種リンク">各種リンク</a></li>
+<li class=""><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
+<li class=""><a href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a><ul class="nav">
+<li class=""><a href="#OpenMPWの概要" title="OpenMPWの概要">OpenMPWの概要</a></li>
+<li class=""><a href="#必要要件" title="必要要件">必要要件</a></li>
+<li class=""><a href="#まとめ" title="まとめ">まとめ</a></li>
+<li class=""><a href="#各種リンク" title="各種リンク">各種リンク</a></li>
 </ul>
 </li>
-<li><a href="#LSIを焼こう！1-未完成" title="LSIを焼こう！[1] (未完成)">LSIを焼こう！[1] (未完成)</a><ul class="nav">
-<li><a href="#必要なもの" title="必要なもの">必要なもの</a></li>
-<li><a href="#1各種インストール-amp-ビルド" title="1.各種インストール &amp; ビルド">1.各種インストール &amp; ビルド</a></li>
-<li><a href="#2デザインを自作する" title="2.デザインを自作する">2.デザインを自作する</a></li>
+<li class=""><a href="#LSIを焼こう！1-未完成" title="LSIを焼こう！[1] (未完成)">LSIを焼こう！[1] (未完成)</a><ul class="nav">
+<li class=""><a href="#必要なもの" title="必要なもの">必要なもの</a></li>
+<li class=""><a href="#1各種インストール-amp-ビルド" title="1.各種インストール &amp; ビルド">1.各種インストール &amp; ビルド</a></li>
+<li class=""><a href="#2デザインを自作する" title="2.デザインを自作する">2.デザインを自作する</a></li>
 <li><a href="#3デザインをCaravelに載せる1011" title="3.デザインをCaravelに載せる[10][11]">3.デザインをCaravelに載せる[10][11]</a></li>
 <li><a href="#3テストベンチファームウェアを書く" title="3.テストベンチ/ファームウェアを書く">3.テストベンチ/ファームウェアを書く</a></li>
 <li><a href="#4GDSIIのビルド18" title="4.GDSIIのビルド[18]">4.GDSIIのビルド[18]</a></li>
