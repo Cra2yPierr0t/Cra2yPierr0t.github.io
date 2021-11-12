@@ -32,7 +32,7 @@
 </head>
 
 <body>
-    <div id="doc" class="markdown-body container-fluid comment-enabled comment-inner" data-hard-breaks="true"><h1 id="OpenMPW" data-id="OpenMPW"><a class="anchor hidden-xs" href="#OpenMPW" title="OpenMPW"><span class="octicon octicon-link"></span></a><span>OpenMPW</span></h1><p><span>連絡は@Cra2yPierr0tマデ</span></p><p><a href="https://www.skywatertechnology.com/mpw/open-source-mpw-program/" target="_blank" rel="noopener"><span>https://www.skywatertechnology.com/mpw/open-source-mpw-program/</span></a></p><hr><h2 id="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" data-id="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々"><a class="anchor hidden-xs" href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々"><span class="octicon octicon-link"></span></a><span>20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</span></h2><h3 id="OpenMPWの概要" data-id="OpenMPWの概要"><a class="anchor hidden-xs" href="#OpenMPWの概要" title="OpenMPWの概要"><span class="octicon octicon-link"></span></a><span>OpenMPWの概要</span></h3><ul>
+    <div id="doc" class="markdown-body container-fluid comment-enabled" data-hard-breaks="true"><h1 id="OpenMPW" data-id="OpenMPW"><a class="anchor hidden-xs" href="#OpenMPW" title="OpenMPW"><span class="octicon octicon-link"></span></a><span>OpenMPW</span></h1><p><span>連絡は@Cra2yPierr0tマデ</span></p><p><a href="https://www.skywatertechnology.com/mpw/open-source-mpw-program/" target="_blank" rel="noopener"><span>https://www.skywatertechnology.com/mpw/open-source-mpw-program/</span></a></p><hr><h2 id="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" data-id="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々"><a class="anchor hidden-xs" href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々"><span class="octicon octicon-link"></span></a><span>20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</span></h2><h3 id="OpenMPWの概要" data-id="OpenMPWの概要"><a class="anchor hidden-xs" href="#OpenMPWの概要" title="OpenMPWの概要"><span class="octicon octicon-link"></span></a><span>OpenMPWの概要</span></h3><ul>
 <li><span>無料でLSIを焼いてくれるプロジェクト</span></li>
 <li><span>現在MPW-ONEとMPW-TWOが完了していて現在MPW-THREEの募集中</span></li>
 <li><span>Caravel(RISC-V+IOのフレーム)のUser Project Areaに自分のデザインを実装する</span></li>
@@ -44,7 +44,7 @@
 <li><span>OpenLANEフローのOpenMPWプリチェックツールでの合格</span></li>
 </ul><h3 id="まとめ" data-id="まとめ"><a class="anchor hidden-xs" href="#まとめ" title="まとめ"><span class="octicon octicon-link"></span></a><span>まとめ</span></h3><ul>
 <li><span>Caravelをforkして改造</span></li>
-<li><span>プリチェックツールで通るならおｋ</span></li>
+<li><span class="ui-comment-inline-span">プリチェックツールで通るならおｋ</span></li>
 </ul><h3 id="各種リンク" data-id="各種リンク"><a class="anchor hidden-xs" href="#各種リンク" title="各種リンク"><span class="octicon octicon-link"></span></a><span>各種リンク</span></h3><ul>
 <li><a href="https://github.com/efabless/openlane" target="_blank" rel="noopener"><span>OpenLANE</span></a><span> : RTLからGDSII吐くやつ</span></li>
 <li><a href="https://github.com/efabless/caravel" target="_blank" rel="noopener"><span>Caravel</span></a><span> : パッドフレーム</span></li>
@@ -677,23 +677,23 @@ SIM=GL make
 <tbody>
 <tr>
 <td><span>GPIO_MODE_MGMT_STD_INPUT_NOPULL</span></td>
-<td><span>自作デザインへの入力に設定(謎)</span></td>
+<td><span>SoCへの入力に設定(謎)</span></td>
 </tr>
 <tr>
 <td><span>GPIO_MODE_MGMT_STD_INPUT_PULLDOWN</span></td>
-<td><span>自作デザインへの入力に設定(プルダウン)</span></td>
+<td><span>SoCへの入力に設定(プルダウン)</span></td>
 </tr>
 <tr>
 <td><span>GPIO_MODE_MGMT_STD_INPUT_PULLUP</span></td>
-<td><span>自作デザインへの入力に設定(プルアップ)</span></td>
+<td><span>SoCへの入力に設定(プルアップ)</span></td>
 </tr>
 <tr>
 <td><span>GPIO_MODE_MGMT_STD_OUTPUT</span></td>
-<td><span>自作デザインからの出力に設定</span></td>
+<td><span>SoCからの出力に設定</span></td>
 </tr>
 <tr>
 <td><span>GPIO_MODE_MGMT_STD_BIDIRECTIONAL</span></td>
-<td><span>自作デザインの入出力に設定</span></td>
+<td><span>SoCの入出力に設定</span></td>
 </tr>
 <tr>
 <td><span>GPIO_MODE_MGMT_STD_ANALOG</span></td>
@@ -701,23 +701,23 @@ SIM=GL make
 </tr>
 <tr>
 <td><span>GPIO_MODE_USER_STD_INPUT_NOPULL</span></td>
-<td><span>SoC側への入力に設定(謎)</span></td>
+<td><span>自作デザイン側への入力に設定(謎)</span></td>
 </tr>
 <tr>
 <td><span>GPIO_MODE_USER_STD_INPUT_PULLDOWN</span></td>
-<td><span>SoC側への入力に設定(プルダウン)</span></td>
+<td><span>自作デザイン側への入力に設定(プルダウン)</span></td>
 </tr>
 <tr>
 <td><span>GPIO_MODE_USER_STD_INPUT_PULLUP</span></td>
-<td><span>SoC側への入力に設定(プルアップ)</span></td>
+<td><span>自作デザイン側への入力に設定(プルアップ)</span></td>
 </tr>
 <tr>
 <td><span>GPIO_MODE_USER_STD_OUTPUT</span></td>
-<td><span>SoC側からの出力に設定</span></td>
+<td><span>自作デザイン側からの出力に設定</span></td>
 </tr>
 <tr>
 <td><span>GPIO_MODE_USER_STD_BIDIRECTIONAL</span></td>
-<td><span>SoC側との入出力に設定</span></td>
+<td><span>自作デザイン側との入出力に設定</span></td>
 </tr>
 <tr>
 <td><span>GPIO_MODE_USER_STD_OUT_MONITORED</span></td>
