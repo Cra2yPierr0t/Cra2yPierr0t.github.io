@@ -34,51 +34,61 @@
 <body>
     <div id="doc" class="markdown-body container-fluid comment-enabled" data-hard-breaks="true"><h1 id="OpenMPW" data-id="OpenMPW"><a class="anchor hidden-xs" href="#OpenMPW" title="OpenMPW"><span class="octicon octicon-link"></span></a><span>OpenMPW</span></h1><p><span>連絡は@Cra2yPierr0tマデ</span></p><p><a href="https://www.skywatertechnology.com/mpw/open-source-mpw-program/" target="_blank" rel="noopener"><span>https://www.skywatertechnology.com/mpw/open-source-mpw-program/</span></a></p><hr><h2 id="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" data-id="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々"><a class="anchor hidden-xs" href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々"><span class="octicon octicon-link"></span></a><span>20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</span></h2><h3 id="OpenMPWの概要" data-id="OpenMPWの概要"><a class="anchor hidden-xs" href="#OpenMPWの概要" title="OpenMPWの概要"><span class="octicon octicon-link"></span></a><span>OpenMPWの概要</span></h3><ul>
 <li><span>無料でLSIを焼いてくれるプロジェクト</span></li>
-<li><span>現在MPW-ONEとMPW-TWOが完了していて現在MPW-THREEの募集中</span></li>
-<li><span>Caravel(RISC-V+IOのフレーム)のUser Project Areaに自分のデザインを実装する</span></li>
-<li><span>IBMとかもデザインを投稿している</span></li>
+<li><span>Googleがefablessに出資して実現した</span></li>
+<li><span>Caravel(RISC-V+各種IO)に自分のデザインを加える形で実装する</span></li>
+<li><span>提出された中から40デザインがランダムに選ばれる</span></li>
 </ul><h3 id="必要要件" data-id="必要要件"><a class="anchor hidden-xs" href="#必要要件" title="必要要件"><span class="octicon octicon-link"></span></a><span>必要要件</span></h3><ul>
+<li><span>Skywater PDKの使用</span></li>
+<li><span>オープンなデザイン</span></li>
 <li><span>ライセンス諸々</span></li>
 <li><span>再現可能なGDSIIレイアウト</span></li>
-<li><span>Caravelのテストハーネスとパッドフレームの使用</span></li>
-<li><span>OpenLANEフローのOpenMPWプリチェックツールでの合格</span></li>
-</ul><h3 id="まとめ" data-id="まとめ"><a class="anchor hidden-xs" href="#まとめ" title="まとめ"><span class="octicon octicon-link"></span></a><span>まとめ</span></h3><ul>
+<li><span>Caravelの使用</span></li>
+<li><span>プリチェックツールでの合格</span></li>
+</ul><h3 id="まとめ" data-id="まとめ"><a class="anchor hidden-xs" href="#まとめ" title="まとめ"><span class="octicon octicon-link"></span></a><span>まとめ</span></h3><ol>
 <li><span>Caravelをforkして改造</span></li>
-<li><span class="ui-comment-inline-span">プリチェックツールで通るならおｋ</span></li>
-</ul><h3 id="各種リンク" data-id="各種リンク"><a class="anchor hidden-xs" href="#各種リンク" title="各種リンク"><span class="octicon octicon-link"></span></a><span>各種リンク</span></h3><ul>
+<li><span class="ui-comment-inline-span">プリチェックツールで通るならおｋ</span><span>(おｋでない場合もたまにある)</span></li>
+<li><span>EfablessにGDSIIファイルを送りつける</span></li>
+<li><span>嬉しい！</span></li>
+</ol><h3 id="各種リンク" data-id="各種リンク"><a class="anchor hidden-xs" href="#各種リンク" title="各種リンク"><span class="octicon octicon-link"></span></a><span>各種リンク</span></h3><ul>
 <li><a href="https://github.com/efabless/openlane" target="_blank" rel="noopener"><span>OpenLANE</span></a><span> : RTLからGDSII吐くやつ</span></li>
 <li><a href="https://github.com/efabless/caravel" target="_blank" rel="noopener"><span>Caravel</span></a><span> : パッドフレーム</span></li>
 <li><a href="https://github.com/efabless/caravel_user_project" target="_blank" rel="noopener"><span>Caravel User Project</span></a></li>
 <li><a href="https://github.com/efabless/open_mpw_precheck" target="_blank" rel="noopener"><span>プリチェックツール</span></a></li>
 <li><a href="https://efabless.com/projects/shuttle_name/MPW-ONE" target="_blank" rel="noopener"><span>MPW-ONE</span></a></li>
 <li><a href="https://efabless.com/projects/shuttle_name/MPW-TWO" target="_blank" rel="noopener"><span>MPW-TWO</span></a></li>
-</ul><hr><h2 id="LSIを焼こう！1-未完成" data-id="LSIを焼こう！1-未完成"><a class="anchor hidden-xs" href="#LSIを焼こう！1-未完成" title="LSIを焼こう！1-未完成"><span class="octicon octicon-link"></span></a><span>LSIを焼こう！</span><sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup><span> (未完成)</span></h2><p><span>概要はefablessの動画</span><sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup><span>を見れば大体わかる。また使うツールのバージョンやCaravelの概要はこのドキュメント</span><sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup><span>に書いてある。</span><s><span>シャトル毎に形式が変わるのでMPW3の概要が出たら更新する。</span></s></p><p><span style="color:red"><span> 9/17にMPW3がOpenになりました、早急に対応します。</span></span></p><p><span>Analogも対応出来るみたいだけど需要があったら書く</span></p><h3 id="必要なもの" data-id="必要なもの"><a class="anchor hidden-xs" href="#必要なもの" title="必要なもの"><span class="octicon octicon-link"></span></a><span>必要なもの</span></h3><ul>
+<li><a href="https://efabless.com/projects/shuttle_name/MPW-3" target="_blank" rel="noopener"><span>MPW-3</span></a></li>
+</ul><hr><h2 id="LSIを焼こう！1-未完成" data-id="LSIを焼こう！1-未完成"><a class="anchor hidden-xs" href="#LSIを焼こう！1-未完成" title="LSIを焼こう！1-未完成"><span class="octicon octicon-link"></span></a><span>LSIを焼こう！</span><sup class="footnote-ref"><a href="#fn1" id="fnref1" style="">[1]</a></sup><span> (未完成)</span></h2><p><strong><span>オレオレLSIを焼きたいですよね？ 焼きましょう。</span></strong><span> Skywater社がPDKを公開し、OSSなGDSIIコンパイラである</span><strong><span>OpenLANE</span></strong><span>も生まれました。そしてGoogleの出資によってEfablessが無料でLSIを作らせてくれるプログラム、</span><strong><span>Open MPW Shuttle Program</span></strong><span>をスタートしました。</span><br>
+<span>今こそオレオレLSIを焼くチャンスです。あなたの作りたいチップをGoogleの金で作りましょう！</span></p><hr><p><span>概要はefablessの動画</span><sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup><span>を見れば大体わかる。また使うツールのバージョンやCaravelの概要はこのドキュメント</span><sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup><span>に書いてある。</span></p><p><span>Analogも対応出来るみたいだけど需要があったら書く</span></p><h3 id="必要なもの" data-id="必要なもの"><a class="anchor hidden-xs" href="#必要なもの" title="必要なもの"><span class="octicon octicon-link"></span></a><span>必要なもの</span></h3><ul>
 <li><span>Caravel_user_project  : これのUser Project Areaに自分のデザインを加える</span></li>
-<li><span>PDK</span></li>
-<li><span>OpenLANE : RTLをGDSII</span><sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup><span>に変換するツールフロー</span></li>
-<li><span>自分のデザイン : Wishboneと接続出来るやつ</span></li>
-<li><span>時間 : いっぱい</span></li>
+<li><span>Skywater PDK  : Process Design Kit、素材の情報みたいななやつ</span></li>
+<li><span>OpenLANE : RTLをGDSII</span><sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup><span>に変換するコンパイラ(Synopsysとか持ってるのなら必要ない)</span></li>
+<li><span>自分のデザイン</span></li>
+<li><span>時間、精神力 : いっぱい</span></li>
 </ul><h3 id="1各種インストール-amp-ビルド" data-id="1各種インストール-amp-ビルド"><a class="anchor hidden-xs" href="#1各種インストール-amp-ビルド" title="1各種インストール-amp-ビルド"><span class="octicon octicon-link"></span></a><span>1.各種インストール &amp; ビルド</span></h3><h4 id="1Caravelのインストール" data-id="1Caravelのインストール"><a class="anchor hidden-xs" href="#1Caravelのインストール" title="1Caravelのインストール"><span class="octicon octicon-link"></span></a><span>1.Caravelのインストール</span></h4><p><span>基本的に、forkしたCaravel_user_projectのリポジトリ</span><sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup><span>上で全てを進めていく</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
 <span></span>
-<span></span></div><div class="code">git clone git@github.com:efabless/caravel_user_project.git -b mpw-3
+<span></span></div><div class="code">git clone git@github.com:efabless/caravel_user_project.git
 cd caravel_user_project
 make install
-</div></div></code></pre><h4 id="2PDKのビルド" data-id="2PDKのビルド"><a class="anchor hidden-xs" href="#2PDKのビルド" title="2PDKのビルド"><span class="octicon octicon-link"></span></a><span>2.PDKのビルド</span></h4><p><span>5分くらい掛かる</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+</div></div></code></pre><h4 id="2PDKのビルド" data-id="2PDKのビルド"><a class="anchor hidden-xs" href="#2PDKのビルド" title="2PDKのビルド"><span class="octicon octicon-link"></span></a><span>2.PDKのビルド</span></h4><p><span>5分くらい掛かる、PDK_ROOTはお好みで設定してよい。</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+<span></span>
 <span></span>
 <span></span></div><div class="code">mkdir ~/pdks
 export PDK_ROOT=~/pdks
+cd caravel_user_project
 make pdk
-</div></div></code></pre><h4 id="3OpenLANEのインストール" data-id="3OpenLANEのインストール"><a class="anchor hidden-xs" href="#3OpenLANEのインストール" title="3OpenLANEのインストール"><span class="octicon octicon-link"></span></a><span>3.OpenLANEのインストール</span></h4><p><span>Dockerは事前にインストールしてデーモンを起動しておく。</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+</div></div></code></pre><h4 id="3OpenLANEのインストール" data-id="3OpenLANEのインストール"><a class="anchor hidden-xs" href="#3OpenLANEのインストール" title="3OpenLANEのインストール"><span class="octicon octicon-link"></span></a><span>3.OpenLANEのインストール</span></h4><p><span>OpenLNAEのDockerイメージが存在しているのでインストールする、Dockerは事前にインストールしてデーモンを起動しておく。OPENLANE_ROOTはお好みで設定してよい。</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+<span></span>
 <span></span>
 <span></span></div><div class="code">mkdir ~/openlane
 export OPENLANE_ROOT=~/openlane
+cd caravel_user_project
 make openlane
-</div></div></code></pre><h3 id="2デザインを自作する" data-id="2デザインを自作する"><a class="anchor hidden-xs" href="#2デザインを自作する" title="2デザインを自作する"><span class="octicon octicon-link"></span></a><span>2.デザインを自作する</span></h3><h4 id="Caravelの概要" data-id="Caravelの概要"><a class="anchor hidden-xs" href="#Caravelの概要" title="Caravelの概要"><span class="octicon octicon-link"></span></a><span>Caravelの概要</span></h4><p><span>我々はcaravelのUser Project Areaに自分のデザインを挿入する訳だが、そのデザインを作り始める前に、User Project Areaについて多少知っておく必要がある。</span><br>
-<span>以下がCaravelパッドフレームの概略図</span></p><p><img src="https://i.imgur.com/vrYRcXt.png" alt="caravelの概要" loading="lazy"></p><p><span>User Project Areaについて抑えておくべき事項は3つ</span></p><ul>
+</div></div></code></pre><p><span>以上で必要なツールは揃いました。</span></p><h3 id="2デザインを自作する" data-id="2デザインを自作する"><a class="anchor hidden-xs" href="#2デザインを自作する" title="2デザインを自作する"><span class="octicon octicon-link"></span></a><span>2.デザインを自作する</span></h3><p><span>8-bit CPUをCaravelに載せた時のサンプルを置いておきます。適宜参照するとよろし。</span><br>
+<a href="https://github.com/cpu-dev/caravel_jacaranda-8/tree/submission-mpw-3/verilog/rtl" target="_blank" rel="noopener"><span>https://github.com/cpu-dev/caravel_jacaranda-8/tree/submission-mpw-3/verilog/rtl</span></a></p><h4 id="Caravelの概要" data-id="Caravelの概要"><a class="anchor hidden-xs" href="#Caravelの概要" title="Caravelの概要"><span class="octicon octicon-link"></span></a><span>Caravelの概要</span></h4><p><span>caravelのUser Project Areaに自分のデザインを突っ込む訳ですが、その前にUser Project Areaについて多少知っておいた方が良いのでここで説明する。</span></p><p><span>以下がCaravelパッドフレームの概略図</span></p><p><img src="https://i.imgur.com/CQLoSjf.png" alt="caravelの概要" loading="lazy"></p><p><span>User Project Areaについて抑えておくべき事項は3つ</span></p><ul>
 <li><span>Wishboneバスが繋がっている(32bit)</span></li>
 <li><span>Logic Analyzer Signalsが繋がっている(128bit)</span></li>
 <li><span>GPIOが生えている(38本)</span></li>
-</ul><p><span>Logic Analyzer Signalsは図におけるDebug Lineと同じである。なぜ図ではDebug Lineになってるかといえば、それはそう図を作っちゃったからである。作っちゃったもんは仕方ない。</span></p><p><span>Wishbone、Logic Analyzer Signalsに関してはCPU側からMMIOを通してアクセスが可能であり、Wishboneのアドレスは</span><code>0x30000000</code><span>から</span><code>0x80000000-1</code><span>の間で自由に設定できる。</span></p><p><span>以下では、Wishbone、Logic Analyzer Signals、GPIOそれぞれの扱い方を説明する。</span></p><h4 id="Wishboneを扱う" data-id="Wishboneを扱う"><a class="anchor hidden-xs" href="#Wishboneを扱う" title="Wishboneを扱う"><span class="octicon octicon-link"></span></a><span>Wishboneを扱う</span></h4><p><span>という訳でWishboneの扱い方を付け焼き刃程度に解説する。既にWishboneについて知ってる方はこの部分を読む必要は無い。</span></p><p><span>Caravelでは10種類のWishboneに関係した線が存在している。</span></p><table>
+</ul><p><span>Wishbone、Logic Analyzer Signalsに関してはCPU側からMMIOを通してアクセスが可能であり、Wishboneのアドレスは</span><code>0x30000000</code><span>から</span><code>0x80000000-1</code><span>の間で自由に設定できる。</span></p><p><span>以下では、Wishbone、Logic Analyzer Signals、GPIOそれぞれの扱い方を説明する。</span></p><h4 id="Wishboneを扱う" data-id="Wishboneを扱う"><a class="anchor hidden-xs" href="#Wishboneを扱う" title="Wishboneを扱う"><span class="octicon octicon-link"></span></a><span>Wishboneを扱う</span></h4><p><span>という訳でWishboneの扱い方を付け焼き刃程度に解説する。既にWishboneについて知ってる方はこの部分を読む必要は無い。</span></p><p><span>Caravelでは10種類のWishboneに関係した線が存在している。</span></p><table>
 <thead>
 <tr>
 <th><span>信号名</span></th>
@@ -234,7 +244,7 @@ make openlane
 <span></span></div><div class="code"><span class="hljs-keyword">always</span> @(<span class="hljs-keyword">posedge</span> clk) <span class="hljs-keyword">begin</span>
     la_data_out[<span class="hljs-number">63</span>:<span class="hljs-number">32</span>] &lt;= data2;
 <span class="hljs-keyword">end</span>
-</div></div></code></pre><p><span>とか</span></p><h4 id="GPIOを扱う" data-id="GPIOを扱う"><a class="anchor hidden-xs" href="#GPIOを扱う" title="GPIOを扱う"><span class="octicon octicon-link"></span></a><span>GPIOを扱う</span></h4><p><span>GPIOの扱い方を解説する。</span></p><p><span>Caravelでは3種類のGPIOに関連した信号線が存在している。</span></p><table>
+</div></div></code></pre><p><span>とか。*_outへの入力をassignかalwaysのどちらでやるかは多分適当でよい。</span></p><h4 id="GPIOを扱う" data-id="GPIOを扱う"><a class="anchor hidden-xs" href="#GPIOを扱う" title="GPIOを扱う"><span class="octicon octicon-link"></span></a><span>GPIOを扱う</span></h4><p><span>GPIOの扱い方を解説する。</span></p><p><span>Caravelでは3種類のGPIOに関連した信号線が存在している。</span></p><table>
 <thead>
 <tr>
 <th><span>信号名</span></th>
@@ -262,7 +272,7 @@ make openlane
 <li><code>caravel_user_project/verilog/rtl/&lt;my_design&gt;</code><span>に自分のデザインを入れる</span></li>
 <li><code>caravel_user_project/openlane/&lt;my_design&gt;/config.tcl</code><span>を編集する</span></li>
 <li><code>caravel_user_project/openlane/user_project_wrapper/config.tcl</code><span>を編集する</span></li>
-</ol><h4 id="1caravel_user_projectverilogrtlltmy_designgtに自分のデザインを入れる" data-id="1caravel_user_projectverilogrtlltmy_designgtに自分のデザインを入れる"><a class="anchor hidden-xs" href="#1caravel_user_projectverilogrtlltmy_designgtに自分のデザインを入れる" title="1caravel_user_projectverilogrtlltmy_designgtに自分のデザインを入れる"><span class="octicon octicon-link"></span></a><span>1.</span><code>caravel_user_project/verilog/rtl/&lt;my_design&gt;</code><span>に自分のデザインを入れる</span></h4><p><span>まず</span><code>/verilog/rtl/</code><span>以下に自分のデザインのディレクトリを作成する。そのディレクトリに自分のデザインを入れる。</span></p><h4 id="2-caravel_user_projectopenlaneltmy_designgtconfigtclを編集する" data-id="2-caravel_user_projectopenlaneltmy_designgtconfigtclを編集する"><a class="anchor hidden-xs" href="#2-caravel_user_projectopenlaneltmy_designgtconfigtclを編集する" title="2-caravel_user_projectopenlaneltmy_designgtconfigtclを編集する"><span class="octicon octicon-link"></span></a><span>2. </span><code>caravel_user_project/openlane/&lt;my_design&gt;/config.tcl</code><span>を編集する</span></h4><p><span>wrapperに自分のデザインを挿入する前に一旦OpenLANEで.gdsと.lefを生成する必要がある。そのために何をどうhardenするかOpenLANEに教えるための</span><code>config.tcl</code><span>を、caravelの</span><code>openlane/&lt;my_design&gt;/</code><span>以下に作る。</span></p><p><span>以下をたたき台を置いておくので、下の表に従って編集するとよい</span></p><pre><code class="tcl hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+</ol><h4 id="1caravel_user_projectverilogrtlltmy_designgtに自分のデザインを入れる" data-id="1caravel_user_projectverilogrtlltmy_designgtに自分のデザインを入れる"><a class="anchor hidden-xs" href="#1caravel_user_projectverilogrtlltmy_designgtに自分のデザインを入れる" title="1caravel_user_projectverilogrtlltmy_designgtに自分のデザインを入れる"><span class="octicon octicon-link"></span></a><span>1.</span><code>caravel_user_project/verilog/rtl/&lt;my_design&gt;</code><span>に自分のデザインを入れる</span></h4><p><span>まず</span><code>/verilog/rtl/</code><span>以下に自分のデザインのディレクトリを作成する。そのディレクトリに自分のデザイン(Verilogファイルとか)を入れる。</span></p><h4 id="2-caravel_user_projectopenlaneltmy_designgtconfigtclを編集する" data-id="2-caravel_user_projectopenlaneltmy_designgtconfigtclを編集する"><a class="anchor hidden-xs" href="#2-caravel_user_projectopenlaneltmy_designgtconfigtclを編集する" title="2-caravel_user_projectopenlaneltmy_designgtconfigtclを編集する"><span class="octicon octicon-link"></span></a><span>2. </span><code>caravel_user_project/openlane/&lt;my_design&gt;/config.tcl</code><span>を編集する</span></h4><p><span>wrapperに自分のデザインを挿入する前に一旦OpenLANEで.gdsと.lefを生成する必要がある。そのために</span><code>config.tcl</code><span>を、caravelの</span><code>openlane/&lt;my_design&gt;/</code><span>以下に作る。</span></p><p><span>以下をたたき台を置いておくので、下の表に従って編集するとよい</span></p><pre><code class="tcl hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
 <span></span>
 <span></span>
 <span></span>
@@ -298,8 +308,8 @@ make openlane
 
 <span class="hljs-built_in">set</span> ::env(VERILOG_FILES) <span class="hljs-string">"\
     $::env(CARAVEL_ROOT)/verilog/rtl/defines.v \
-    <span class="hljs-variable">$script_dir</span>/../../verilog/rtl/jacaranda-8/UART/UART.v \ 
-    <span class="hljs-variable">$script_dir</span>/../../verilog/rtl/jacaranda-8/wishbone.v"</span>
+    <span class="hljs-variable">$script_dir</span>/../../verilog/rtl/&lt;my_design&gt;/module1.v \ 
+    <span class="hljs-variable">$script_dir</span>/../../verilog/rtl/&lt;my_design&gt;/module2.v"</span>
 
 <span class="hljs-built_in">set</span> ::env(CLOCK_PORT) wb_clk_i
 <span class="hljs-built_in">set</span> ::env(CLOCK_PERIOD) 10
@@ -340,10 +350,8 @@ make openlane
 <td><span>使うダイの大きさ、最大 0 0 2920 3520</span></td>
 </tr>
 </tbody>
-</table><h4 id="3-caravel_user_projectopenlaneuser_project_wrapperconfigtclを編集する" data-id="3-caravel_user_projectopenlaneuser_project_wrapperconfigtclを編集する"><a class="anchor hidden-xs" href="#3-caravel_user_projectopenlaneuser_project_wrapperconfigtclを編集する" title="3-caravel_user_projectopenlaneuser_project_wrapperconfigtclを編集する"><span class="octicon octicon-link"></span></a><span>3. </span><code>caravel_user_project/openlane/user_project_wrapper/config.tcl</code><span>を編集する</span></h4><p><code>user_project_wrapper.v</code><span>のみを編集する場合は特に何もしなくてよいが、自作のデザインは複数のVerilogファイルから構成される場合が殆どなので、GDSIIに変換する前にVerilogファイル達をOpenLANEに教えてやる必要がある。そのために</span><code>config.tcl</code><span>を編集する。</span><sup class="footnote-ref"><a href="#fn12" id="fnref12">[12]</a></sup></p><p><span>まずは環境変数を２つ追加する。以下をビルドしたPDKとopenlaneのパスに各自書き換える。</span></p><pre><code class="bash hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
-<span></span></div><div class="code"><span class="hljs-built_in">export</span> PDK_ROOT=/path/to/pdk
-<span class="hljs-built_in">export</span> OPENLANE_ROOT=/path/to/openlane
-</div></div></code></pre><p><span>次に、</span><code>caravel_user_project/openlane/user_project_wrapper/config.tcl</code><span>の以下の変数を編集する。</span></p><pre><code class="tcl hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+</table><p><span>以上の設定を終えて</span></p><pre><code class="bash hljs"><div class="wrapper"><div class="gutter linenumber"><span></span></div><div class="code">make &lt;my_design&gt;
+</div></div></code></pre><p><span>をuser_project_wrapper以下で実行するとgds/に自分のデザインのGDSIIファイルが生えてるのでKlayoutとかでオレオレLSIのレイアウトが見られる。</span></p><h4 id="3-caravel_user_projectopenlaneuser_project_wrapperconfigtclを編集する" data-id="3-caravel_user_projectopenlaneuser_project_wrapperconfigtclを編集する"><a class="anchor hidden-xs" href="#3-caravel_user_projectopenlaneuser_project_wrapperconfigtclを編集する" title="3-caravel_user_projectopenlaneuser_project_wrapperconfigtclを編集する"><span class="octicon octicon-link"></span></a><span>3. </span><code>caravel_user_project/openlane/user_project_wrapper/config.tcl</code><span>を編集する</span></h4><p><code>user_project_wrapper.v</code><span>のみを編集する場合は特に何もしなくてよいが、自作のデザインは複数のVerilogファイルから構成される場合が殆どなので、GDSIIに変換する前にVerilogファイル達をOpenLANEに教えてやる必要がある。そのために</span><code>config.tcl</code><span>を編集する。</span><sup class="footnote-ref"><a href="#fn12" id="fnref12">[12]</a></sup></p><p><span>まず、</span><code>caravel_user_project/openlane/user_project_wrapper/config.tcl</code><span>の以下の変数を編集する。</span></p><pre><code class="tcl hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
 <span></span>
 <span></span>
 <span></span>
@@ -363,9 +371,10 @@ make openlane
 </div></div></code></pre><ul>
 <li><code>VERILOG_FILES_BLACKBOX</code><span>には</span><code>user_project_example.v</code><span>を消して自分のVerilogファイル群を書き込む。</span></li>
 <li><code>defines.v</code><span>はそのままでよい。</span></li>
-<li><code>EXTRA_LEFS</code><span>と</span><code>EXTRA_GDS_FILES</code><span>には</span><code>user_proj_example.(lef/gds)</code><span>を消して、代わりにモジュール</span><code>user_project_wrapper</code><span>の一階層下のモジュールの名前を入れる。</span><sup class="footnote-ref"><a href="#fn13" id="fnref13">[13]</a></sup></li>
+<li><code>EXTRA_LEFS</code><span>と</span><code>EXTRA_GDS_FILES</code><span>には</span><code>user_proj_example.(lef/gds)</code><span>を消して、代わりに2で生成したGDSIIとLEFファイルのパスを書き込む。</span><sup class="footnote-ref"><a href="#fn13" id="fnref13">[13]</a></sup></li>
 </ul><p><span>最後に</span><code>MACRO_PLACEMENT_CFG</code><span>の行を削除する。</span></p><pre><code class="cpp hljs"><div class="wrapper"><div class="gutter linenumber"><span></span></div><div class="code">set <span class="token operator">::</span><span class="token function">env</span><span class="token punctuation">(</span>MACRO_PLACEMENT_CFG<span class="token punctuation">)</span> $script_dir<span class="token operator">/</span>macro<span class="token punctuation">.</span>cfg
-</div></div></code></pre><h3 id="3テストベンチファームウェアを書く" data-id="3テストベンチファームウェアを書く"><a class="anchor hidden-xs" href="#3テストベンチファームウェアを書く" title="3テストベンチファームウェアを書く"><span class="octicon octicon-link"></span></a><span>3.テストベンチ/ファームウェアを書く</span></h3><p><span>オレオレLSIが完成したら、それが正しく動作するか確かめる必要がある。そういうわけでテストベンチ又はファームウェアの書き方を解説する。サンプルは</span><code>verilog/dv/</code><span>以下に色々入っているので参考にするとよい。</span></p><p><code>verilog/dv/</code><span>以下で作業を行う。</span></p><h4 id="General" data-id="General"><a class="anchor hidden-xs" href="#General" title="General"><span class="octicon octicon-link"></span></a><span>General</span></h4><p><span>ここではCaravelでファームウェア又はテストベンチの実行方法を解説する。</span></p><p><span>コンパイルとシミュレーション環境に関してはDockerイメージが提供されている。</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span></div><div class="code">docker pull efabless/dv_setup:latest
+</div></div></code></pre><p><span>以上が完了して、</span></p><pre><code class="bash hljs"><div class="wrapper"><div class="gutter linenumber"><span></span></div><div class="code">make user_project_wrapper
+</div></div></code></pre><p><span>を実行するとgds/にラッパーのGDSIIファイルが生えてる、これが最終的にテープアウトされる。</span></p><h3 id="3テストベンチファームウェアを書く" data-id="3テストベンチファームウェアを書く"><a class="anchor hidden-xs" href="#3テストベンチファームウェアを書く" title="3テストベンチファームウェアを書く"><span class="octicon octicon-link"></span></a><span>3.テストベンチ/ファームウェアを書く</span></h3><p><span>オレオレLSIが完成したら、それが正しく動作するか確かめる必要がある。そういうわけでテストベンチ又はファームウェアの書き方を解説する。サンプルは</span><code>verilog/dv/</code><span>以下に色々入っているので参考にするとよい。</span></p><p><code>verilog/dv/</code><span>以下で作業を行う。</span></p><h4 id="General" data-id="General"><a class="anchor hidden-xs" href="#General" title="General"><span class="octicon octicon-link"></span></a><span>General</span></h4><p><span>ここではCaravelでファームウェア又はテストベンチの実行方法を解説する。</span></p><p><span>コンパイルとシミュレーション環境に関してはDockerイメージが提供されている。</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span></div><div class="code">docker pull efabless/dv_setup:latest
 </div></div></code></pre><p><span>環境変数の設定</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
 <span></span>
 <span></span></div><div class="code">export PDK_PATH=&lt;pdk-location/sky130A&gt;
@@ -379,33 +388,7 @@ make
 </div></div></code></pre><p><code>SIM=GL make</code><span>でゲートレベル</span><sup class="footnote-ref"><a href="#fn14" id="fnref14">[14]</a></sup><span>のシミュレーションも出来る。</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
 <span></span></div><div class="code">cd &lt;dv-test&gt;
 SIM=GL make
-</div></div></code></pre><p><span>ここまで解説してもそもそもプログラムとかテストベンチとかMakefileの書き方とか何もわからないと思うので、以降ではそれぞれ解説していく。</span></p><h4 id="Makefileの書き方" data-id="Makefileの書き方"><a class="anchor hidden-xs" href="#Makefileの書き方" title="Makefileの書き方"><span class="octicon octicon-link"></span></a><span>Makefileの書き方</span></h4><p><span>他のdv以下のディレクトリからコピペでいい。ただ43行目あたりに</span><code>PATTERN = 〜</code><span>と書いてある行があるので好きな名前に変えるとよい。</span></p><h4 id="テストベンチのたたき台を作る" data-id="テストベンチのたたき台を作る"><a class="anchor hidden-xs" href="#テストベンチのたたき台を作る" title="テストベンチのたたき台を作る"><span class="octicon octicon-link"></span></a><strong><span>テストベンチのたたき台を作る</span></strong></h4><p><span>テストベンチを書くための大枠をここでは紹介する。基本はそれに書き加えれば大抵のことは出来るはず。またMakefileを改造したりして自作のライブラリとかも利用出来ると思う。</span></p><h5 id="verilog" data-id="verilog"><a class="anchor hidden-xs" href="#verilog" title="verilog"><span class="octicon octicon-link"></span></a><span>verilog</span></h5><pre><code class="verilog hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
+</div></div></code></pre><p><span>ここまで解説してもそもそもプログラムとかテストベンチとかMakefileの書き方とか何もわからないと思うので、以降ではそれぞれ解説していく。</span></p><h4 id="Makefileの書き方" data-id="Makefileの書き方"><a class="anchor hidden-xs" href="#Makefileの書き方" title="Makefileの書き方"><span class="octicon octicon-link"></span></a><span>Makefileの書き方</span></h4><p><span>他のdv以下のディレクトリからコピペでいい。ただ43行目あたりに</span><code>PATTERN = 〜</code><span>と書いてある行があるので好きな名前に変えるとよい。</span></p><h4 id="テストベンチのたたき台を作る" data-id="テストベンチのたたき台を作る"><a class="anchor hidden-xs" href="#テストベンチのたたき台を作る" title="テストベンチのたたき台を作る"><span class="octicon octicon-link"></span></a><strong><span>テストベンチのたたき台を作る</span></strong></h4><p><span>テストベンチを書くための大枠をここでは紹介する。基本はそれに書き加えれば大抵のことは出来るはず。またMakefileを改造したりして自作のライブラリとかも利用出来る。</span></p><p><span>以下に基本的なテストベンチを載せる。これはCaravelにクロックを70000サイクル流して、波形ファイルを出力する。</span></p><h5 id="verilog" data-id="verilog"><a class="anchor hidden-xs" href="#verilog" title="verilog"><span class="octicon octicon-link"></span></a><span>verilog</span></h5><pre><code class="verilog hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
 <span></span>
 <span></span>
 <span></span>
@@ -524,139 +507,145 @@ SIM=GL make
 <span class="hljs-meta">`<span class="hljs-meta-keyword">include</span> "uprj_netlists.v"</span>
 <span class="hljs-meta">`<span class="hljs-meta-keyword">include</span> "caravel_netlists.v"</span>
 <span class="hljs-meta">`<span class="hljs-meta-keyword">include</span> "spiflash.v"</span>
-<span class="hljs-meta">`<span class="hljs-meta-keyword">include</span> "tbuart.v"</span>
 
-<span class="hljs-keyword">module</span> la_test1_tb;
-    <span class="hljs-keyword">reg</span> clock;
-    <span class="hljs-keyword">reg</span> RSTB;
-    <span class="hljs-keyword">reg</span> CSB;
+<span class="hljs-keyword">module</span> my_design_tb;
+	<span class="hljs-keyword">reg</span> clock;
+	<span class="hljs-keyword">reg</span> RSTB;
+	<span class="hljs-keyword">reg</span> CSB;
+	<span class="hljs-keyword">reg</span> power1, power2;
+	<span class="hljs-keyword">reg</span> power3, power4;
 
-    <span class="hljs-keyword">reg</span> power1, power2;
-    <span class="hljs-keyword">reg</span> power3, power4;
+	<span class="hljs-keyword">wire</span> gpio;
+	<span class="hljs-keyword">wire</span> [<span class="hljs-number">37</span>:<span class="hljs-number">0</span>] mprj_io;
 
-    <span class="hljs-keyword">wire</span> gpio;
-    <span class="hljs-keyword">wire</span> uart_tx;
-    <span class="hljs-keyword">wire</span> [<span class="hljs-number">37</span>:<span class="hljs-number">0</span>] mprj_io;
-    <span class="hljs-keyword">wire</span> [<span class="hljs-number">15</span>:<span class="hljs-number">0</span>] checkbits;
+	<span class="hljs-comment">// External clock is used by default.  Make this artificially fast for the</span>
+	<span class="hljs-comment">// simulation.  Normally this would be a slow clock and the digital PLL</span>
+	<span class="hljs-comment">// would be the fast clock.</span>
 
-    <span class="hljs-keyword">assign</span> checkbits  = mprj_io[<span class="hljs-number">31</span>:<span class="hljs-number">16</span>]; 
-    <span class="hljs-keyword">assign</span> uart_tx = mprj_io[<span class="hljs-number">6</span>];
+	<span class="hljs-keyword">always</span> #<span class="hljs-number">12</span><span class="hljs-variable">.5</span> clock &lt;= (clock === <span class="hljs-number">1'b0</span>);
 
-    <span class="hljs-keyword">always</span> #<span class="hljs-number">12</span><span class="hljs-variable">.5</span> clock &lt;= (clock === <span class="hljs-number">1'b0</span>);
+	<span class="hljs-keyword">initial</span> <span class="hljs-keyword">begin</span>
+		clock = <span class="hljs-number">0</span>;
+	<span class="hljs-keyword">end</span>
 
-    <span class="hljs-keyword">initial</span> <span class="hljs-keyword">begin</span>
-    	clock = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">end</span>
+	<span class="hljs-keyword">initial</span> <span class="hljs-keyword">begin</span>
+        <span class="hljs-built_in">$dumpfile</span>(<span class="hljs-string">"my_design_tb.fst"</span>);
+        <span class="hljs-built_in">$dumpvars</span>(<span class="hljs-number">0</span>, my_design_tb);
 
-    <span class="hljs-keyword">assign</span> mprj_io[<span class="hljs-number">3</span>] = (CSB == <span class="hljs-number">1'b1</span>) ? <span class="hljs-number">1'b1</span> : <span class="hljs-number">1'bz</span>;
+		<span class="hljs-comment">// Repeat cycles of 1000 clock edges as needed to complete testbench</span>
+		<span class="hljs-keyword">repeat</span> (<span class="hljs-number">70</span>) <span class="hljs-keyword">begin</span>
+			<span class="hljs-keyword">repeat</span> (<span class="hljs-number">1000</span>) @(<span class="hljs-keyword">posedge</span> clock);
+			    <span class="hljs-built_in">$display</span>(<span class="hljs-string">"+1000 cycles"</span>);
+		<span class="hljs-keyword">end</span>
+		<span class="hljs-built_in">$finish</span>;
+	<span class="hljs-keyword">end</span>
 
-    <span class="hljs-keyword">initial</span> <span class="hljs-keyword">begin</span>
-        <span class="hljs-comment">// $dumpfile("la_test1.vcd");</span>
-        <span class="hljs-comment">// $dumpvars(0, la_test1_tb);</span>
+	<span class="hljs-keyword">initial</span> <span class="hljs-keyword">begin</span>
+		RSTB &lt;= <span class="hljs-number">1'b0</span>;
+		CSB  &lt;= <span class="hljs-number">1'b1</span>;		<span class="hljs-comment">// Force CSB high</span>
+		#<span class="hljs-number">2000</span>;
+		RSTB &lt;= <span class="hljs-number">1'b1</span>;	    	<span class="hljs-comment">// Release reset</span>
+		#<span class="hljs-number">170000</span>;
+		CSB = <span class="hljs-number">1'b0</span>;		<span class="hljs-comment">// CSB can be released</span>
+	<span class="hljs-keyword">end</span>
 
-        <span class="hljs-comment">// Repeat cycles of 1000 clock edges as needed to complete testbench</span>
-        <span class="hljs-keyword">repeat</span> (<span class="hljs-number">200</span>) <span class="hljs-keyword">begin</span>
-            <span class="hljs-keyword">repeat</span> (<span class="hljs-number">1000</span>) @(<span class="hljs-keyword">posedge</span> clock);
-            <span class="hljs-comment">// $display("+1000 cycles");</span>
-        <span class="hljs-keyword">end</span>
-        <span class="hljs-built_in">$display</span>(<span class="hljs-string">"%c[1;31m"</span>,<span class="hljs-number">27</span>);
-        <span class="hljs-meta">`<span class="hljs-meta-keyword">ifdef</span> GL</span>
-            <span class="hljs-built_in">$display</span> (<span class="hljs-string">"Monitor: Timeout, Test LA (GL) Failed"</span>);
-        <span class="hljs-meta">`<span class="hljs-meta-keyword">else</span></span>
-            <span class="hljs-built_in">$display</span> (<span class="hljs-string">"Monitor: Timeout, Test LA (RTL) Failed"</span>);
-        <span class="hljs-meta">`<span class="hljs-meta-keyword">endif</span></span>
-        <span class="hljs-built_in">$display</span>(<span class="hljs-string">"%c[0m"</span>,<span class="hljs-number">27</span>);
-        <span class="hljs-built_in">$finish</span>;    
-    <span class="hljs-keyword">end</span>
-    <span class="hljs-keyword">initial</span> <span class="hljs-keyword">begin</span>
-        <span class="hljs-keyword">wait</span>(checkbits == <span class="hljs-number">16'hAB40</span>);
-        <span class="hljs-built_in">$display</span>(<span class="hljs-string">"LA Test 1 started"</span>);
-        <span class="hljs-keyword">wait</span>(checkbits == <span class="hljs-number">16'hAB41</span>);
-        <span class="hljs-keyword">wait</span>(checkbits == <span class="hljs-number">16'hAB51</span>);
-        #<span class="hljs-number">10000</span>;
-        <span class="hljs-built_in">$finish</span>;
-    <span class="hljs-keyword">end</span>
+	<span class="hljs-keyword">initial</span> <span class="hljs-keyword">begin</span>		<span class="hljs-comment">// Power-up sequence</span>
+		power1 &lt;= <span class="hljs-number">1'b0</span>;
+		power2 &lt;= <span class="hljs-number">1'b0</span>;
+		power3 &lt;= <span class="hljs-number">1'b0</span>;
+		power4 &lt;= <span class="hljs-number">1'b0</span>;
+		#<span class="hljs-number">100</span>;
+		power1 &lt;= <span class="hljs-number">1'b1</span>;
+		#<span class="hljs-number">100</span>;
+		power2 &lt;= <span class="hljs-number">1'b1</span>;
+		#<span class="hljs-number">100</span>;
+		power3 &lt;= <span class="hljs-number">1'b1</span>;
+		#<span class="hljs-number">100</span>;
+		power4 &lt;= <span class="hljs-number">1'b1</span>;
+	<span class="hljs-keyword">end</span>
 
-    <span class="hljs-keyword">initial</span> <span class="hljs-keyword">begin</span>
-        RSTB &lt;= <span class="hljs-number">1'b0</span>;
-        CSB  &lt;= <span class="hljs-number">1'b1</span>;		<span class="hljs-comment">// Force CSB high</span>
-        #<span class="hljs-number">2000</span>;
-        RSTB &lt;= <span class="hljs-number">1'b1</span>;	    	<span class="hljs-comment">// Release reset</span>
-        #<span class="hljs-number">170000</span>;
-        CSB = <span class="hljs-number">1'b0</span>;		<span class="hljs-comment">// CSB can be released</span>
-    <span class="hljs-keyword">end</span>
+	<span class="hljs-keyword">wire</span> flash_csb;
+	<span class="hljs-keyword">wire</span> flash_clk;
+	<span class="hljs-keyword">wire</span> flash_io0;
+	<span class="hljs-keyword">wire</span> flash_io1;
 
-    <span class="hljs-keyword">initial</span> <span class="hljs-keyword">begin</span>		<span class="hljs-comment">// Power-up sequence</span>
-        power1 &lt;= <span class="hljs-number">1'b0</span>;
-        power2 &lt;= <span class="hljs-number">1'b0</span>;
-        power3 &lt;= <span class="hljs-number">1'b0</span>;
-        power4 &lt;= <span class="hljs-number">1'b0</span>;
-        #<span class="hljs-number">100</span>;
-        power1 &lt;= <span class="hljs-number">1'b1</span>;
-        #<span class="hljs-number">100</span>;
-        power2 &lt;= <span class="hljs-number">1'b1</span>;
-        #<span class="hljs-number">100</span>;
-        power3 &lt;= <span class="hljs-number">1'b1</span>;
-        #<span class="hljs-number">100</span>;
-        power4 &lt;= <span class="hljs-number">1'b1</span>;
-    <span class="hljs-keyword">end</span>
+	<span class="hljs-keyword">wire</span> VDD3V3 = power1;
+	<span class="hljs-keyword">wire</span> VDD1V8 = power2;
+	<span class="hljs-keyword">wire</span> USER_VDD3V3 = power3;
+	<span class="hljs-keyword">wire</span> USER_VDD1V8 = power4;
+	<span class="hljs-keyword">wire</span> VSS = <span class="hljs-number">1'b0</span>;
 
-
-    <span class="hljs-keyword">wire</span> flash_csb;
-    <span class="hljs-keyword">wire</span> flash_clk;
-    <span class="hljs-keyword">wire</span> flash_io0;
-    <span class="hljs-keyword">wire</span> flash_io1;
-    
-    
-    <span class="hljs-keyword">wire</span> VDD3V3 = power1;
-    <span class="hljs-keyword">wire</span> VDD1V8 = power2;
-    <span class="hljs-keyword">wire</span> USER_VDD3V3 = power3;
-    <span class="hljs-keyword">wire</span> USER_VDD1V8 = power4;
-    <span class="hljs-keyword">wire</span> VSS = <span class="hljs-number">1'b0</span>;
-
-    caravel uut (
-        <span class="hljs-variable">.vddio</span>	  (VDD3V3),
-        <span class="hljs-variable">.vssio</span>	  (VSS),
-        <span class="hljs-variable">.vdda</span>	  (VDD3V3),
-        <span class="hljs-variable">.vssa</span>	  (VSS),
-        <span class="hljs-variable">.vccd</span>	  (VDD1V8),
-        <span class="hljs-variable">.vssd</span>	  (VSS),
-        <span class="hljs-variable">.vdda1</span>    (USER_VDD3V3),
-        <span class="hljs-variable">.vdda2</span>    (USER_VDD3V3),
-        <span class="hljs-variable">.vssa1</span>	  (VSS),
-        <span class="hljs-variable">.vssa2</span>	  (VSS),
-        <span class="hljs-variable">.vccd1</span>	  (USER_VDD1V8),
-        <span class="hljs-variable">.vccd2</span>	  (USER_VDD1V8),
-        <span class="hljs-variable">.vssd1</span>	  (VSS),
-        <span class="hljs-variable">.vssd2</span>	  (VSS),
-        <span class="hljs-variable">.clock</span>	  (clock),
-        <span class="hljs-variable">.gpio</span>     (gpio),
+	caravel uut (
+		<span class="hljs-variable">.vddio</span>	  (VDD3V3),
+		<span class="hljs-variable">.vssio</span>	  (VSS),
+		<span class="hljs-variable">.vdda</span>	  (VDD3V3),
+		<span class="hljs-variable">.vssa</span>	  (VSS),
+		<span class="hljs-variable">.vccd</span>	  (VDD1V8),
+		<span class="hljs-variable">.vssd</span>	  (VSS),
+		<span class="hljs-variable">.vdda1</span>    (USER_VDD3V3),
+		<span class="hljs-variable">.vdda2</span>    (USER_VDD3V3),
+		<span class="hljs-variable">.vssa1</span>	  (VSS),
+		<span class="hljs-variable">.vssa2</span>	  (VSS),
+		<span class="hljs-variable">.vccd1</span>	  (USER_VDD1V8),
+		<span class="hljs-variable">.vccd2</span>	  (USER_VDD1V8),
+		<span class="hljs-variable">.vssd1</span>	  (VSS),
+		<span class="hljs-variable">.vssd2</span>	  (VSS),
+		<span class="hljs-variable">.clock</span>	  (clock),
+		<span class="hljs-variable">.gpio</span>     (gpio),
         <span class="hljs-variable">.mprj_io</span>  (mprj_io),
-        <span class="hljs-variable">.flash_csb</span>(flash_csb),
-        <span class="hljs-variable">.flash_clk</span>(flash_clk),
-        <span class="hljs-variable">.flash_io0</span>(flash_io0),
-        <span class="hljs-variable">.flash_io1</span>(flash_io1),
-        <span class="hljs-variable">.resetb</span>	  (RSTB)
-    );
+		<span class="hljs-variable">.flash_csb</span>(flash_csb),
+		<span class="hljs-variable">.flash_clk</span>(flash_clk),
+		<span class="hljs-variable">.flash_io0</span>(flash_io0),
+		<span class="hljs-variable">.flash_io1</span>(flash_io1),
+		<span class="hljs-variable">.resetb</span>	  (RSTB)
+	);
 
-    spiflash #(
-        <span class="hljs-variable">.FILENAME</span>(<span class="hljs-string">"la_test1.hex"</span>)
-    ) spiflash (
-        <span class="hljs-variable">.csb</span>(flash_csb),
-        <span class="hljs-variable">.clk</span>(flash_clk),
-        <span class="hljs-variable">.io0</span>(flash_io0),
-        <span class="hljs-variable">.io1</span>(flash_io1),
-        <span class="hljs-variable">.io2</span>(),			<span class="hljs-comment">// not used</span>
-        <span class="hljs-variable">.io3</span>()			<span class="hljs-comment">// not used</span>
-    );
-
-    <span class="hljs-comment">// Testbench UART</span>
-    tbuart tbuart (
-        <span class="hljs-variable">.ser_rx</span>(uart_tx)
-    );
+	spiflash #(
+		<span class="hljs-variable">.FILENAME</span>(<span class="hljs-string">"jacaranda_test.hex"</span>)
+	) spiflash (
+		<span class="hljs-variable">.csb</span>(flash_csb),
+		<span class="hljs-variable">.clk</span>(flash_clk),
+		<span class="hljs-variable">.io0</span>(flash_io0),
+		<span class="hljs-variable">.io1</span>(flash_io1),
+		<span class="hljs-variable">.io2</span>(),			<span class="hljs-comment">// not used</span>
+		<span class="hljs-variable">.io3</span>()			<span class="hljs-comment">// not used</span>
+	);
 
 <span class="hljs-keyword">endmodule</span>
-</div></div></code></pre><h5 id="ソフトウェア" data-id="ソフトウェア"><a class="anchor hidden-xs" href="#ソフトウェア" title="ソフトウェア"><span class="octicon octicon-link"></span></a><span>ソフトウェア</span></h5><pre><code class="c hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+<span class="hljs-meta">`<span class="hljs-meta-keyword">default_nettype</span> wire</span>
+</div></div></code></pre><h5 id="ファームウェア" data-id="ファームウェア"><a class="anchor hidden-xs" href="#ファームウェア" title="ファームウェア"><span class="octicon octicon-link"></span></a><strong><span>ファームウェア</span></strong></h5><p><span>以下はIOをコンフィグしたり、0x30000004に0xDEADBEEFを書き込んだりLogic Analyzerの[31:0]に1を入力したり、色々適当な事をやるファームウェアの例。各インターフェースに対する詳しいファームウェアの書き方をこの下から解説する。</span></p><pre><code class="c hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
 <span></span>
 <span></span>
 <span></span>
@@ -664,8 +653,40 @@ SIM=GL make
 <span></span></div><div class="code"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"verilog/dv/caravel/defs.h"</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"verilog/dv/caravel/stub.c"</span></span>
 
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"Hello World!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">BASE_ADDR</span> <span class="token expression"><span class="token number">0x30000000</span></span></span>
+
+<span class="token keyword">static</span> <span class="token keyword">void</span>
+<span class="token function">write</span><span class="token punctuation">(</span><span class="token class-name">uint32_t</span> addr<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> val<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span>addr <span class="token operator">=</span> val<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">void</span>
+<span class="token function">reset</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    reg_mprj_io_37 <span class="token operator">=</span> GPIO_MODE_MGMT_STD_OUTPUT<span class="token punctuation">;</span>
+    reg_la0_iena <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    reg_la0_oenb <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+    reg_la0_data <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    reg_mprj_xfer <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>reg_mprj_xfer <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">void</span>
+<span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    reg_spimaster_config <span class="token operator">=</span> <span class="token number">0xa002</span><span class="token punctuation">;</span>
+
+    <span class="token function">reset</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    reg_la0_data <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+
+    <span class="token function">write</span><span class="token punctuation">(</span>BASE_ADDR<span class="token operator">+</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">0xDEADBEEF</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    reg_la0_data <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </div></div></code></pre><h4 id="User-Project-Areaから外部へ出ているGPIO" data-id="User-Project-Areaから外部へ出ているGPIO"><a class="anchor hidden-xs" href="#User-Project-Areaから外部へ出ているGPIO" title="User-Project-Areaから外部へ出ているGPIO"><span class="octicon octicon-link"></span></a><span>User Project Areaから外部へ出ているGPIO</span></h4><h5 id="Configuration" data-id="Configuration"><a class="anchor hidden-xs" href="#Configuration" title="Configuration"><span class="octicon octicon-link"></span></a><span>Configuration</span></h5><p><span>このGPIOは38本存在するが、それぞれにコンフィグ用のレジスタ(グローバル変数として扱える)</span><code>reg_mprj_io_0</code><span>~</span><code>reg_mprj_io_37</code><span>が存在する。それぞれに以下の値を設定出来る。</span></p><table>
 <thead>
@@ -728,10 +749,13 @@ SIM=GL make
 <td><span>謎</span></td>
 </tr>
 </tbody>
-</table><h5 id="Activation" data-id="Activation"><a class="anchor hidden-xs" href="#Activation" title="Activation"><span class="octicon octicon-link"></span></a><span>Activation</span></h5><p><span>GPIOを有効にするためのレジスタ(グローバル変数として扱える)</span><code>reg_mprj_xfer</code><span>が存在する。これをHighにすれば上記の設定内容が適用され、GPIOが有効になるが、その際に以下の記述が必要である</span><sup class="footnote-ref"><a href="#fn15" id="fnref15">[15]</a></sup><span>。</span></p><pre><code class="c hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+</table><p><span>こんな感じでコンフィグする。</span></p><pre><code class="c hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+<span></span></div><div class="code">reg_mprj_io_0 <span class="token operator">=</span> GPIO_MODE_USER_STD_OUTPUT<span class="token punctuation">;</span>
+reg_mprj_io_1 <span class="token operator">=</span> GPIO_MODE_USER_STD_INPUT_PULLUP<span class="token punctuation">;</span>
+</div></div></code></pre><h5 id="Activation" data-id="Activation"><a class="anchor hidden-xs" href="#Activation" title="Activation"><span class="octicon octicon-link"></span></a><span>Activation</span></h5><p><span>GPIOを有効にするためのグローバル変数</span><code>reg_mprj_xfer</code><span>が存在する。これをHighにすれば上記の設定内容が適用され、GPIOが有効になるが、その際に以下の記述が必要である</span><sup class="footnote-ref"><a href="#fn15" id="fnref15">[15]</a></sup><span>。</span></p><pre><code class="c hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
 <span></span></div><div class="code"> reg_mprj_xfer <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
  <span class="token keyword">while</span> <span class="token punctuation">(</span>reg_mprj_xfer <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</div></div></code></pre><p><span>一見無限ループだが、謎のテクノロジーでループを抜けるので機械的にコピペすればいい。</span></p><h5 id="Data" data-id="Data"><a class="anchor hidden-xs" href="#Data" title="Data"><span class="octicon octicon-link"></span></a><span>Data</span></h5><p><span>GPIOを</span><code>GPIO_USER_MODE_STD_*</code><span>に設定した場合にのみ(多分)(未検証)、以下のレジスタを介してGPIOからSoC側にデータを入出力することが可能である。</span></p><ul>
+</div></div></code></pre><p><span>一見無限ループだが、謎のテクノロジーでループを抜けるので機械的にコピペすればいい。</span></p><h5 id="Data" data-id="Data"><a class="anchor hidden-xs" href="#Data" title="Data"><span class="octicon octicon-link"></span></a><span>Data</span></h5><p><span>GPIOを</span><code>GPIO_MGMT_MODE_STD_*</code><span>に設定した場合にのみ(未検証)、以下のレジスタを介してGPIOからSoC側にデータを入出力することが可能である。</span></p><ul>
 <li><code>reg_mprj_datal</code><span> : 最初の32本の値を入出力</span></li>
 <li><code>reg_mprj_datah</code><span> : 残りの6本の値を入出力</span></li>
 </ul><h4 id="User-Project-AreaとSoCをつなぐLogic-Analyzer線" data-id="User-Project-AreaとSoCをつなぐLogic-Analyzer線"><a class="anchor hidden-xs" href="#User-Project-AreaとSoCをつなぐLogic-Analyzer線" title="User-Project-AreaとSoCをつなぐLogic-Analyzer線"><span class="octicon octicon-link"></span></a><span>User Project AreaとSoCをつなぐLogic Analyzer線</span></h4><p><span>User Project AreaとSoCは128本のLogic Analyzer線(以下LA線)で接続されており、名前とは裏腹にデータのやり取りが可能である。</span></p><h5 id="Configuration1" data-id="Configuration"><a class="anchor hidden-xs" href="#Configuration1" title="Configuration1"><span class="octicon octicon-link"></span></a><span>Configuration</span></h5><p><span>各LA線の入出力は</span><code>reg_la0_oenb</code><span> ~ </span><code>reg_la3_oenb</code><span>と</span><code>reg_la0_ienb</code><span> ~ </span><code>reg_la3_oenb</code><span>という各32ビットのレジスタで設定できる。1でSoC側への入力、0でSoC側から出力と考えればよい</span><sup class="footnote-ref"><a href="#fn16" id="fnref16">[16]</a></sup><span>。</span></p><pre><code class="c hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
@@ -755,10 +779,10 @@ buffer3 <span class="token operator">=</span> reg_la3_data<span class="token pun
 </div></div></code></pre><p><span>このLA線を使ってSoC側からUser Project Areaにいい感じに分周したクロックとかリセットを入力出来たりするらしい。需要があったら書く(つかれた)。</span></p><p><span>ここ</span><sup class="footnote-ref"><a href="#fn17" id="fnref17">[17]</a></sup><span>らへんを読めば出来る</span></p><h3 id="4GDSIIのビルド18" data-id="4GDSIIのビルド18"><a class="anchor hidden-xs" href="#4GDSIIのビルド18" title="4GDSIIのビルド18"><span class="octicon octicon-link"></span></a><span>4.GDSIIのビルド</span><sup class="footnote-ref"><a href="#fn18" id="fnref18">[18]</a></sup></h3><p><span>以下を実行すればgds以下にGDSIIが生える。</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
 <span></span></div><div class="code">make &lt;my_design&gt;
 make user_project_wrapper
-</div></div></code></pre><h3 id="5プリチェックツールを走らせる1920" data-id="5プリチェックツールを走らせる1920"><a class="anchor hidden-xs" href="#5プリチェックツールを走らせる1920" title="5プリチェックツールを走らせる1920"><span class="octicon octicon-link"></span></a><span>5.プリチェックツールを走らせる</span><sup class="footnote-ref"><a href="#fn19" id="fnref19">[19]</a></sup><sup class="footnote-ref"><a href="#fn20" id="fnref20">[20]</a></sup></h3><p><span>以下のコマンドをforkしたcaravelリポジトリの直下で実行する</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+</div></div></code></pre><h3 id="5プリチェックツールを走らせる1920" data-id="5プリチェックツールを走らせる1920"><a class="anchor hidden-xs" href="#5プリチェックツールを走らせる1920" title="5プリチェックツールを走らせる1920"><span class="octicon octicon-link"></span></a><span>5.プリチェックツールを走らせる</span><sup class="footnote-ref"><a href="#fn19" id="fnref19">[19]</a></sup><sup class="footnote-ref"><a href="#fn20" id="fnref20">[20]</a></sup></h3><p><span>以下のコマンドを実行する</span></p><pre><code class="shell hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
 <span></span></div><div class="code">make precheck // プリチェックツールのインストール
 make run-precheck // プリチェックツールを走らせる
-</div></div></code></pre><p><span>既にプリチェックツールがインストールされている場合は1つ目は必要ない</span></p><p><span>TODO:続き書け</span></p><hr class="footnotes-sep"><section class="footnotes">
+</div></div></code></pre><p><span>既にプリチェックツールがインストールされている場合は1つ目は必要ない、これで全部パスしたなら殆どの場合Tapeout出来る。</span></p><hr class="footnotes-sep"><section class="footnotes">
 <ol class="footnotes-list">
 <li id="fn1" class="footnote-item"><p><span>気軽にLSIが焼けたらうれしいので</span> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
 </li>
@@ -811,7 +835,7 @@ make run-precheck // プリチェックツールを走らせる
             </a>
             <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
                 <div class="toc"><ul class="nav">
-<li><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
+<li class=""><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
 <li><a href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a><ul class="nav">
 <li><a href="#OpenMPWの概要" title="OpenMPWの概要">OpenMPWの概要</a></li>
 <li><a href="#必要要件" title="必要要件">必要要件</a></li>
@@ -819,12 +843,12 @@ make run-precheck // プリチェックツールを走らせる
 <li><a href="#各種リンク" title="各種リンク">各種リンク</a></li>
 </ul>
 </li>
-<li><a href="#LSIを焼こう！1-未完成" title="LSIを焼こう！[1] (未完成)">LSIを焼こう！[1] (未完成)</a><ul class="nav">
+<li class=""><a href="#LSIを焼こう！1-未完成" title="LSIを焼こう！[1] (未完成)">LSIを焼こう！[1] (未完成)</a><ul class="nav">
 <li><a href="#必要なもの" title="必要なもの">必要なもの</a></li>
 <li><a href="#1各種インストール-amp-ビルド" title="1.各種インストール &amp; ビルド">1.各種インストール &amp; ビルド</a></li>
 <li><a href="#2デザインを自作する" title="2.デザインを自作する">2.デザインを自作する</a></li>
 <li><a href="#3デザインをCaravelに載せる1011" title="3.デザインをCaravelに載せる[10][11]">3.デザインをCaravelに載せる[10][11]</a></li>
-<li><a href="#3テストベンチファームウェアを書く" title="3.テストベンチ/ファームウェアを書く">3.テストベンチ/ファームウェアを書く</a></li>
+<li class=""><a href="#3テストベンチファームウェアを書く" title="3.テストベンチ/ファームウェアを書く">3.テストベンチ/ファームウェアを書く</a></li>
 <li><a href="#4GDSIIのビルド18" title="4.GDSIIのビルド[18]">4.GDSIIのビルド[18]</a></li>
 <li><a href="#5プリチェックツールを走らせる1920" title="5.プリチェックツールを走らせる[19][20]">5.プリチェックツールを走らせる[19][20]</a></li>
 </ul>
@@ -838,20 +862,20 @@ make run-precheck // プリチェックツールを走らせる
     </div>
     <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;" null null>
         <div class="toc"><ul class="nav">
-<li><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
-<li><a href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a><ul class="nav">
-<li><a href="#OpenMPWの概要" title="OpenMPWの概要">OpenMPWの概要</a></li>
-<li><a href="#必要要件" title="必要要件">必要要件</a></li>
-<li><a href="#まとめ" title="まとめ">まとめ</a></li>
-<li><a href="#各種リンク" title="各種リンク">各種リンク</a></li>
+<li class=""><a href="#OpenMPW" title="OpenMPW">OpenMPW</a><ul class="nav">
+<li class=""><a href="#20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々" title="20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a><ul class="nav">
+<li class=""><a href="#OpenMPWの概要" title="OpenMPWの概要">OpenMPWの概要</a></li>
+<li class=""><a href="#必要要件" title="必要要件">必要要件</a></li>
+<li class=""><a href="#まとめ" title="まとめ">まとめ</a></li>
+<li class=""><a href="#各種リンク" title="各種リンク">各種リンク</a></li>
 </ul>
 </li>
-<li><a href="#LSIを焼こう！1-未完成" title="LSIを焼こう！[1] (未完成)">LSIを焼こう！[1] (未完成)</a><ul class="nav">
-<li><a href="#必要なもの" title="必要なもの">必要なもの</a></li>
-<li><a href="#1各種インストール-amp-ビルド" title="1.各種インストール &amp; ビルド">1.各種インストール &amp; ビルド</a></li>
-<li><a href="#2デザインを自作する" title="2.デザインを自作する">2.デザインを自作する</a></li>
-<li><a href="#3デザインをCaravelに載せる1011" title="3.デザインをCaravelに載せる[10][11]">3.デザインをCaravelに載せる[10][11]</a></li>
-<li><a href="#3テストベンチファームウェアを書く" title="3.テストベンチ/ファームウェアを書く">3.テストベンチ/ファームウェアを書く</a></li>
+<li class=""><a href="#LSIを焼こう！1-未完成" title="LSIを焼こう！[1] (未完成)">LSIを焼こう！[1] (未完成)</a><ul class="nav">
+<li class=""><a href="#必要なもの" title="必要なもの">必要なもの</a></li>
+<li class=""><a href="#1各種インストール-amp-ビルド" title="1.各種インストール &amp; ビルド">1.各種インストール &amp; ビルド</a></li>
+<li class=""><a href="#2デザインを自作する" title="2.デザインを自作する">2.デザインを自作する</a></li>
+<li class=""><a href="#3デザインをCaravelに載せる1011" title="3.デザインをCaravelに載せる[10][11]">3.デザインをCaravelに載せる[10][11]</a></li>
+<li class=""><a href="#3テストベンチファームウェアを書く" title="3.テストベンチ/ファームウェアを書く">3.テストベンチ/ファームウェアを書く</a></li>
 <li><a href="#4GDSIIのビルド18" title="4.GDSIIのビルド[18]">4.GDSIIのビルド[18]</a></li>
 <li><a href="#5プリチェックツールを走らせる1920" title="5.プリチェックツールを走らせる[19][20]">5.プリチェックツールを走らせる[19][20]</a></li>
 </ul>
