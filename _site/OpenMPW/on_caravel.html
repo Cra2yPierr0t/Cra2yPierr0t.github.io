@@ -1,0 +1,192 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/assets/css/syntax.css">
+    <link rel="stylesheet" href="/assets/css/font.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <title>3.デザインをCaravelに載せる</title>
+  </head>
+  <body>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <h1><a href="https://vlsi.jp/" style="color:#000000; text-decoration:none;">VLSI.JP</a></h1>
+<nav>
+    
+    <h5>OpenMPW</h5>
+      <ul>
+        
+          <li><a href="/OpenMPW/nyuumon.html">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a></li>
+        
+          <li><a href="/OpenMPW/lsi_yakou.html">LSIを焼こう！</a></li>
+        
+          <li><a href="/OpenMPW/install.html">1.各種インストール & ビルド</a></li>
+        
+          <li><a href="/OpenMPW/make_my_design.html">2.デザインを自作する</a></li>
+        
+          <li><a href="/OpenMPW/on_caravel.html">3.デザインをCaravelに載せる</a></li>
+        
+          <li><a href="/OpenMPW/firm.html">4.テストベンチ/ファームウェアを書く</a></li>
+        
+          <li><a href="/OpenMPW/gdsii_build.html">5.GDSIIのビルド</a></li>
+        
+          <li><a href="/OpenMPW/precheck.html">6.プリチェックツールを走らせる</a></li>
+        
+          <li><a href="/OpenMPW/footnote.html">footnote</a></li>
+        
+      </ul>
+  
+    <h5>OpenLANEと半導体設計入門</h5>
+      <ul>
+        
+          <li><a href="/learn_lsi/OpenLANE.html">OpenLANEについて</a></li>
+        
+          <li><a href="/learn_lsi/Synthesis.html">1. Synthesis</a></li>
+        
+          <li><a href="/learn_lsi/Floorplan_and_PDN.html">2. Floorplan and PDN</a></li>
+        
+          <li><a href="/learn_lsi/Placement.html">3. Placement</a></li>
+        
+          <li><a href="/learn_lsi/CTS.html">4. CTS</a></li>
+        
+          <li><a href="/learn_lsi/Routing.html">5. Routing</a></li>
+        
+          <li><a href="/learn_lsi/GDSII.html">6. GDSII Generation</a></li>
+        
+          <li><a href="/learn_lsi/Checks.html">7. Checks</a></li>
+        
+      </ul>
+  
+    <h5>Misc</h5>
+      <ul>
+        
+          <li><a href="/about.html">About me</a></li>
+        
+      </ul>
+  
+</nav>
+
+            </div>
+            <div class="col-8">
+                <h3 id="3デザインをcaravelに載せる313">3.デザインをCaravelに載せる[^3][^13]</h3>
+
+<p>基本的に以下の流れで載せる</p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">caravel_user_project/verilog/rtl/&lt;my_design&gt;</code>に自分のデザインを入れる</li>
+  <li><code class="language-plaintext highlighter-rouge">caravel_user_project/openlane/&lt;my_design&gt;/config.tcl</code>を編集する</li>
+  <li><code class="language-plaintext highlighter-rouge">caravel_user_project/openlane/user_project_wrapper/config.tcl</code>を編集する</li>
+</ol>
+
+<h4 id="1caravel_user_projectverilogrtlmy_designに自分のデザインを入れる">1.<code class="language-plaintext highlighter-rouge">caravel_user_project/verilog/rtl/&lt;my_design&gt;</code>に自分のデザインを入れる</h4>
+
+<p>まず<code class="language-plaintext highlighter-rouge">/verilog/rtl/</code>以下に自分のデザインのディレクトリを作成する。そのディレクトリに自分のデザイン(Verilogファイルとか)を入れる。</p>
+
+<h4 id="2-caravel_user_projectopenlanemy_designconfigtclを編集する">2. <code class="language-plaintext highlighter-rouge">caravel_user_project/openlane/&lt;my_design&gt;/config.tcl</code>を編集する</h4>
+<p>wrapperに自分のデザインを挿入する前に一旦OpenLANEで.gdsと.lefを生成する必要がある。そのために<code class="language-plaintext highlighter-rouge">config.tcl</code>を、caravelの<code class="language-plaintext highlighter-rouge">openlane/&lt;my_design&gt;/</code>以下に作る。</p>
+
+<p>以下をたたき台を置いておくので、下の表に従って編集するとよい</p>
+<div class="language-tcl highlighter-rouge"><div class="highlight"><pre class="highlight"><code>set script_dir <span class="p">[</span>file dirname <span class="p">[</span>file normalize <span class="p">[</span>info script<span class="p">]]]</span>
+
+set ::env<span class="p">(</span>ROUTING_CORES<span class="p">)</span> 8 #これで配線に使うスレッド数を指定できる
+
+set ::env<span class="p">(</span>DESIGN_NAME<span class="p">)</span> computer
+
+set ::env<span class="p">(</span>DESIGN_IS_CORE<span class="p">)</span> 0
+set ::env<span class="p">(</span>FP_PDN_CORE_RING<span class="p">)</span> 0
+set ::env<span class="p">(</span>GLB_RT_MAXLAYER<span class="p">)</span> 5
+
+set ::env<span class="p">(</span>VERILOG_FILES<span class="p">)</span> <span class="s2">"</span><span class="se">\
+</span><span class="s2">    </span><span class="nv">$::env</span><span class="s2">(CARAVEL_ROOT)/verilog/rtl/defines.v </span><span class="se">\
+</span><span class="s2">    </span><span class="nv">$script</span><span class="s2">_dir/../../verilog/rtl/&lt;my_design&gt;/module1.v </span><span class="se">\ </span><span class="s2">
+    </span><span class="nv">$script</span><span class="s2">_dir/../../verilog/rtl/&lt;my_design&gt;/module2.v"</span>
+
+set ::env<span class="p">(</span>CLOCK_PORT<span class="p">)</span> wb_clk_i
+set ::env<span class="p">(</span>CLOCK_PERIOD<span class="p">)</span> 10
+
+set ::env<span class="p">(</span>FP_SIZING<span class="p">)</span> absolute
+set ::env<span class="p">(</span>DIE_AREA<span class="p">)</span> <span class="s2">"0 0 2000 2000"</span>
+
+set ::env<span class="p">(</span>FP_PIN_ORDER_CFG<span class="p">)</span> $script_dir/pin_order.cfg
+
+set ::env<span class="p">(</span>VDD_NETS<span class="p">)</span> <span class="p">[</span>list <span class="p">{</span>vccd1<span class="p">}]</span>
+set ::env<span class="p">(</span>GND_NETS<span class="p">)</span> <span class="p">[</span>list <span class="p">{</span>vssd1<span class="p">}]</span>
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>変数</th>
+      <th>意味</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ROUTING_CORES</td>
+      <td>配線に使うスレッド数</td>
+    </tr>
+    <tr>
+      <td>DESIGN_NAME</td>
+      <td>合成するトップデザインの名前</td>
+    </tr>
+    <tr>
+      <td>VERILOG_FILES</td>
+      <td>合成するVerilogファイル, defines.vは残しておく</td>
+    </tr>
+    <tr>
+      <td>CLOCK_PORT</td>
+      <td>トップへのクロック入力ポート, 複数指定できる</td>
+    </tr>
+    <tr>
+      <td>DIE_AREA</td>
+      <td>使うダイの大きさ、最大 0 0 2920 3520</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>以上の設定を終えて</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make &lt;my_design&gt;
+</code></pre></div></div>
+<p>をuser_project_wrapper以下で実行するとgds/に自分のデザインのGDSIIファイルが生えてるのでKlayoutとかでオレオレLSIのレイアウトが見られる。</p>
+
+<h4 id="3-caravel_user_projectopenlaneuser_project_wrapperconfigtclを編集する">3. <code class="language-plaintext highlighter-rouge">caravel_user_project/openlane/user_project_wrapper/config.tcl</code>を編集する</h4>
+
+<p><code class="language-plaintext highlighter-rouge">user_project_wrapper.v</code>のみを編集する場合は特に何もしなくてよいが、自作のデザインは複数のVerilogファイルから構成される場合が殆どなので、GDSIIに変換する前にVerilogファイル達をOpenLANEに教えてやる必要がある。そのために<code class="language-plaintext highlighter-rouge">config.tcl</code>を編集する。[^5]</p>
+
+<p>まず、<code class="language-plaintext highlighter-rouge">caravel_user_project/openlane/user_project_wrapper/config.tcl</code>の以下の変数を編集する。</p>
+
+<div class="language-tcl highlighter-rouge"><div class="highlight"><pre class="highlight"><code>set ::env<span class="p">(</span>VERILOG_FILES_BLACKBOX<span class="p">)</span> <span class="s2">" </span><span class="se">\
+</span><span class="s2">      </span><span class="nv">$script</span><span class="s2">_dir/../../caravel/verilog/rtl/defines.v </span><span class="se">\
+</span><span class="s2">      </span><span class="nv">$script</span><span class="s2">_dir/../../verilog/rtl/user_proj_example.v"</span>
+
+set ::env<span class="p">(</span>EXTRA_LEFS<span class="p">)</span> <span class="s2">" </span><span class="se">\
+</span><span class="s2">   </span><span class="nv">$script</span><span class="s2">_dir/../../lef/user_proj_example.lef"</span>
+
+set ::env<span class="p">(</span>EXTRA_GDS_FILES<span class="p">)</span> <span class="s2">" </span><span class="se">\
+</span><span class="s2">   </span><span class="nv">$script</span><span class="s2">_dir/../../gds/user_proj_example.gds"</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">VERILOG_FILES_BLACKBOX</code>には<code class="language-plaintext highlighter-rouge">user_project_example.v</code>を消して自分のVerilogファイル群を書き込む。</li>
+  <li><code class="language-plaintext highlighter-rouge">defines.v</code>はそのままでよい。</li>
+  <li><code class="language-plaintext highlighter-rouge">EXTRA_LEFS</code>と<code class="language-plaintext highlighter-rouge">EXTRA_GDS_FILES</code>には<code class="language-plaintext highlighter-rouge">user_proj_example.(lef/gds)</code>を消して、代わりに2で生成したGDSIIとLEFファイルのパスを書き込む。[^20]</li>
+</ul>
+
+<p>最後に<code class="language-plaintext highlighter-rouge">MACRO_PLACEMENT_CFG</code>の行を削除する。</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">set</span> <span class="o">::</span><span class="n">env</span><span class="p">(</span><span class="n">MACRO_PLACEMENT_CFG</span><span class="p">)</span> <span class="err">$</span><span class="n">script_dir</span><span class="o">/</span><span class="n">macro</span><span class="p">.</span><span class="n">cfg</span>
+</code></pre></div></div>
+
+<p>以上が完了して、</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make user_project_wrapper
+</code></pre></div></div>
+<p>を実行するとgds/にラッパーのGDSIIファイルが生えてる、これが最終的にテープアウトされる。</p>
+
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+    </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>

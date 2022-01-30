@@ -1,0 +1,11 @@
+<h1><a href="https://vlsi.jp/" style="color:#000000; text-decoration:none;">VLSI.JP</a></h1>
+<nav>
+    {% for item in site.data.navigation.toc %}
+    <h5>{{ item.title }}</h5>
+      <ul>
+        {% for entry in item.subfolderitems %}
+          <li><a href="{{ entry.url }}">{{ entry.page }}</a></li>
+        {% endfor %}
+      </ul>
+  {% endfor %}
+</nav>

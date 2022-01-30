@@ -1,0 +1,257 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/assets/css/syntax.css">
+    <link rel="stylesheet" href="/assets/css/font.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <title>2.デザインを自作する</title>
+  </head>
+  <body>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <h1><a href="https://vlsi.jp/" style="color:#000000; text-decoration:none;">VLSI.JP</a></h1>
+<nav>
+    
+    <h5>OpenMPW</h5>
+      <ul>
+        
+          <li><a href="/OpenMPW/nyuumon.html">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a></li>
+        
+          <li><a href="/OpenMPW/lsi_yakou.html">LSIを焼こう！</a></li>
+        
+          <li><a href="/OpenMPW/install.html">1.各種インストール & ビルド</a></li>
+        
+          <li><a href="/OpenMPW/make_my_design.html">2.デザインを自作する</a></li>
+        
+          <li><a href="/OpenMPW/on_caravel.html">3.デザインをCaravelに載せる</a></li>
+        
+          <li><a href="/OpenMPW/firm.html">4.テストベンチ/ファームウェアを書く</a></li>
+        
+          <li><a href="/OpenMPW/gdsii_build.html">5.GDSIIのビルド</a></li>
+        
+          <li><a href="/OpenMPW/precheck.html">6.プリチェックツールを走らせる</a></li>
+        
+          <li><a href="/OpenMPW/footnote.html">footnote</a></li>
+        
+      </ul>
+  
+    <h5>OpenLANEと半導体設計入門</h5>
+      <ul>
+        
+          <li><a href="/learn_lsi/OpenLANE.html">OpenLANEについて</a></li>
+        
+          <li><a href="/learn_lsi/Synthesis.html">1. Synthesis</a></li>
+        
+          <li><a href="/learn_lsi/Floorplan_and_PDN.html">2. Floorplan and PDN</a></li>
+        
+          <li><a href="/learn_lsi/Placement.html">3. Placement</a></li>
+        
+          <li><a href="/learn_lsi/CTS.html">4. CTS</a></li>
+        
+          <li><a href="/learn_lsi/Routing.html">5. Routing</a></li>
+        
+          <li><a href="/learn_lsi/GDSII.html">6. GDSII Generation</a></li>
+        
+          <li><a href="/learn_lsi/Checks.html">7. Checks</a></li>
+        
+      </ul>
+  
+    <h5>Misc</h5>
+      <ul>
+        
+          <li><a href="/about.html">About me</a></li>
+        
+      </ul>
+  
+</nav>
+
+            </div>
+            <div class="col-8">
+                <h3 id="2デザインを自作する">2.デザインを自作する</h3>
+
+<p>8-bit CPUをCaravelに載せた時のサンプルを置いておきます。適宜参照するとよろし。<br />
+<a href="https://github.com/cpu-dev/caravel_jacaranda-8/tree/submission-mpw-3/verilog/rtl">https://github.com/cpu-dev/caravel_jacaranda-8/tree/submission-mpw-3/verilog/rtl</a></p>
+
+<h4 id="caravelの概要">Caravelの概要</h4>
+<p>caravelのUser Project Areaに自分のデザインを突っ込む訳ですが、その前にUser Project Areaについて多少知っておいた方が良いのでここで説明する。</p>
+
+<p>以下がCaravelパッドフレームの概略図</p>
+
+<p><img src="https://i.imgur.com/CQLoSjf.png" alt="caravelの概要" /></p>
+
+<p>User Project Areaについて抑えておくべき事項は3つ</p>
+<ul>
+  <li>Wishboneバスが繋がっている(32bit)</li>
+  <li>Logic Analyzer Signalsが繋がっている(128bit)</li>
+  <li>GPIOが生えている(38本)</li>
+</ul>
+
+<p>Wishbone、Logic Analyzer Signalsに関してはCPU側からMMIOを通してアクセスが可能であり、Wishboneのアドレスは<code class="language-plaintext highlighter-rouge">0x30000000</code>から<code class="language-plaintext highlighter-rouge">0x80000000-1</code>の間で自由に設定できる。</p>
+
+<p>以下では、Wishbone、Logic Analyzer Signals、GPIOそれぞれの扱い方を説明する。</p>
+
+<h4 id="wishboneを扱う">Wishboneを扱う</h4>
+<p>という訳でWishboneの扱い方を付け焼き刃程度に解説する。既にWishboneについて知ってる方はこの部分を読む必要は無い。</p>
+
+<p>Caravelでは10種類のWishboneに関係した線が存在している。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>信号名</th>
+      <th>説明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>wb_clk_i</td>
+      <td>マスターから入力されるクロック。この立ち上がりのタイミングで値が読まれる。</td>
+    </tr>
+    <tr>
+      <td>wb_rst_i</td>
+      <td>リセット信号。wishboneインターフェイスのステートマシンをリセットさせる。IPコアをリセットする必要は無い。</td>
+    </tr>
+    <tr>
+      <td>wbs_stb_i</td>
+      <td>ストローブ入力。スレーブが選択されている事を示す。</td>
+    </tr>
+    <tr>
+      <td>wbs_cyc_i</td>
+      <td>サイクル入力。有効なバスサイクルが進行している事を示す。</td>
+    </tr>
+    <tr>
+      <td>wbs_we_i</td>
+      <td>ライトイネーブル入力。現在のバスサイクルがReadかWriteか示す。1でWrite、0でRead。</td>
+    </tr>
+    <tr>
+      <td>wbs_sel_i[3:0]</td>
+      <td>セレクタ入力。入力データ(wbs_dat_i[31:0])の内、有効なデータがどれか示す。8ビット粒度。</td>
+    </tr>
+    <tr>
+      <td>wbs_dat_i[31:0]</td>
+      <td>データ入力</td>
+    </tr>
+    <tr>
+      <td>wbs_adr_i[31:0]</td>
+      <td>アドレス入力</td>
+    </tr>
+    <tr>
+      <td>wbs_ack_o</td>
+      <td>アクノリッジ出力。1にすると正常なバスサイクルの終了を示す。</td>
+    </tr>
+    <tr>
+      <td>wbs_dat_o[31:0]</td>
+      <td>データ出力</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>とまあ沢山信号線があって制御がダルいように思うかもしれないが、割とシンプルな回路で扱える。</p>
+
+<p>まず信号を整理する。[^25]</p>
+<div class="language-verilog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// WB MI A</span>
+<span class="k">assign</span> <span class="n">valid</span> <span class="o">=</span> <span class="n">wbs_cyc_i</span> <span class="o">&amp;</span> <span class="n">wbs_stb_i</span><span class="p">;</span> 
+<span class="k">assign</span> <span class="n">wbs_ack_o</span> <span class="o">=</span> <span class="n">ready</span><span class="p">;</span>
+<span class="k">assign</span> <span class="n">we</span> <span class="o">=</span> <span class="n">wbs_we_i</span><span class="p">;</span>
+<span class="k">assign</span> <span class="n">wbs_dat_o</span> <span class="o">=</span> <span class="n">rdata</span><span class="p">;</span>
+<span class="k">assign</span> <span class="n">wdata</span> <span class="o">=</span> <span class="n">wbs_dat_i</span><span class="p">;</span>
+<span class="k">assign</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">wbs_adr_i</span><span class="p">;</span>
+<span class="c1">// wb_sel_iはお好みで</span>
+
+<span class="k">assign</span> <span class="n">reset</span> <span class="o">=</span> <span class="n">wb_rst_i</span><span class="p">;</span>
+<span class="k">assign</span> <span class="n">clk</span>   <span class="o">=</span> <span class="n">wb_clk_i</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>そしてシンプルなデータ読み出し、書き込みが出来るロジックを以下に書いた。</p>
+<div class="language-verilog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">always</span> <span class="o">@</span><span class="p">(</span><span class="kt">posedge</span> <span class="n">clk</span><span class="p">)</span> <span class="k">begin</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">reset</span><span class="p">)</span> <span class="k">begin</span>
+        <span class="c1">// ここにリセットの処理</span>
+        <span class="n">ready</span> <span class="o">&lt;=</span> <span class="mb">1'b0</span><span class="p">;</span>
+    <span class="k">end</span> <span class="k">else</span> <span class="k">begin</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">ready</span><span class="p">)</span> <span class="k">begin</span>
+            <span class="n">ready</span> <span class="o">&lt;=</span> <span class="mb">1'b0</span><span class="p">;</span>
+        <span class="k">end</span>
+        <span class="c1">// Read</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">valid</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">ready</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">we</span><span class="p">)</span> <span class="k">begin</span>
+            <span class="k">case</span><span class="p">(</span><span class="n">addr</span><span class="p">)</span>
+                <span class="c1">// こんな感じでRead処理</span>
+                <span class="nl">ADDR1:</span> <span class="n">rdata</span> <span class="o">&lt;=</span> <span class="n">nanka_data1</span><span class="p">;</span>
+                <span class="nl">ADDR2:</span> <span class="n">rdata</span> <span class="o">&lt;=</span> <span class="n">nanka_data2</span><span class="p">;</span>
+                <span class="c1">// ・・・</span>
+            <span class="k">endcase</span>
+            <span class="n">ready</span> <span class="o">&lt;=</span> <span class="mb">1'b1</span><span class="p">;</span>
+            
+        <span class="c1">// Write</span>
+        <span class="k">end</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">valid</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">ready</span> <span class="o">&amp;&amp;</span> <span class="n">we</span><span class="p">)</span> <span class="k">begin</span>
+            <span class="k">case</span><span class="p">(</span><span class="n">addr</span><span class="p">)</span>
+                <span class="c1">// こんな感じでWrite処理</span>
+                <span class="nl">ADDR8:</span> <span class="n">nanka_reg1</span> <span class="o">&lt;=</span> <span class="n">wdata</span><span class="p">;</span>
+                <span class="nl">ADDR9:</span> <span class="n">nanka_reg2</span> <span class="o">&lt;=</span> <span class="n">wdata</span><span class="p">;</span>
+                <span class="c1">// ・・・</span>
+            <span class="k">endcase</span>
+            <span class="n">ready</span> <span class="o">&lt;=</span> <span class="mb">1'b1</span><span class="p">;</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+<p>あとはこれをたたき台にして、ここのアドレスに書き込んだらスタート〜とかこのアドレスのレジスタがHighになったら処理完了〜とか適当な回路を作れば大体なんとかなる。</p>
+
+<h4 id="logic-analyzer-signalsを扱う">Logic Analyzer Signalsを扱う</h4>
+<p>ついでにLogic Analyzer Signalsの扱い方も解説する。</p>
+
+<p>Caravelでは3種類のLogic Analyzer Signalsに関連した信号線が存在している。
+| 信号名 | 説明 |
+| —— | —- |
+| la_data_in[127:0] | 入力データ、128ビット。 |
+| la_data_out[127:0] |出力データ、128ビット。 |
+| la_oenb[127:0]|出力イネーブルバー。0で出力、1で入力。これはSoC側がMMIOで1ビットずつ設定するので読むことしか出来ない。  |</p>
+
+<p>まあ流れで扱える</p>
+<div class="language-verilog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">assign</span> <span class="n">data1</span> <span class="o">=</span> <span class="n">la_data</span><span class="p">[</span><span class="mi">31</span><span class="o">:</span><span class="mi">0</span><span class="p">];</span>
+</code></pre></div></div>
+<p>とか</p>
+<div class="language-verilog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">always</span> <span class="o">@</span><span class="p">(</span><span class="kt">posedge</span> <span class="n">clk</span><span class="p">)</span> <span class="k">begin</span>
+    <span class="n">la_data_out</span><span class="p">[</span><span class="mi">63</span><span class="o">:</span><span class="mi">32</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">data2</span><span class="p">;</span>
+<span class="k">end</span>
+</code></pre></div></div>
+<p>とか。*_outへの入力をassignかalwaysのどちらでやるかは多分適当でよい。</p>
+
+<h4 id="gpioを扱う">GPIOを扱う</h4>
+<p>GPIOの扱い方を解説する。</p>
+
+<p>Caravelでは3種類のGPIOに関連した信号線が存在している。
+| 信号名 | 説明 |
+| —— | —- |
+| io_in[37:0] | GPIO入力 |
+| io_out[37:0]|GPIO出力 |
+| io_oenb[37:0] |GPIO出力イネーブルバー。0で出力、1で入力。 |</p>
+
+<p>io_oenbの設定はファームウェア側でどうとでもなるので基本的に全部0でいい。</p>
+
+<p>使い方</p>
+<div class="language-verilog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">assign</span> <span class="n">test_data</span> <span class="o">=</span> <span class="n">io_in</span><span class="p">[</span><span class="mi">34</span><span class="o">:</span><span class="mi">32</span><span class="p">];</span>
+<span class="k">assign</span> <span class="n">io_out</span><span class="p">[</span><span class="mi">31</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_reg</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>ピンによっては別の機能と同居している場合があるので、ここ[^26]のmprj_ioを参照した方が良い。</p>
+
+<h4 id="割り込み"><strong>割り込み</strong></h4>
+<p>次に割り込みについて説明する。CaravelではUser Project Areaから割り込み信号を出す事が可能である。</p>
+
+<p>割り込みは、信号線<code class="language-plaintext highlighter-rouge">user_irq[2:0]</code>の内どのビットを立てても引き起こす事が(多分)可能である。 割り込みベクタはアドレス0である。正確な情報はこの動画[^27]以外に存在しない。</p>
+
+<p>またサンプルコード[^28]を一度目を通すことを強くおすすめする。</p>
+
+<p>以上を組み合わせてキミだけのデザインを自作しよう！！</p>
+
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+    </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>

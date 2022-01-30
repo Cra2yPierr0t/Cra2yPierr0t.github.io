@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/assets/css/syntax.css">
+    <link rel="stylesheet" href="/assets/css/font.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <title>OpenLANE</title>
+  </head>
+  <body>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <h1><a href="https://vlsi.jp/" style="color:#000000; text-decoration:none;">VLSI.JP</a></h1>
+<nav>
+    
+    <h5>OpenMPW</h5>
+      <ul>
+        
+          <li><a href="/OpenMPW/nyuumon.html">20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々</a></li>
+        
+          <li><a href="/OpenMPW/lsi_yakou.html">LSIを焼こう！</a></li>
+        
+          <li><a href="/OpenMPW/install.html">1.各種インストール & ビルド</a></li>
+        
+          <li><a href="/OpenMPW/make_my_design.html">2.デザインを自作する</a></li>
+        
+          <li><a href="/OpenMPW/on_caravel.html">3.デザインをCaravelに載せる</a></li>
+        
+          <li><a href="/OpenMPW/firm.html">4.テストベンチ/ファームウェアを書く</a></li>
+        
+          <li><a href="/OpenMPW/gdsii_build.html">5.GDSIIのビルド</a></li>
+        
+          <li><a href="/OpenMPW/precheck.html">6.プリチェックツールを走らせる</a></li>
+        
+          <li><a href="/OpenMPW/footnote.html">footnote</a></li>
+        
+      </ul>
+  
+    <h5>OpenLANEと半導体設計入門</h5>
+      <ul>
+        
+          <li><a href="/learn_lsi/OpenLANE.html">OpenLANEについて</a></li>
+        
+          <li><a href="/learn_lsi/Synthesis.html">1. Synthesis</a></li>
+        
+          <li><a href="/learn_lsi/Floorplan_and_PDN.html">2. Floorplan and PDN</a></li>
+        
+          <li><a href="/learn_lsi/Placement.html">3. Placement</a></li>
+        
+          <li><a href="/learn_lsi/CTS.html">4. CTS</a></li>
+        
+          <li><a href="/learn_lsi/Routing.html">5. Routing</a></li>
+        
+          <li><a href="/learn_lsi/GDSII.html">6. GDSII Generation</a></li>
+        
+          <li><a href="/learn_lsi/Checks.html">7. Checks</a></li>
+        
+      </ul>
+  
+    <h5>Misc</h5>
+      <ul>
+        
+          <li><a href="/about.html">About me</a></li>
+        
+      </ul>
+  
+</nav>
+
+            </div>
+            <div class="col-8">
+                <h1 id="openlaneと半導体設計入門">OpenLANEと半導体設計入門</h1>
+<p>質問、修正案、その他連絡は@Cra2yPierr0tマデ</p>
+
+<p>Github : <a href="https://github.com/The-OpenROAD-Project/OpenLane">https://github.com/The-OpenROAD-Project/OpenLane</a><br />
+ドキュメント : <a href="https://openlane.readthedocs.io/en/latest/">https://openlane.readthedocs.io/en/latest/</a></p>
+
+<h2 id="openlaneについて">OpenLANEについて</h2>
+<p>OpenLANEとはOSSなRTL-to-GDSIIコンパイラであり、20個くらいのOSSを組み合わせて作られている。PDKとRTLとコンフィグを揃えて実行するとGDSIIが生えてくる。本記事ではOpenLANEの使い方及び各フローの説明を行いながら、現代の半導体設計を学んでいく。</p>
+
+<p>OpenLANEの全体的なフローは次のようになっている。<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup></p>
+<ol>
+  <li>Synthesis
+    <ol>
+      <li><a href="https://github.com/YosysHQ/yosys"><code class="language-plaintext highlighter-rouge">yosys</code></a> - RTLを論理合成</li>
+      <li><a href="https://github.com/YosysHQ/yosys"><code class="language-plaintext highlighter-rouge">abc</code></a> - PDKにマッピング</li>
+      <li><a href="https://github.com/The-OpenROAD-Project/OpenSTA"><code class="language-plaintext highlighter-rouge">OpenSTA</code></a> - 静的タイミング解析</li>
+    </ol>
+  </li>
+  <li>Floorplan and PDN
+    <ol>
+      <li><a href="https://github.com/The-OpenROAD-Project/OpenROAD/tree/master/src/ifp"><code class="language-plaintext highlighter-rouge">init_fp</code></a> - コア領域の定義</li>
+      <li><a href="https://github.com/The-OpenROAD-Project/OpenROAD/tree/master/src/ppl"><code class="language-plaintext highlighter-rouge">ioplacer</code></a> - 入出力ポートの設置</li>
+      <li><a href="https://github.com/The-OpenROAD-Project/OpenROAD/tree/master/src/pdn"><code class="language-plaintext highlighter-rouge">pdn</code></a> - 給電ネットワークの生成</li>
+      <li><a href="https://github.com/The-OpenROAD-Project/OpenROAD/tree/master/src/tap"><code class="language-plaintext highlighter-rouge">tapcell</code></a> - weltapとデキャップセルの挿入</li>
+    </ol>
+  </li>
+  <li>Placement
+    <ol>
+      <li><a href="https://github.com/The-OpenROAD-Project/RePlAce"><code class="language-plaintext highlighter-rouge">RePLace</code></a> - グローバル配置</li>
+      <li><a href="https://github.com/The-OpenROAD-Project/OpenROAD/tree/master/src/rsz"><code class="language-plaintext highlighter-rouge">Resizer</code></a> - 最適化</li>
+      <li><a href="https://github.com/The-OpenROAD-Project/OpenROAD/tree/master/src/dpl"><code class="language-plaintext highlighter-rouge">OpenDP</code></a> - ローカル配置</li>
+    </ol>
+  </li>
+  <li>CTS
+    <ol>
+      <li><a href="https://github.com/The-OpenROAD-Project/OpenROAD/tree/master/src/cts"><code class="language-plaintext highlighter-rouge">TritonCTS</code></a> - クロック供給ネットワーク(クロックツリー)の合成</li>
+    </ol>
+  </li>
+  <li>Routing
+    <ol>
+      <li><a href="https://github.com/The-OpenROAD-Project/OpenROAD/tree/master/src/grt"><code class="language-plaintext highlighter-rouge">FastRoute</code></a> - グローバル配線</li>
+      <li><a href="https://github.com/cuhk-eda/cu-gr"><code class="language-plaintext highlighter-rouge">CU-GR</code></a> - グローバル配線(プランB)</li>
+      <li><a href="https://github.com/The-OpenROAD-Project/TritonRoute"><code class="language-plaintext highlighter-rouge">TritonRoute</code></a> - ローカル配線</li>
+      <li><a href="https://github.com/HanyMoussa/SPEF_EXTRACTOR"><code class="language-plaintext highlighter-rouge">SPEF_Extractor</code></a> - 寄生フォーマット”SPEF”の摘出</li>
+    </ol>
+  </li>
+  <li>GDSII Generation
+    <ol>
+      <li><a href="https://github.com/RTimothyEdwards/magic"><code class="language-plaintext highlighter-rouge">Magic</code></a> - routed defからのGDSIIファイル生成</li>
+      <li><a href="https://github.com/KLayout/klayout"><code class="language-plaintext highlighter-rouge">Klayout</code></a> - GDSIIファイル生成(バックアップ)</li>
+    </ol>
+  </li>
+  <li>Checks
+    <ol>
+      <li><code class="language-plaintext highlighter-rouge">Magic</code> - DRCチェックとアンテナチェック</li>
+      <li><code class="language-plaintext highlighter-rouge">Klayout</code> - DRCチェック</li>
+      <li><a href="https://github.com/RTimothyEdwards/netgen"><code class="language-plaintext highlighter-rouge">Netgen</code></a> - LVSチェック</li>
+      <li><a href="https://github.com/d-m-bailey/cvc"><code class="language-plaintext highlighter-rouge">CVC</code></a> - 回路妥当性検証</li>
+    </ol>
+  </li>
+</ol>
+
+<p><img src="https://i.imgur.com/ccpKU9e.png" width="70%" /><br />
+出典：<a href="https://openlane.readthedocs.io/en/latest/#openlane-architecture">https://openlane.readthedocs.io/en/latest/#openlane-architecture</a></p>
+
+<p>以上を見たところで半導体設計もOpenLANEも完全に理解出来る訳が無いので、これから各項目について説明していく。楽しみましょう。</p>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>https://openlane.readthedocs.io/en/latest/#openlane-design-stages <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+    </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>

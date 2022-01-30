@@ -1,0 +1,43 @@
+toc:
+  - title: OpenMPW
+    subfolderitems:
+    - page: 20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々
+      url: /OpenMPW/nyuumon.html
+    - page: LSIを焼こう！
+      url: /OpenMPW/lsi_yakou.html
+    - page: 1.各種インストール & ビルド 
+      url: /OpenMPW/install.html
+    - page: 2.デザインを自作する
+      url: /OpenMPW/make_my_design.html
+    - page: 3.デザインをCaravelに載せる 
+      url: /OpenMPW/on_caravel.html
+    - page: 4.テストベンチ/ファームウェアを書く
+      url: /OpenMPW/firm.html
+    - page: 5.GDSIIのビルド
+      url: /OpenMPW/gdsii_build.html
+    - page: 6.プリチェックツールを走らせる
+      url: /OpenMPW/precheck.html
+    - page: footnote
+      url: /OpenMPW/footnote.html
+  - title: OpenLANEと半導体設計入門
+    subfolderitems:
+    - page: OpenLANEについて
+      url: /learn_lsi/OpenLANE.html
+    - page: 1. Synthesis
+      url: /learn_lsi/Synthesis.html
+    - page: 2. Floorplan and PDN
+      url: /learn_lsi/Floorplan_and_PDN.html
+    - page: 3. Placement
+      url: /learn_lsi/Placement.html
+    - page: 4. CTS
+      url: /learn_lsi/CTS.html
+    - page: 5. Routing
+      url: /learn_lsi/Routing.html
+    - page: 6. GDSII Generation
+      url: /learn_lsi/GDSII.html
+    - page: 7. Checks 
+      url: /learn_lsi/Checks.html
+  - title: Misc
+    subfolderitems:
+    - page: About me
+      url: /about.html
