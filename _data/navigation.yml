@@ -2,7 +2,7 @@ toc:
   - title: OpenMPW
     subfolderitems:
     - page: 20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々
-      url: /OpenMPW/nyuumon.html
+      url: /OpenMPW/index.html
     - page: LSIを焼こう！
       url: /OpenMPW/lsi_yakou.html
     - page: 1.各種インストール & ビルド 
@@ -22,7 +22,7 @@ toc:
   - title: OpenLANEと半導体設計入門
     subfolderitems:
     - page: OpenLANEについて
-      url: /learn_lsi/OpenLANE.html
+      url: /learn_lsi/index.html
     - page: 1. Synthesis
       url: /learn_lsi/Synthesis.html
     - page: 2. Floorplan and PDN
