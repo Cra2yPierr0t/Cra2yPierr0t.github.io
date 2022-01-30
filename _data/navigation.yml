@@ -1,7 +1,7 @@
 toc:
   - title: OpenMPW
     subfolderitems:
-    - page: 20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々
+    - page: OpenMPWとOpenLANEとSkywaterPDKの概要
       url: /OpenMPW/index.html
     - page: LSIを焼こう！
       url: /OpenMPW/lsi_yakou.html

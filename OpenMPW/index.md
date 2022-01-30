@@ -1,8 +1,8 @@
 ---
 layout: default
-title: 20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々
+title: OpenMPWとOpenLANEとSkywaterPDKの概要
 ---
-## 20行でわかる！OpenMPWとOpenLANEとSkywaterPDKの様々
+## OpenMPWとOpenLANEとSkywaterPDKの概要
 ### OpenMPWの概要
 * 無料でLSIを焼いてくれるプロジェクト
 * Googleがefablessに出資して実現した
