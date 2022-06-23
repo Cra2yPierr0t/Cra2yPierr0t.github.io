@@ -1,3 +1,7 @@
+td, tr {
+    border: 1px solid #ddd;
+}
+
 pre.highlight {
     padding-bottom: 16px;
     padding-left: 16px;
