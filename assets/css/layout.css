@@ -2,6 +2,10 @@ td, tr {
     border: 1px solid #ddd;
 }
 
+code.language-plaintext.highlighter-rouge {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
 pre.highlight {
     padding-bottom: 16px;
     padding-left: 16px;
