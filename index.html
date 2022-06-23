@@ -1,0 +1,98 @@
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="color-scheme" content="light dark">
+        <style>
+            h1 {
+                border-bottom: 1px solid #c0c0c0;
+                margin-bottom: 10px;
+                padding-bottom: 10px;
+                white-space: nowrap;
+                display: block;
+                font-size: 2em;
+                margin-block-start: 0.67em;
+                margin-block-end: 0.67em;
+                margin-inline-start: 0px;
+                margin-inline-end: 0px;
+                font-weight: bold;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Roboto, Arial, "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", Osaka, Meiryo, "メイリオ", "MS Gothic", "ＭＳ ゴシック", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            }
+              table {
+                border-collapse: collapse;
+            }
+              th {
+                cursor: pointer;
+            }
+            td.detailsColumn {
+                padding-inline-start: 2em;
+                text-align: end;
+                white-space: nowrap;
+            }
+            a.icon {
+                padding-inline-start: 1.5em;
+                text-decoration: none;
+                user-select: auto;
+            }
+            a.icon:hover {
+                text-decoration: underline;
+            }
+
+            a.file {
+                background : url("./images/hontofile.png") left top no-repeat;
+            }
+            a.dir {
+                background : url("./images/file.png") left top no-repeat;
+            }
+            a.up {
+                background : url("./images/file.png") left top no-repeat;
+            }
+        </style>
+        <title id="title"></title>
+    </head>
+    <body>
+        <h1 id="header"> Index of VLSI.JP </h1>
+        <table>
+          <thead>
+            <tr class="header" id="theader">
+              <th id="nameColumnHeader" tabindex=0 role="button">name</th>
+              <th id="sizeColumnHeader" class="detailsColumn" tabindex=0 role="button">
+                genre
+              </th>
+              <th id="dateColumnHeader" class="detailsColumn" tabindex=0 role="button">
+                date 
+              </th>
+            </tr>
+          </thead>
+          <tbody id="tbody">
+              <tr>
+                  <td>
+                      <a class="icon dir" href="/tsukaouOpenCL.html#軽率にgpuを使っていこう、opencl入門">軽率にGPUを使っていこう、OpenCL入門/</a>
+                  </td>
+                  <td class="detailsColumn" >primer</td>
+                  <td class="detailsColumn" >2022/6/24 3:41:53</td>
+              </tr>
+              <tr>
+                  <td>
+                      <a class="icon dir" href="/OpenMPW.html">OpenMPW/</a>
+                  </td>
+                  <td class="detailsColumn" >tool description</td>
+                  <td class="detailsColumn" >Quite old</td>
+              </tr>
+              <tr>
+                  <td>
+                      <a class="icon dir" href="/learn_lsi.html#openlaneと半導体設計入門">OpenLANEと半導体設計入門/</a>
+                  </td>
+                  <td class="detailsColumn" >primer(unfinished)</td>
+                  <td class="detailsColumn" >Quite old</td>
+              </tr>
+              <tr>
+                  <td>
+                      <a class="icon file" href="/about.html">about me.txt</a>
+                  </td>
+                  <td class="detailsColumn" >Misc</td>
+                  <td class="detailsColumn" >Realtime</td>
+              </tr>
+          </tbody>
+        </table>
+    </body>
+</html>
