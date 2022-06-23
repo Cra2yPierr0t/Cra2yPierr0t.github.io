@@ -99,6 +99,7 @@ end
 ついでにLogic Analyzer Signalsの扱い方も解説する。
 
 Caravelでは3種類のLogic Analyzer Signalsに関連した信号線が存在している。
+
 | 信号名 | 説明 |
 | ------ | ---- |
 | la_data_in[127:0] | 入力データ、128ビット。 |
@@ -121,6 +122,7 @@ end
 GPIOの扱い方を解説する。
 
 Caravelでは3種類のGPIOに関連した信号線が存在している。
+
 | 信号名 | 説明 |
 | ------ | ---- |
 | io_in[37:0] | GPIO入力 |
