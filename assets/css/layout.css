@@ -68,8 +68,10 @@ pre.highlight {
         font-size: 30px;
     }
     .sidebar {
+        overflow: auto;
         margin-left: 3%;
         margin-right: 3%;
+        height: auto;
         width: 94%;
         position: relative;
     }
