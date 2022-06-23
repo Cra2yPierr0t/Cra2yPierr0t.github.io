@@ -34,6 +34,10 @@ pre.highlight {
 }
 
 @media screen and (max-width:1024px) {
+    body {
+        height: auto;
+        width: auto;
+    }
     h1 {
         font-size: 55px;
     }
@@ -65,6 +69,7 @@ pre.highlight {
         padding-left: 5rem;
     }
     p, li {
+        overflow-wrap: break-word;
         font-size: 30px;
     }
     .sidebar {
