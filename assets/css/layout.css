@@ -32,3 +32,44 @@ pre.highlight {
     margin-left: 23%;
     margin-right: 30%;
 }
+
+@media screen and (max-width:1024px) {
+    h2 {
+        font-size: 45px;
+    }
+    h3 {
+        font-size: 40px;
+    }
+    h4 {
+        font-size: 35px;
+    }
+    h5 {
+        font-size: 30px;
+    }
+    h6 {
+        font-size: 25px;
+    }
+    pre.highlight {
+        font-size: 25px;
+    }
+    a, th, td {
+        font-size: 25px;
+    }
+    ol {
+        padding-left: 5rem;
+    }
+    p, li {
+        font-size: 30px;
+    }
+    .sidebar {
+        margin-left: 3%;
+        margin-right: 3%;
+        width: 94%;
+        position: relative;
+    }
+    .content {
+        width: 94%;
+        margin-left: 3%;
+        margin-right: 3%;
+    }
+}
