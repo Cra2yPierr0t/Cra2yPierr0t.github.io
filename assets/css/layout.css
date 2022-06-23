@@ -34,6 +34,9 @@ pre.highlight {
 }
 
 @media screen and (max-width:1024px) {
+    h1 {
+        font-size: 55px;
+    }
     h2 {
         font-size: 45px;
     }
@@ -54,6 +57,9 @@ pre.highlight {
     }
     a, th, td {
         font-size: 25px;
+    }
+    a.topname {
+        font-size: 65px;
     }
     ol {
         padding-left: 5rem;
