@@ -1,43 +1,66 @@
 toc:
+  - title: 軽率にOpenCLを使っていこう、OpenCL入門
+    dir: /tsukaouOpenCL.html
+    subfolderitems:
+    - page: OpenCLとは
+      url: openclとは
+    - page: OpenCLの思想
+      url: openclの思想
+    - page: OpenCLの計算機システム
+      url: openclの計算機システム
+    - page: ホストとカーネル
+    - page: OpenCLの次元
+      url: openclの次元
+    - page: OpenCLホストプログラミング入門
+      url: openclホストプログラミング入門
+    - page: OpenCLカーネルプログラミング入門
+      url: openclカーネルプログラミング入門
+    - page: カーネルの最適化
+      url: カーネルの最適化
+    - page: おわりに
+      url: おわりに
   - title: OpenMPW
+    dir: /OpenMPW.html
     subfolderitems:
     - page: OpenMPWとOpenLANEとSkywaterPDKの概要
-      url: /OpenMPW/index.html
+      url: openmpwとopenlaneとskywaterpdkの概要
     - page: LSIを焼こう！
-      url: /OpenMPW/lsi_yakou.html
-    - page: 1.各種インストール & ビルド 
-      url: /OpenMPW/install.html
+      url: lsiを焼こう
+    - page: 1.各種インストール&ビルド
+      url: 1各種インストール--ビルド
     - page: 2.デザインを自作する
-      url: /OpenMPW/make_my_design.html
+      url: 2デザインを自作する
     - page: 3.デザインをCaravelに載せる 
-      url: /OpenMPW/on_caravel.html
+      url: 3デザインをcaravelに載せる 
     - page: 4.テストベンチ/ファームウェアを書く
-      url: /OpenMPW/firm.html
+      url: 4テストベンチファームウェアを書く
     - page: 5.GDSIIのビルド
-      url: /OpenMPW/gdsii_build.html
+      url: 5gdsiiのビルド
     - page: 6.プリチェックツールを走らせる
-      url: /OpenMPW/precheck.html
+      url: 6プリチェックツールを走らせる
     - page: footnote
-      url: /OpenMPW/footnote.html
+      url: footnote
   - title: OpenLANEと半導体設計入門
+    dir: /learn_lsi.html
     subfolderitems:
     - page: OpenLANEについて
-      url: /learn_lsi/index.html
+      url: openlaneについて
     - page: 1. Synthesis
-      url: /learn_lsi/Synthesis.html
+      url: 1-synthesis
     - page: 2. Floorplan and PDN
-      url: /learn_lsi/Floorplan_and_PDN.html
+      url: 2-floorplan-and-pdn
     - page: 3. Placement
-      url: /learn_lsi/Placement.html
+      url: 3-placement
     - page: 4. CTS
-      url: /learn_lsi/CTS.html
+      url: 4-cts
     - page: 5. Routing
-      url: /learn_lsi/Routing.html
+      url: 5routing
     - page: 6. GDSII Generation
-      url: /learn_lsi/GDSII.html
+      url: 6-gdsii-generation
     - page: 7. Checks 
-      url: /learn_lsi/Checks.html
+      url: 7-checks 
   - title: Misc
+    dir: /about.html
     subfolderitems:
     - page: About me
-      url: /about.html
+      url: about-me

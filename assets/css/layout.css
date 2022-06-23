@@ -1,3 +1,10 @@
+img{
+ display: block;
+ margin: 0px auto;
+ max-width: 100%;
+ border: 1px solid #eee;
+}
+
 td, tr {
     padding: 6px 14px;
     border: 1px solid #ddd;
@@ -15,10 +22,13 @@ pre.highlight {
 }
 
 .sidebar {
+    overflow: scroll;
     position: fixed;
     margin-left: 1%;
+    height: 100%;
     width: 20%;
 }
 .content {
     margin-left: 23%;
+    margin-right: 30%;
 }
