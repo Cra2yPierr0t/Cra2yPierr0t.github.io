@@ -13,3 +13,12 @@ pre.highlight {
     padding-right: 16px;
     padding-top: 16px;
 }
+
+.sidebar {
+    position: fixed;
+    margin-left: 1%;
+    width: 20%;
+}
+.content {
+    margin-left: 23%;
+}
