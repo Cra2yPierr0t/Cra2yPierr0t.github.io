@@ -40,7 +40,7 @@ pre.highlight {
     font-weight: bold;
 }
 
-@media screen and (max-width:800px) {
+@media screen and (max-width:850px) {
     body {
         height: auto;
         width: auto;
