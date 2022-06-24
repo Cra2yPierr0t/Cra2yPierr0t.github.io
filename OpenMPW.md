@@ -1,6 +1,6 @@
 ---
 layout: default
-title: OpenMPW(1)
+title: OpenMPW
 ---
 # OpenMPW
 
