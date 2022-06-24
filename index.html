@@ -46,11 +46,52 @@
             a.up {
                 background : url("./images/file.png") left top no-repeat;
             }
+            body {
+                height: auto;
+                width: auto;
+            }
+            @media screen and (max-width:1024px) {
+                h1 {
+                    font-size: 55px;
+                }
+                h2 {
+                    font-size: 45px;
+                }
+                h3 {
+                    font-size: 40px;
+                }
+                h4 {
+                    font-size: 35px;
+                }
+                h5 {
+                    font-size: 30px;
+                }
+                h6 {
+                    font-size: 25px;
+                }
+                a, th, td {
+                    font-size: 25px;
+                }
+                a.icon {
+                    background-size: 25px;
+                }
+                .topname {
+                    font-size: 65px;
+                }
+                ol {
+                    padding-left: 5rem;
+                }
+                p, li {
+                    overflow-wrap: break-word;
+                    font-size: 30px;
+                }
+            }
         </style>
         <title id="title"></title>
     </head>
     <body>
-        <h1 id="header"> Index of VLSI.JP </h1>
+        <h1 class="topname" id="header"> Index of VLSI.JP </h1>
+        <p>index.htmlは普通indexとして使うんですよね</p>
         <table>
           <thead>
             <tr class="header" id="theader">
@@ -66,14 +107,14 @@
           <tbody id="tbody">
               <tr>
                   <td>
-                      <a class="icon dir" href="/tsukaouOpenCL.html#軽率にgpuを使っていこう、opencl入門">軽率にGPUを使っていこう、OpenCL入門/</a>
+                      <a class="icon dir" href="/tsukaouOpenCL.html#軽率にgpuを使っていこうopencl入門">軽率にGPUを使っていこう、OpenCL入門/</a>
                   </td>
                   <td class="detailsColumn" >primer</td>
                   <td class="detailsColumn" >2022/6/24 3:41:53</td>
               </tr>
               <tr>
                   <td>
-                      <a class="icon dir" href="/OpenMPW.html">OpenMPW/</a>
+                      <a class="icon dir" href="/OpenMPW.html#openmpw">OpenMPW/</a>
                   </td>
                   <td class="detailsColumn" >tool description</td>
                   <td class="detailsColumn" >Quite old</td>

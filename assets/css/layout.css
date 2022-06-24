@@ -1,6 +1,7 @@
 p {
     color: #3d4245!important;
 }
+
 img{
  display: block;
  margin: 0px auto;
@@ -34,6 +35,9 @@ pre.highlight {
 .content {
     margin-left: 23%;
     margin-right: 30%;
+}
+.topname {
+    font-weight: bold;
 }
 
 @media screen and (max-width:1024px) {
