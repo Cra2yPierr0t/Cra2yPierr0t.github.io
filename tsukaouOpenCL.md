@@ -22,22 +22,9 @@ title: 軽率にGPUを使っていこう、OpenCL入門
 OpenCLの思想としてループの関数(カーネル)への展開が挙げられる。例として以下のように1024x1024の画像処理を1個のカーネルで行うのではなく、1024x1024=1,048,576個のカーネルで行うことで処理を高速にする。
 
 古典的な実装
-```c
-void mul(const int n, const float *a, const float *b, float *c) {
-    for(int i = 0; i < n; i++){
-        c[i] = a[i] + b[i];
-    }
-}
-```
+<script src="https://gist.github.com/Cra2yPierr0t/bc7f6ab26084f30d4d02b28351c4e491.js"></script>
 OpenCLでデータ並列性を活用する
-```c
-// これが同時に大量に実行される
-__keren void add(__global const float *a, __global const float *b, 
-                         __global float *c){
-    int id = get_global_id(0);
-    c[id] = a[id] + b[id];
-}
-```
+<script src="https://gist.github.com/Cra2yPierr0t/66248ebbd550713f1474a2aa063919fc.js"></script>
 
 ## OpenCLの計算機システム
 OpenCLにとって計算機システムは、単一の制御用の**ホスト**と一つ以上の**デバイス**によって構成されている。そしてデバイスは一つ以上の**Compute Unit(CU)** からなる。またCUも一つ以上の**Processing Element(PE)** から構成される。
@@ -105,25 +92,7 @@ OpenCLの基礎知識は以上にとどめ、次は具体例を出しながら�
     * `clCreateCommandQueue()`
 
 これらの関数を使って必要なものを定義するコードが以下になる。また先頭に`cl`が付いている型や関数はOpenCL APIで定義されているものである。
-```c
-// 環境構築関係
-// プラットフォームIDを確保
-cl_platform_id platform_id;
-cl_uint platform_num;
-clGetPlatformIDs(1, &platform_id, &platform_num);
-
-// デバイスIDを確保
-cl_device_id device_id;
-clGetDeviceIDs(platform_id, CL_DEVICE_TYPE_DEFAULT, 1, &device_id, NULL);
-
-// コンテキストを作成
-cl_context context;
-context = clCreateContext(0, 1, &device_id, NULL, NULL, NULL);
-
-// コマンドキューを作成
-cl_command_queue commands;
-commands = clCreateCommandQueue(context, device_id, 0, NULL);
-```
+<script src="https://gist.github.com/Cra2yPierr0t/92d170d3a72c3446efeed15c8a9ab95f.js"></script>
 
 ### 2. カーネルをビルドする
 カーネルプログラムもプログラムであるので、コンパイルして実行形式にしてやる必要がある。OpenCLではカーネルプログラムから**プログラムオブジェクト**を作成し、そのプログラムオブジェクトをビルドした後**カーネルオブジェクト**を作成する。
@@ -140,59 +109,24 @@ commands = clCreateCommandQueue(context, device_id, 0, NULL);
     * `clCreateKernel()`
 
 これらの関数を使ってカーネルオブジェクトを作成するコードが以下になる。`clCreateProgramWithSource()`の引数であるkernelsourceはカーネルプログラムを保持している文字列である。
-```c
-// プログラムオブジェクトを作成
-cl_program program;
-program = clCreateProgramWithSource(context, 1, (const char **)&kernelsource, NULL, NULL);
-
-// プログラムオブジェクトをビルド
-clBuildProgram(program, 0, NULL, NULL, NULL, NULL);
-
-// カーネルオブジェクトを作成
-cl_kernel ko_vadd;
-ko_vadd = clCreateKernel(program, "vadd", NULL);
-```
+<script src="https://gist.github.com/Cra2yPierr0t/dc20d38c6d75d53fde73383ab48f0747.js"></script>
 
 ### 3. デバイスメモリを確保する
 データを格納するためにCPUでメモリを確保するのと同様に、GPUのメモリを確保してやる必要がある。
 
 例として、ベクトル加算を行う場合、3つのメモリオブジェクトが必要になる。a, bを入力ベクタとして、cを出力ベクタとする。
 先にホスト側でメモリを確保し、適当に初期化する。
-```c
-// ホストメモリを確保
-float h_a[1024], h_b[1024], h_c[1024];
-for(int i = 0; i < 1024; i++) {
-    h_a[i] = rand() / (float)RAND_MAX;
-    h_b[i] = rand() / (float)RAND_MAX;
-}
-```
+<script src="https://gist.github.com/Cra2yPierr0t/a5b7b41da558e8f088386fcbeab4feac.js"></script>
 
 次にデバイスメモリを確保し、メモリオブジェクトを得る。関数は`clCreateBuffer()`を使う。この関数を使ってメモリを確保するコードが以下になる。
-```c
-// デバイスメモリを確保
-cl_mem d_a;
-cl_mem d_b;
-cl_mem d_c;
-
-d_a = clCreateBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-                                     sizeof(float) * 1024, h_a, NULL);
-d_b = clCreateBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-                                     sizeof(float) * 1024, h_b, NULL);
-d_c = clCreateBuffer(context, CL_MEM_WRITE_ONLY,
-                                     sizeof(float) * 1024, NULL, NULL);
-```
+<script src="https://gist.github.com/Cra2yPierr0t/39eafb28a64b6d0d18131bdd779d37fd.js"></script>
 `clCreateBuffer()`の引数を見てみると、入力ベクタには`CL_MEM_READ_ONLY`や`CL_MEM_COPY_HOST_PTR`、ホストメモリへのポインタが指定されていたり、出力ベクタには`CL_MEM_WRITE_ONLY`が指定されていたりと、なんとなく何を意図して引数を設定しているか分かるかもしれない。分からなければ後でリファレンスを読めばよい。
 
 ### 4. カーネルの引数を設定する
 カーネルには関数のように引数を設定する事が可能である。引数を設定するには`clSetKernelArg()`を用いる。
 
 例としてベクトル加算を行う場合、カーネルに渡す必要がある引数は配列a, b, cのアドレスである。第一引数を`float *a`、第二引数を`float *b`、第三引数を`float *c`として、カーネルに引数を設定するコードが以下になる。
-```c
-// 引数を設定
-clSetKernelArg(ko_vadd, 0, sizeof(cl_mem), &d_a);
-clSetKernelArg(ko_vadd, 1, sizeof(cl_mem), &d_b);
-clSetKernelArg(ko_vadd, 2, sizeof(cl_mem), &d_c);
-```
+<script src="https://gist.github.com/Cra2yPierr0t/1a54bd5f85e7ad70f717b787b72546ed.js"></script>
 
 ### 5. キューにメモリとカーネルを転送する
 コマンドキューにメモリの書き込み指示、カーネルの展開・実行の指示、メモリの読み出し指示を行う。
@@ -209,142 +143,20 @@ clSetKernelArg(ko_vadd, 2, sizeof(cl_mem), &d_c);
     * `clEnqueueReadBuffer()`
 
 これらの関数を用いたコードが以下になる。
-```c
-// カーネルをエンキュー
-size_t N = 1024;
-clEnqueueNDRangeKernel(commands, ko_vadd, 1, NULL, &N, NULL, 0, NULL, NULL);
-
-// 完了まで待つ
-clFinish(commands);
-
-// 結果を読み出し
-clEnqueueReadBuffer(commands, d_c, CL_TRUE, sizeof(float) * 1024, h_c, 0, NULL, NULL);
-```
+<script src="https://gist.github.com/Cra2yPierr0t/961695583a8974c6b5bf40a08cc72a76.js"></script>
 
 この`cnEnqueueNDRangeKernel()`がカーネルをどんな形で展開するかを決める非常に重要な関数である。これに関してはカーネルプログラムの書き方を解説する際に詳しく扱う。
 
 ### ベクトル加算のホストプログラム
 以上の1~5を組み合わせて完成させたホストプログラムが以下になる。一番下に計算結果の出力とクリーンアップを追加している。ライブラリと`kernelsource`、一番下以外は全て前述したコードと同じである。
 OpenCLがインストールされている環境下で`$ gcc -lOpenCL vadd.c`でコンパイルが出来る。
+<script src="https://gist.github.com/Cra2yPierr0t/8a09de13584df692ec7d217b5853bb6e.js"></script>
 
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <time.h>
-#ifdef __APPLE__
-#include <OpenCL/opencl.h>
-#include <unistd.h>
-#else
-#include <CL/cl.h>
-#endif
-
-char *kernelsource = "__kernel void vadd (              \n" \
-"   __global float *a,                                  \n" \
-"   __global float *b,                                  \n" \
-"   __global float *c) {                                \n" \
-"   int i = get_global_id(0);                           \n" \
-"   c[i] = a[i] + b[i];                                 \n" \
-"}                                                      \n" \
-"\n";
-
-int main(int argc, char** argv) {
-    // 環境構築関係
-    // プラットフォームIDを確保
-    cl_platform_id platform_id;
-    cl_uint platform_num;
-    clGetPlatformIDs(1, &platform_id, &platform_num);
-
-    // デバイスIDを確保
-    cl_device_id device_id;
-    clGetDeviceIDs(platform_id, CL_DEVICE_TYPE_DEFAULT, 1, &device_id, NULL);
-
-    // コンテキストを作成
-    cl_context context;
-    context = clCreateContext(0, 1, &device_id, NULL, NULL, NULL);
-
-    // コマンドキューを作成
-    cl_command_queue commands;
-    commands = clCreateCommandQueue(context, device_id, 0, NULL);
-
-    // プログラム関係
-    // プログラムオブジェクトを作成
-    cl_program program;
-    program = clCreateProgramWithSource(context, 1, (const char **)&kernelsource, NULL, NULL);
-
-    // プログラムオブジェクトをビルド
-    clBuildProgram(program, 0, NULL, NULL, NULL, NULL);
-
-    // カーネルオブジェクトを作成
-    cl_kernel ko_vadd;
-    ko_vadd = clCreateKernel(program, "vadd", NULL);
-
-    // メモリ関係
-    // ホストメモリを確保、適当に初期化
-    float h_a[1024], h_b[1024], h_c[1024];
-    for(int i = 0; i < 1024; i++) {
-        h_a[i] = (float)(rand() % 10);
-        h_b[i] = (float)(rand() % 10);
-    }
-
-    // デバイスメモリを確保
-    cl_mem d_a;
-    cl_mem d_b;
-    cl_mem d_c;
-
-    d_a = clCreateBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-                                         sizeof(float) * 1024, h_a, NULL);
-    d_b = clCreateBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-                                         sizeof(float) * 1024, h_b, NULL);
-    d_c = clCreateBuffer(context, CL_MEM_WRITE_ONLY,
-                                         sizeof(float) * 1024, NULL, NULL);
-
-    // 引数とか
-    // 引数を設定
-    clSetKernelArg(ko_vadd, 0, sizeof(cl_mem), &d_a);
-    clSetKernelArg(ko_vadd, 1, sizeof(cl_mem), &d_b);
-    clSetKernelArg(ko_vadd, 2, sizeof(cl_mem), &d_c);
-
-    // 実行関係
-    // カーネルをエンキュー
-    size_t N = 1024;
-    clEnqueueNDRangeKernel(commands, ko_vadd, 1, NULL, &N, NULL, 0, NULL, NULL);
-
-    // 完了まで待つ
-    clFinish(commands);
-
-    // 結果を読み出し
-    clEnqueueReadBuffer(commands, d_c, CL_TRUE, 0, sizeof(float) * 1024, h_c, 0, NULL, NULL);
-
-    for(int i = 0; i < 1024; i++) {
-        printf("h_c[%d] = %f\n", i, h_c[i]);
-    }
-
-    // クリーンアップ
-    clReleaseMemObject(d_a);
-    clReleaseMemObject(d_b);
-    clReleaseMemObject(d_c);
-    clReleaseProgram(program);
-    clReleaseKernel(ko_vadd);
-    clReleaseCommandQueue(commands);
-    clReleaseContext(context);
-
-    return 0;
-}
-```
 なお、このプログラムはエラー処理を一切行っていないため、テンプレートとして使うことは全く推奨しない。
 
 ## OpenCLカーネルプログラミング入門
 前章のホストプログラムにおけるカーネルプログラムは次のようなものだった。
-```c
-__kernel void vadd (
-    __global float *a,
-    __global float *b,
-    __global float *c) {
-    int i = get_global_id(0);
-    c[i] = a[i] + b[i];
-}
-```
+<script src="https://gist.github.com/Cra2yPierr0t/bfdf258bdcb755ab725003c7aefa69bb.js"></script>
 
 `get_global_id(0)`だとか`__global`だとか、いくつか見慣れない修飾子や関数があるだろう。これはOpenCLのカーネルプログラミングで用いる独自に拡張されたC言語の追加要素である。なお、この拡張されたC言語は文献によってはOpenCL Languageと呼ばれている。
 
@@ -420,75 +232,19 @@ OpenCLのメモリにはいくつか種類が存在する。カーネルプロ�
 #### 行列乗算：愚直な実装
 以下はサイズNの行列A, Bの行列積を計算し、Cに格納するプログラムである。
 
-```c
-void mat_mul(int N, float *A, float *B, float *C) {
-    int i, j, k;
-    for(int i = 0; i < N; i++) {
-        for(int j = 0; j < N; j++) {
-            for(int k = 0; k < N; k++) {
-                C[i*N + j] += A[i*N + k] * B[k*N + j];
-            }
-        }
-    }
-}
-```
+<script src="https://gist.github.com/Cra2yPierr0t/c675d5d4cb33d651e5d7bac55f6dd446.js"></script>
 これをOpenCLカーネルにする。
 #### 行列乗算：OpenCLカーネル(1/2)
 まずは関数修飾子とアドレス空間修飾子を付ける
-```c
-__kernel void mat_mul (
-    const int N,
-    __global float *A,
-    __global float *B,
-    __global float *C
-) {
-    int i, j, k;
-    for(int i = 0; i < N; i++) {
-        for(int j = 0; j < N; j++) {
-            for(int k = 0; k < N; k++) {
-                C[i*N + j] += A[i*N + k] * B[k*N + j];
-            }
-        }
-    }
-}
-```
+<script src="https://gist.github.com/Cra2yPierr0t/fd60991ad35739f2f4ca98d90cb0acb1.js"></script>
+
 #### 行列乗算：OpenCLカーネル(2/2)
 そして外側のループを取り除いてワークアイテムの座標をセットする
-```c
-__kernel void mat_mul (
-    const int N,
-    __global float *A,
-    __global float *B,
-    __global float *C
-) {
-    int i, j, k;
-    i = get_global_id(0);
-    j = get_global_id(1);
-    for(int k = 0; k < N; k++) {
-        C[i*N + j] += A[i*N + k] + B[k*N + j];
-    }
-}
-```
+<script src="https://gist.github.com/Cra2yPierr0t/46aeacf5ed6c20df69cd6d9323880f6c.js"></script>
 
 #### 行列乗算：改善されたOpenCLカーネル
 Cの中間変数を置くとパフォーマンスが上がる
-```c
-__kernel void mat_mul (
-    const int N,
-    __global float *A,
-    __global float *B,
-    __global float *C
-) {
-    int i, j, k;
-    i = get_global_id(0);
-    j = get_global_id(1);
-    float tmp = 0.0f;
-    for(int k = 0; k < N; k++) {
-        tmp += A[i*N + k] + B[k*N + j];
-    }
-    C[i*N + j] += tmp;
-}
-```
+<script src="https://gist.github.com/Cra2yPierr0t/0ce11ace3b0ba6dac616e82eef836185.js"></script>
 
 次は`get_global_id()`の正確な使い方や、ワークアイテムを思い通りの形に展開する方法を説明する。
 
@@ -509,18 +265,7 @@ OpenCL 1.0におけるワークアイテム組み込み関数は以下の通り
 
 ### カーネルとインデックスの展開
 GPUへのカーネルの展開は`clEnqueueNDRangeKernel`によって行われる。
-```c
-cl_int clEnqueueNDRangeKernel (
-    cl_command_queue command_queue,
-    cl_kernel kernel,
-    cl_uint work_dim,
-    const size_t *global_work_offset,
-    const size_t *global_work_size,
-    const size_t *local_work_size,
-    cl_uint num_events_in_wait_list,
-    const cl_event *event_wait_list,
-    cl_event *event)
-```
+<script src="https://gist.github.com/Cra2yPierr0t/dae3a8580d89f38bea0defa9fe1ee76c.js"></script>
 
 `work_dim`でワークアイテムとワークグループの次元を設定し、`global_work_size`で全てのワークアイテムの数を設定する。これはsize_t型の配列を引数に取り、`{8, 8}`で64個、`{8}`で8個のワークアイテムが生成される。`local_work_size`ではワークグループ内におけるワークアイテムの数を設定し、設定方法は`global_work_size`と同一である。
 
@@ -601,78 +346,24 @@ y = \alpha Ax + \beta y
 
 性能が出るかは知らないがとりあえず実装してみる。
 
-```c
-__kernel void SGEMV (
-    const int N,
-    const float alpha,
-    const float beta,
-    __global float *A,
-    __global float *x,
-    __global float *y,
-    __global float *y_out
-) {
-    int i = get_global_id(0);
-    float tmp = 0.0f;
-
-    for(int j = 0; j < N; j++) {
-        tmp += alpha * A[i*N + j] * x[j];
-    }
-    tmp += beta * y[i];
-    y_out[i] = tmp;
-}
-```
+<script src="https://gist.github.com/Cra2yPierr0t/ec6265fb66b2b653dcdd4903e867d165.js"></script>
 
 こんな感じだろうか、解説すると9行目でワークアイテムの位置を取得し、それを[tex: y]のインデックスとする。次にベクトルのサイズ分(この場合N)だけ乗算を回す。OpenCLはカーネルに2次元配列をそのまま渡すことが出来ないため、Aのインデックスは1次元配列を2次元配列として扱ったものを使っている。
 
 #### ホストプログラムを書く
 カーネルプログラムが書けたら次はそれらを展開するホストプログラムを書いてやる必要がある。忘れない内に`clEnqueueNDRangeKernel()`を真っ先に書く。
-```c
-size_t M = 1024;
-clEnqueuNDRangeKernel(command_queue, ko_sgemv, 
-                      1, NULL, &M, NULL, 0, NULL, NULL);
-```
+<script src="https://gist.github.com/Cra2yPierr0t/a974b3b3e6fd00f3a86e0eb4f7819477.js"></script>
 行列の列サイズを仮に1024としてる。また今回は、第6引数である`local_work_size`をNULLに設定し、OpenCLランタイムにワークグループが持つワークアイテムの数の設定を任せている。
 
 他の部分はOpenCLホストプログラミング入門の流れに沿って書いていく。
 
 ##### 1. デバイス, コンテキスト, コマンドキューを定義する
 OpenCLホストプログラミング入門と特に変更はない。
-```c
-// 環境構築関係
-// プラットフォームIDを確保
-cl_platform_id platform_id;
-cl_uint platform_num;
-clGetPlatformIDs(1, &platform_id, &platform_num);
-
-// デバイスIDを確保
-cl_device_id device_id;
-clGetDeviceIDs(platform_id, CL_DEVICE_TYPE_DEFAULT, 1, &device_id, NULL);
-
-// コンテキストを作成
-cl_context context;
-context = clCreateContext(0, 1, &device_id, NULL, NULL, NULL);
-
-// コマンドキューを作成
-cl_command_queue commands;
-commands = clCreateCommandQueue(context, device_id, 0, NULL);
-```
+<script src="https://gist.github.com/Cra2yPierr0t/92d170d3a72c3446efeed15c8a9ab95f.js"></script>
 
 ##### 2. カーネルをビルドする
 カーネルオブジェクトの変数名と`clCreateKernel()`の引数をsgemvに変更した。
-```c
-// プログラム関係
-// プログラムオブジェクトを作成
-cl_program program;
-program = clCreateProgramWithSource(context, 1, (const char **)&kernelsource, NULL, NULL);
-
-// プログラムオブジェクトをビルド
-clBuildProgram(program, 0, NULL, NULL, NULL, NULL);
-
-// カーネルオブジェクトを作成
-cl_kernel ko_sgemv;
-ko_sgemv = clCreateKernel(program, "sgemv", NULL);
-
-```
+<script src="https://gist.github.com/Cra2yPierr0t/82a746806c1b87fe8ba25ad73c24f0c5.js"></script>
 
 ##### 3. デバイスメモリを確保する
 ベクトル加算と異なり、行列ベクトル積であるのでAに関するメモリの確保の部分を追加する。
@@ -680,252 +371,30 @@ ko_sgemv = clCreateKernel(program, "sgemv", NULL);
 上記では行列の列サイズを1024としており、もう細かいことを考えるのが面倒なので行列サイズを1024x1024とする。
 
 まずはホストメモリを確保する。
-```c
-float h_A[1024*1024];
-float h_x[1024];
-float h_y[1024];
-float alpha;
-float bata;
-```
+<script src="https://gist.github.com/Cra2yPierr0t/14ef467df29932735e39eafbe15d3414.js"></script>
 次に適当に初期化する。
-```c
-for(int i = 0; i < 1024) {
-    for(int j = 0; j < 1024; j++) {
-        h_A[1024*i + j] = (float)(rand() % 100) * 0.1;
-    }
-    h_x[i] = (float)(rand() % 100) * 0.1;
-    h_y[i] = (float)(rand() % 100) * 0.1;
-}
-alpha = 1;
-beta = 1;
-```
+<script src="https://gist.github.com/Cra2yPierr0t/0e50bda9b9f4543caeb03080d0d03419.js"></script>
+
 
 デバイスメモリを確保する。`d_y_out`は計算結果を格納するためのメモリである。
-```c
-cl_mem d_A;
-cl_mem d_x;
-cl_mem d_y;
-cl_mem d_y_out;
-
-d_A = clCreateBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-                        sizeof(float) * 1024 * 1024, h_A, NULL);
-d_x = clCreateBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-                        sizeof(float) * 1024, h_x, NULL);
-d_y = clCreateBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-                        sizeof(float) * 1024, h_y, NULL);
-d_y_out = clCreateBuffer(context, CL_MEM_WRITE_ONLY,
-                             sizeof(float) * 1024, NULL, NULL);
-```
+<script src="https://gist.github.com/Cra2yPierr0t/82791d5b743aa9cee16edfc4a77308fa.js"></script>
 
 ##### 4. カーネルの引数を設定する
 引数がN, [tex: A, x, y, \alpha, \beta], y_outと増えているので追加する。
 
-```c
-// 引数を設定
-int N = 1024;
-clSetKernelArg(ko_sgemv, 0, sizeof(int), &N);
-clSetKernelArg(ko_sgemv, 1, sizeof(float), &alpha);
-clSetKernelArg(ko_sgemv, 2, sizeof(float), &beta);
-clSetKernelArg(ko_sgemv, 3, sizeof(cl_mem), &d_A);
-clSetKernelArg(ko_sgemv, 4, sizeof(cl_mem), &d_x);
-clSetKernelArg(ko_sgemv, 5, sizeof(cl_mem), &d_y);
-clSetKernelArg(ko_sgemv, 6, sizeof(cl_mem), &d_y_out);
-```
+<script src="https://gist.github.com/Cra2yPierr0t/fd06ad24fb19a2c8406cc6eefd16dd6c.js"></script>
 
 ##### 5. キューにメモリとカーネルを転送する
 
 `clEnqueueNDRangeKernel()`と結果の読み出し部分に変更を加える。
 
-```c
-// カーネルをエンキュー
-size_t M = 1024;
-clEnqueueNDRangeKernel(commands, ko_sgemv, 1, NULL, &M, NULL, 0, NULL, NULL);
-
-// 完了まで待つ
-clFinish(commands);
-
-// 結果を読み出し
-float result_y[1024];
-clEnqueueReadBuffer(commands, d_y_out, CL_TRUE, 0, 
-        sizeof(float) * 1024, result_y, 0, NULL, NULL);
-```
+<script src="https://gist.github.com/Cra2yPierr0t/28fb36e2d0f576dd214e3eb2729be732.js"></script>
 
 ##### SGEMVのホストプログラム
 以上の1~5を組み合わせたホストプログラムが以下の通り、クリーンアップと実行時間、計算結果の計測部分を追加しているが、それ以外は全く変更を加えていない。
 
 このプログラムを適当な名前で保存し、OpenCLランタイムがインストールされている環境下で`gcc -lOpenCL filename.c`とするとコンパイルできる。
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <time.h>
-#ifdef __APPLE__
-#include <OpenCL/opencl.h>
-#include <unistd.h>
-#else
-#include <CL/cl.h>
-#endif
-
-char *kernelsource = "__kernel void sgemv (             \n" \
-"   const int N,                                        \n" \
-"   const float alpha,                                  \n" \
-"   const float beta,                                   \n" \
-"   __global float *A,                                  \n" \
-"   __global float *x,                                  \n" \
-"   __global float *y,                                  \n" \
-"   __global float *y_out) {                            \n" \
-"   int i = get_global_id(0);                           \n" \
-"   float tmp = 0.0f;                                   \n" \
-"                                                       \n" \
-"   for(int j = 0; j < N; j++) {                        \n" \
-"       tmp += alpha * A[i*N + j] * x[j];               \n" \
-"   }                                                   \n" \
-"   tmp += beta * y[i];                                 \n" \
-"   y_out[i] = tmp;                                     \n" \
-"}                                                      \n" \
-"\n";
-
-int main(int argc, char **argv) {
-
-    // 環境構築関係
-    // プラットフォームIDを確保
-    cl_platform_id platform_id;
-    cl_uint platform_num;
-    clGetPlatformIDs(1, &platform_id, &platform_num);
-
-    // デバイスIDを確保
-    cl_device_id device_id;
-    clGetDeviceIDs(platform_id, CL_DEVICE_TYPE_DEFAULT, 1, &device_id, NULL);
-
-    // コンテキストを作成
-    cl_context context;
-    context = clCreateContext(0, 1, &device_id, NULL, NULL, NULL);
-
-    // コマンドキューを作成
-    cl_command_queue commands;
-    commands = clCreateCommandQueue(context, device_id, 0, NULL);
-
-    // プログラム関係
-    // プログラムオブジェクトを作成
-    cl_program program;
-    program = clCreateProgramWithSource(context, 1, (const char **)&kernelsource, NULL, NULL);
-
-    // プログラムオブジェクトをビルド
-    clBuildProgram(program, 0, NULL, NULL, NULL, NULL);
-
-    // カーネルオブジェクトを作成
-    cl_kernel ko_sgemv;
-    ko_sgemv = clCreateKernel(program, "sgemv", NULL);
-
-    // メモリ関係
-    // ホストメモリを確保
-    float h_A[1024*1024];
-    float h_x[1024];
-    float h_y[1024];
-    float alpha;
-    float beta;
-
-    // 適当に初期化
-    for(int i = 0; i < 1024; i++) {
-        for(int j = 0; j < 1024; j++) {
-            h_A[1024*i + j] = (float)(rand() % 10) * 0.1;
-        }
-        h_x[i] = (float)(rand() % 10) * 0.1;
-        h_y[i] = (float)(rand() % 10) * 0.1;
-    }
-    alpha = 1;
-    beta = 1;
-
-    // デバイスメモリを確保
-    cl_mem d_A;
-    cl_mem d_x;
-    cl_mem d_y;
-    cl_mem d_y_out;
-
-    d_A = clCreateBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-                            sizeof(float) * 1024 * 1024, h_A, NULL);
-    d_x = clCreateBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-                            sizeof(float) * 1024, h_x, NULL);
-    d_y = clCreateBuffer(context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
-                            sizeof(float) * 1024, h_y, NULL);
-    d_y_out = clCreateBuffer(context, CL_MEM_WRITE_ONLY,
-                             sizeof(float) * 1024, NULL, NULL);
-
-
-    // 計測開始
-    clock_t begin, end;
-    double gpu_time, cpu_time;
-    begin = clock();
-
-    // 実行関係
-    // 引数を設定
-    int N = 1024;
-    clSetKernelArg(ko_sgemv, 0, sizeof(int), &N);
-    clSetKernelArg(ko_sgemv, 1, sizeof(float), &alpha);
-    clSetKernelArg(ko_sgemv, 2, sizeof(float), &beta);
-    clSetKernelArg(ko_sgemv, 3, sizeof(cl_mem), &d_A);
-    clSetKernelArg(ko_sgemv, 4, sizeof(cl_mem), &d_x);
-    clSetKernelArg(ko_sgemv, 5, sizeof(cl_mem), &d_y);
-    clSetKernelArg(ko_sgemv, 6, sizeof(cl_mem), &d_y_out);
-
-    // カーネルをエンキュー
-    size_t M = 1024;
-    clEnqueueNDRangeKernel(commands, ko_sgemv, 1, NULL, &M, NULL, 0, NULL, NULL);
-
-    // 完了まで待つ
-    clFinish(commands);
-
-    // 結果を読み出し
-    float result_y[1024];
-    clEnqueueReadBuffer(commands, d_y_out, CL_TRUE, 0, 
-            sizeof(float) * 1024, result_y, 0, NULL, NULL);
-
-    // 計測終了
-    end = clock();
-    gpu_time = (double)(end - begin) / CLOCKS_PER_SEC;
-
-    // 結果を検証
-    float correct_y[1024];
-    float tmp = 0;
-    begin = clock();
-    for(int i = 0; i < 1024; i++) {
-        for(int j = 0; j < 1024; j++) {
-            tmp += alpha * h_A[i*N + j] * h_x[j];
-        }
-        tmp += beta * h_y[i];
-        correct_y[i] = tmp;
-        tmp = 0;
-    }
-    end = clock();
-    cpu_time = (double)(end - begin) / CLOCKS_PER_SEC;
-
-    int correct_cnt = 0;
-    for(int i = 0; i < 1024; i++) {
-        printf("correct_y[%d] = %f ", i, correct_y[i]);
-        printf("result_y[%d] = %f ", i, result_y[i]);
-        if(correct_y[i] == result_y[i]) {
-            printf("correct !!!\n");
-            correct_cnt++;
-        } else {
-            printf("incorrect ...\n");
-        }
-    }
-    printf("%d matched.\n", correct_cnt);
-    printf("CPU time : %lf\n", cpu_time);
-    printf("GPU time : %lf\n", gpu_time);
-
-    // クリーンアップ
-    clReleaseMemObject(d_A);
-    clReleaseMemObject(d_x);
-    clReleaseMemObject(d_y);
-    clReleaseProgram(program);
-    clReleaseKernel(ko_sgemv);
-    clReleaseCommandQueue(commands);
-    clReleaseContext(context);
-
-    return 0;
-}
-```
+<script src="https://gist.github.com/Cra2yPierr0t/aede80ea2873e947a302855b4d7ffa7f.js"></script>
 
 ここまでの流れを正しく理解できていれば、簡単な処理に対してGPUという選択肢を考慮する事が可能になるだろう。
 
@@ -937,23 +406,7 @@ int main(int argc, char **argv) {
 ### 最適化前のカーネル
 以下は、CがサイズNxNの行列だとして、NxN個のワークアイテムを生成する事を前提にしたカーネルである。
 
-```c
-__kernel void mmul(
-    const int N,
-    __global float* A,
-    __global float* B,
-    __global float* C
-) {
-    int i = get_global_id(0);
-    int j = get_global_id(1);
-    
-    float tmp = 0.0f;
-    for(int k = 0; k < N; k++) {
-        tmp += A[i*N + k] * B[k * N + j];
-    }
-    C[i*N + j] = tmp;
-}
-```
+<script src="https://gist.github.com/Cra2yPierr0t/296496cba0c495cc4de400c23a97665b.js"></script>
 
 ### ワークアイテムとワークグループ管理のオーバヘッド
 ワークアイテムとワークグループの管理には大きなオーバーヘッドが存在する。つまり仮にN=1024だとして、NxN=1024x1024=1048576個のワークアイテムをGPUに管理させるのは得策ではない。
@@ -965,24 +418,7 @@ __kernel void mmul(
 ついでに今後の最適化を見越して、`clEnqueueNDRangeKernel()`をいじってワークグループが持つワークアイテムの数(`local_work_size`)を64に設定しておく。この場合、仮にN=1024だと16個のワークグループで実行できる。
 
 以上の最適化を加えたカーネルが以下になる。
-```c
-__kernel void mmul(
-    const N,
-    __global float *A,
-    __global float *B,
-    __global float *C
-) {
-    int i = get_global_id(0);
-    float tmp;
-    for(int j = 0; j < N;j++) {
-        tmp = 0.0f;
-        for(int k = 0; k < N; k++) {
-            tmp += A[i*N + k] * B[k*N + j];
-        }
-        C[i*N + j] = tmp;
-    }
-}
-```
+<script src="https://gist.github.com/Cra2yPierr0t/b19ac6079ff14988845c87b47267fd50.js"></script>
 
 ただ筆者の環境ではこの最適化手法は効果が無かった。むしろ遅くなった。
 
@@ -999,30 +435,7 @@ __kernel void mmul(
 ![OpenCLのメモリ階層](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/memory.png?raw=true){:decoding="async" loading="lazy"}
 
 そこでAの一列分だけグローバルメモリからプライベートメモリに移してやる。その修正を加えたカーネルが以下の通り。
-```c
-__kernel void mmul(
-    const N,
-    __global float *A,
-    __global float *B,
-    __global float *C
-) {
-    int i = get_global_id(0);
-    float tmp;
-    
-    float Awrk[1024];
-    for(int j = 0; j < N; j++) {
-        Awrk[j] = A[i*N + j];
-    }
-    
-    for(int j = 0; j < N; j++) {
-        tmp = 0.0f;
-        for(int k = 0; k < N; k++) {
-            tmp += Awrk[k] * B[k*N + j];
-        }
-        C[i*N + j] = tmp;
-    }
-}
-```
+<script src="https://gist.github.com/Cra2yPierr0t/666879de0061a5d5ef3addaeb5a53edd.js"></script>
 
 この最適化によって、最適化前の約3倍の計算速度を達成できた。
 
@@ -1039,39 +452,7 @@ Aの行をワークアイテム内で再利用できる事は話したが、先�
 
 ローカルメモリを使うようにしたカーネルが以下の通り。ローカルメモリにBwrkを確保し、ワークグループ内のワークアイテム達が並行してBwrkにBの一列を格納している。
 
-```c
-__kernel void mmul(
-    const N,
-    __global float *A,
-    __global float *B,
-    __global float *C,
-    __local float* Bwrk
-) {
-    int i = get_global_id(0);
-    int iloc = get_local_id(0);
-    int nloc = get_local_size(0);
-    float tmp;
-    
-    float Awrk[1024];
-    for(int j = 0; j < N; j++) {
-        Awrk[j] = A[i*N + j];
-    }
-    
-    for(int j = 0; j < N; j++) {
-        barrier(CLK_LOCAL_MEM_FENCE);
-        for(int k = iloc; k < N; k += nloc) {
-            Bwrk[k] = B[k*N + j];
-        }
-        barrier(CLK_LOCAL_MEM_FENCE);
-        tmp = 0.0f;
-        for(int k = 0; k < N; k++) {
-            tmp += Awrk[k] * Bwrk[k];
-        }
-        C[i*N + j] = tmp;
-        barrier(CLK_LOCAL_MEM_FENCE);
-    }
-}
-```
+<script src="https://gist.github.com/Cra2yPierr0t/2dc56b7dc5177d76d0847dbd646fb17f.js"></script>
 合間合間に`barrier(CLK_LOCAL_MEM_FENCE)`が挿入されているが、これはバリア命令と呼び、ワークグループ内の全てのワークアイテムがこのバリア命令を実行するまで次の命令を実行させない働きがある。引数に`CLK_LOCAL_MEM_FENCE`を指定することでローカルメモリまでに対するアクセスが確実に完了させてから停止する。
 
 なお大して速くならない。

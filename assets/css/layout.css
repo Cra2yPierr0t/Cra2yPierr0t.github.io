@@ -1,3 +1,17 @@
+.gist table tr {
+background-color: rgba(220,220,220,0.2) !important;
+}
+
+.gist-file {
+  border-bottom: none !important;
+}
+
+/* 文字大きくしてフォント変更する */
+table.highlight tr td,table.highlight tr td span {
+	font-size: 15px !important;
+}
+
+
 p {
     color: #3d4245!important;
 }
@@ -41,6 +55,10 @@ pre.highlight {
 }
 
 @media screen and (max-width:1024px) {
+    table.highlight tr td,table.highlight tr td span {
+        font-size: 25px !important;
+        height: 30px;
+    }
     body {
         height: auto;
         width: auto;
