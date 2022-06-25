@@ -30,7 +30,7 @@ OpenCLでデータ並列性を活用する
 OpenCLにとって計算機システムは、単一の制御用の**ホスト**と一つ以上の**デバイス**によって構成されている。そしてデバイスは一つ以上の**Compute Unit(CU)** からなる。またCUも一つ以上の**Processing Element(PE)** から構成される。
 メモリシステムも**ホストメモリ**と**デバイスメモリ**に大別される。ホストとデバイスを合わせて**プラットフォーム**とも呼ぶ。
 
-![ホストとデバイス、プラットフォーム](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/platform.png?raw=true){:decoding="async" loading="lazy"}
+![ホストとデバイス、プラットフォーム](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/platform.png?raw=true)
 
 ホストとデバイスが何を指すかは覚えておいた方が良い。
 ## ホストとカーネル
@@ -38,7 +38,7 @@ OpenCLのプログラムは、GPU上で動く**カーネルプログラム**とC
 
 カーネルプログラムはGPUで動くプログラムであり、カーネルプログラムが大量に並列実行されることで高速な計算が可能となる。またホストプログラムはCPU上で動くプログラムであり、その主な役割はカーネルプログラムをGPUへ展開する事と、データを転送する事である。
 
-![ホストがデバイスにカーネルを投げる様子](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/host_kernel.png?raw=true){:decoding="async" loading="lazy"}
+![ホストがデバイスにカーネルを投げる様子](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/host_kernel.png?raw=true)
 
 以上の通りOpenCLではホストとカーネルの二種類のプログラムを書く必要があり、特にホストプログラムはやることも多く複雑になりやすい。ホストとカーネルとは何かをきちんと覚えた上で読み進めてほしい。
 
@@ -52,9 +52,9 @@ OpenCLでは最大3次元までを指定してカーネルを展開する。ま�
 
 アルゴリズムに最も適した次元を選ぶことが非常に重要である。
 
-![2次元のワークアイテム](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/2dim_NDRange.png?raw=true){:decoding="async" loading="lazy"}
+![2次元のワークアイテム](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/2dim_NDRange.png?raw=true)
 
-![1次元のワークアイテム](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/1dim_NDRange.png?raw=true){:decoding="async" loading="lazy"}
+![1次元のワークアイテム](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/1dim_NDRange.png?raw=true)
 
 OpenCLの基礎知識は以上にとどめ、次は具体例を出しながらホストプログラムの書き方を解説する。
 
@@ -76,7 +76,7 @@ OpenCLの基礎知識は以上にとどめ、次は具体例を出しながら�
 
 よってより正確なイメージは以下のようになる。
 
-![より正確なホストプログラムのイメージ](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/host_kernel_queue.png?raw=true){:decoding="async" loading="lazy"}
+![より正確なホストプログラムのイメージ](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/host_kernel_queue.png?raw=true)
 
 コマンドキューだが、キューに入れた順にデバイスに送るインオーダキューと、入れた順にならないアウト・オブ・オーダーキューが存在する。
 
@@ -221,7 +221,7 @@ OpenCLのメモリにはいくつか種類が存在する。カーネルプロ�
 * ホストメモリ
     * CPU側のメモリ
 
-![OpenCLのメモリ階層](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/memory.png?raw=true){:decoding="async" loading="lazy"}
+![OpenCLのメモリ階層](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/memory.png?raw=true)
 
 メモリ管理は明示的であり、プログラマはホストメモリ->グローバルメモリ->ローカルメモリの順にデータが移動される事に責任を持つ(逆方向も然り)。
 ホストメモリ-グローバルメモリ間はO(1~10) Gbytes/s程度の帯域がある。
@@ -271,9 +271,9 @@ GPUへのカーネルの展開は`clEnqueueNDRangeKernel`によって行われ�
 
 `clEnqueueNDRangeKernel`とワークアイテム組み込み関数の対応を図式すると以下の通りになる。
 
-![dim = 2の場合](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/2dim_clEnqueueNDRange.png?raw=true){:decoding="async" loading="lazy"}
+![dim = 2の場合](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/2dim_clEnqueueNDRange.png?raw=true)
 
-![dim = 1の場合](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/1dim_clEnqueueNDRange.png?raw=true){:decoding="async" loading="lazy"}
+![dim = 1の場合](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/1dim_clEnqueueNDRange.png?raw=true)
 
 性能を出すためには問題に最も適した`work_dim`と`global_size`、`local_size`を選ぶことが重要である。
 
@@ -342,7 +342,7 @@ y = \alpha Ax + \beta y
 #### とりあえずカーネルプログラムを書く
 このSGEMVをどうにか並列に実行したい。パッと思いつくのはワークアイテムを一次元に展開して[tex: A]の行毎に実行しやる方法だろう。
 
-![ワークアイテムが行毎に積和を行うイメージ](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/sgemv.png?raw=true){:decoding="async" loading="lazy"}
+![ワークアイテムが行毎に積和を行うイメージ](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/sgemv.png?raw=true)
 
 性能が出るかは知らないがとりあえず実装してみる。
 
@@ -413,8 +413,7 @@ OpenCLホストプログラミング入門と特に変更はない。
 
 そこでワークアイテムを直線状に配置し、各ワークアイテムにはCの行ごとの計算をさせる。一度に計算する量が減るかもしれないが、ワークアイテムの数がNに削減できる。
 
-![ワークアイテムにCの行毎に計算させる](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/overhead_workitem.png?raw=true){:decoding="async" loading="lazy"}
-
+![ワークアイテムにCの行毎に計算させる](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/overhead_workitem.png?raw=true){
 ついでに今後の最適化を見越して、`clEnqueueNDRangeKernel()`をいじってワークグループが持つワークアイテムの数(`local_work_size`)を64に設定しておく。この場合、仮にN=1024だと16個のワークグループで実行できる。
 
 以上の最適化を加えたカーネルが以下になる。
@@ -422,24 +421,24 @@ OpenCLホストプログラミング入門と特に変更はない。
 
 ただ筆者の環境ではこの最適化手法は効果が無かった。むしろ遅くなった。
 
-![遅くなった、M2090だと早くなるらしい](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/osoi.png?raw=true){:decoding="async" loading="lazy"}
+![遅くなった、M2090だと早くなるらしい](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/osoi.png?raw=true)
 
 ### プライベートメモリの利用
 
 前回のカーネルを引き続き最適化する。Aの行に注目してほしい、各ワークアイテムにおいてAの行を使いまわす事が出来るのは、行列乗算の計算方法からして当然だろう。このような何度も使いまわすデータはPEの近くに置いておくのが得策である。
 
-![Aの行はワークアイテム内で再利用できる](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/row_workitem.png?raw=true){:decoding="async" loading="lazy"}
+![Aの行はワークアイテム内で再利用できる](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/row_workitem.png?raw=true)
 
 だが、先程最適化を加えたカーネルを見てみると、引数のAに`__global`が付いていることからもわかる通り、Aの値をわざわざグローバルメモリから取りに行っている。これは非常に無駄である。
 
-![OpenCLのメモリ階層](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/memory.png?raw=true){:decoding="async" loading="lazy"}
+![OpenCLのメモリ階層](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/memory.png?raw=true)
 
 そこでAの一列分だけグローバルメモリからプライベートメモリに移してやる。その修正を加えたカーネルが以下の通り。
 <script src="https://gist.github.com/Cra2yPierr0t/666879de0061a5d5ef3addaeb5a53edd.js"></script>
 
 この最適化によって、最適化前の約3倍の計算速度を達成できた。
 
-![約3倍の速度](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/hayai.png?raw=true){:decoding="async" loading="lazy"}
+![約3倍の速度](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/hayai.png?raw=true)
 
 ### 更に速く！ローカルメモリの利用
 Aの行をワークアイテム内で再利用できる事は話したが、先程最適化を加えたカーネルを見てみるとBの列を取得する際に、まだグローバルメモリにアクセスしている。
@@ -448,7 +447,7 @@ Aの行をワークアイテム内で再利用できる事は話したが、先�
 
 だが、内側のfor文においてBの行番号は不変であるので、ある程度Bの列も使い回せる。そこでローカルメモリにBの列を置いておき、グローバルメモリより近く、そしてワークグループ内の全てのワークアイテムがアクセス出来るようにする。
 
-![ワークグループ内でBの列は再利用できる](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/reuse_col.png?raw=true){:decoding="async" loading="lazy"}
+![ワークグループ内でBの列は再利用できる](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/reuse_col.png?raw=true)
 
 ローカルメモリを使うようにしたカーネルが以下の通り。ローカルメモリにBwrkを確保し、ワークグループ内のワークアイテム達が並行してBwrkにBの一列を格納している。
 
