@@ -299,19 +299,19 @@ GPUへのカーネルの展開は`clEnqueueNDRangeKernel`によって行われ�
 
 #### ベクトルデータ型
 
-ベクトルデータ型で値をまとめる事が出来る。[tex: n]に指定する値によってサイズが変わり、[tex: n]には2, 4, 8, 16のいずれかを指定出来る。
+ベクトルデータ型で値をまとめる事が出来る。$$n$$に指定する値によってサイズが変わり、$$n$$には2, 4, 8, 16のいずれかを指定出来る。
 
 | カーネルにおける型 | ホストにおける型 | 説明 |
 | -------- | -------- | -------- |
-| char[tex: n] | cl_char[tex: n] | 符号付き8bit整数ベクトル |
-| uchar[tex: n] | cl_uchar[tex: n] | 符号なし8bit整数ベクトル |
-| short[tex: n] | cl_short[tex: n] | 符号付き16bit整数ベクトル |
-| ushort[tex: n] | cl_ushort[tex: n] | 符号なし16bit整数ベクトル |
-| int[tex: n] | cl_int[tex: n] | 符号付き32bit整数ベクトル |
-| uint[tex: n] | cl_uint[tex: n] | 符号なし32bit整数ベクトル |
-| long[tex: n] | cl_long[tex: n] | 符号付き64bit整数ベクトル |
-| ulong[tex: n] | cl_ulong[tex: n] | 符号なし64bit整数ベクトル |
-| float[tex: n] | cl_float[tex: n] | 単精度浮動小数点ベクトル |
+| char$$n$$ | cl_char$$n$$ | 符号付き8bit整数ベクトル |
+| uchar$$n$$ | cl_uchar$$n$$ | 符号なし8bit整数ベクトル |
+| short$$n$$ | cl_short$$n$$ | 符号付き16bit整数ベクトル |
+| ushort$$n$$ | cl_ushort$$n$$ | 符号なし16bit整数ベクトル |
+| int$$n$$ | cl_int$$n$$ | 符号付き32bit整数ベクトル |
+| uint$$n$$ | cl_uint$$n$$ | 符号なし32bit整数ベクトル |
+| long[$$n$$| cl_long$$n$$ | 符号付き64bit整数ベクトル |
+| ulong$$n$$ | cl_ulong$$n$$ | 符号なし64bit整数ベクトル |
+| float$$n$$ | cl_float$$n$$ | 単精度浮動小数点ベクトル |
 
 ### 一般行列ベクトル積を書いてみよう
 習うより慣れろ、ということで線形代数演算APIであるBLAS(そういうのがある)のSGEMV、単精度行列-ベクトル積をOpenCLで実装してみよう。
@@ -319,24 +319,22 @@ GPUへのカーネルの展開は`clEnqueueNDRangeKernel`によって行われ�
 #### SGEMV
 単精度行列-ベクトル積SGEMVは以下の演算を行う。
 
-<div align='center' class='scroll'>
-[tex: \displaystyle
+$$
 y = \alpha Ax + \beta y
-]
-</div>
+$$
 
 | 変数名   | 説明 |
 | -------- | ---- |
-| [tex: \alpha] | スカラー |
-| [tex: A] | 行列 |
-| [tex: x] | ベクトル |
-| [tex: \beta] | スカラー |
-| [tex: y] | ベクトル |
+| $$\alpha$$ | スカラー |
+| $$A$$ | 行列 |
+| $$x$$ | ベクトル |
+| $$\beta$$ | スカラー |
+| $$y$$ | ベクトル |
 
 なお、ベクトルは全て列ベクトルとして扱われる。また行列の行サイズを**N**, 列サイズを**M**とする。
 
 #### とりあえずカーネルプログラムを書く
-このSGEMVをどうにか並列に実行したい。パッと思いつくのはワークアイテムを一次元に展開して[tex: A]の行毎に実行しやる方法だろう。
+このSGEMVをどうにか並列に実行したい。パッと思いつくのはワークアイテムを一次元に展開して$$A$$の行毎に実行しやる方法だろう。
 
 ![ワークアイテムが行毎に積和を行うイメージ](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/sgemv.png?raw=true)
 
@@ -344,7 +342,7 @@ y = \alpha Ax + \beta y
 
 <script src="https://gist.github.com/Cra2yPierr0t/ec6265fb66b2b653dcdd4903e867d165.js"></script>
 
-こんな感じだろうか、解説すると9行目でワークアイテムの位置を取得し、それを[tex: y]のインデックスとする。次にベクトルのサイズ分(この場合N)だけ乗算を回す。OpenCLはカーネルに2次元配列をそのまま渡すことが出来ないため、Aのインデックスは1次元配列を2次元配列として扱ったものを使っている。
+こんな感じだろうか、解説すると9行目でワークアイテムの位置を取得し、それを$$y$$のインデックスとする。次にベクトルのサイズ分(この場合N)だけ乗算を回す。OpenCLはカーネルに2次元配列をそのまま渡すことが出来ないため、Aのインデックスは1次元配列を2次元配列として扱ったものを使っている。
 
 #### ホストプログラムを書く
 カーネルプログラムが書けたら次はそれらを展開するホストプログラムを書いてやる必要がある。忘れない内に`clEnqueueNDRangeKernel()`を真っ先に書く。
@@ -376,7 +374,7 @@ OpenCLホストプログラミング入門と特に変更はない。
 <script src="https://gist.github.com/Cra2yPierr0t/82791d5b743aa9cee16edfc4a77308fa.js"></script>
 
 ##### 4. カーネルの引数を設定する
-引数がN, [tex: A, x, y, \alpha, \beta], y_outと増えているので追加する。
+引数がN, $$A, x, y, \alpha, \beta$$, y_outと増えているので追加する。
 
 <script src="https://gist.github.com/Cra2yPierr0t/fd06ad24fb19a2c8406cc6eefd16dd6c.js"></script>
 
@@ -397,7 +395,7 @@ OpenCLホストプログラミング入門と特に変更はない。
 ## カーネルの最適化
 カーネルに工夫を加えるとよりGPUのポテンシャルを引き出し、性能の良いプログラムを書くことが出来る。
 
-本章では[tex: C = A \times B]の行列乗算を例に、どうすればより良いカーネルを書けるか解説する。なお、ここの知識はほぼ[Hands on OpenCL](https://handsonopencl.github.io)の受け売りであるため、最適化に関してオススメの資料などがあれば是非教えてほしい。
+本章では$$C = A \times B$$の行列乗算を例に、どうすればより良いカーネルを書けるか解説する。なお、ここの知識はほぼ[Hands on OpenCL](https://handsonopencl.github.io)の受け売りであるため、最適化に関してオススメの資料などがあれば是非教えてほしい。
 
 ### 最適化前のカーネル
 以下は、CがサイズNxNの行列だとして、NxN個のワークアイテムを生成する事を前提にしたカーネルである。
