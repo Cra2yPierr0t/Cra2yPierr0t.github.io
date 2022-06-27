@@ -299,19 +299,19 @@ GPUへのカーネルの展開は`clEnqueueNDRangeKernel`によって行われ�
 
 #### ベクトルデータ型
 
-ベクトルデータ型で値をまとめる事が出来る。$$n$$に指定する値によってサイズが変わり、$$n$$には2, 4, 8, 16のいずれかを指定出来る。
+ベクトルデータ型で値をまとめる事が出来る。$$ n $$に指定する値によってサイズが変わり、$$ n $$には2, 4, 8, 16のいずれかを指定出来る。
 
 | カーネルにおける型 | ホストにおける型 | 説明 |
 | -------- | -------- | -------- |
-| char$$n$$ | cl_char$$n$$ | 符号付き8bit整数ベクトル |
-| uchar$$n$$ | cl_uchar$$n$$ | 符号なし8bit整数ベクトル |
-| short$$n$$ | cl_short$$n$$ | 符号付き16bit整数ベクトル |
-| ushort$$n$$ | cl_ushort$$n$$ | 符号なし16bit整数ベクトル |
-| int$$n$$ | cl_int$$n$$ | 符号付き32bit整数ベクトル |
-| uint$$n$$ | cl_uint$$n$$ | 符号なし32bit整数ベクトル |
-| long$$n$$| cl_long$$n$$ | 符号付き64bit整数ベクトル |
-| ulong$$n$$ | cl_ulong$$n$$ | 符号なし64bit整数ベクトル |
-| float$$n$$ | cl_float$$n$$ | 単精度浮動小数点ベクトル |
+| char$$n$$ | cl_char$$ n $$ | 符号付き8bit整数ベクトル |
+| uchar$$n$$ | cl_uchar$$ n $$ | 符号なし8bit整数ベクトル |
+| short$$n$$ | cl_short$$ n $$ | 符号付き16bit整数ベクトル |
+| ushort$$n$$ | cl_ushort$$ n $$ | 符号なし16bit整数ベクトル |
+| int$$n$$ | cl_int$$ n $$ | 符号付き32bit整数ベクトル |
+| uint$$n$$ | cl_uint$$ n $$ | 符号なし32bit整数ベクトル |
+| long$$n$$| cl_long$$ n $$ | 符号付き64bit整数ベクトル |
+| ulong$$n$$ | cl_ulong$$ n $$ | 符号なし64bit整数ベクトル |
+| float$$n$$ | cl_float$$ n $$ | 単精度浮動小数点ベクトル |
 
 ### 一般行列ベクトル積を書いてみよう
 習うより慣れろ、ということで線形代数演算APIであるBLAS(そういうのがある)のSGEMV、単精度行列-ベクトル積をOpenCLで実装してみよう。
@@ -320,7 +320,9 @@ GPUへのカーネルの展開は`clEnqueueNDRangeKernel`によって行われ�
 単精度行列-ベクトル積SGEMVは以下の演算を行う。
 
 $$
+\begin{align*}
 y = \alpha Ax + \beta y
+\end{align*}
 $$
 
 | 変数名   | 説明 |
