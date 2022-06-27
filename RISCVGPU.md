@@ -2,13 +2,13 @@
 
 RISC-V GPUへのハードウェア拡張の実装に関する論文の内容をサマライズしていく。
 
-出典：https://carrv.github.io/2022/
+出典：[https://carrv.github.io/2022/](https://carrv.github.io/2022/)
 
 ## 経緯
 
-[https://twitter.com/dev_msyksphinz/status/1538892939207667712:embed]
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">ちょうど本日ISCAの併設CARRVでRISC-VのGPU拡張の論文が出ているので、サマライズして教えてください(笑)。<a href="https://t.co/C2T8McuydM">https://t.co/C2T8McuydM</a><br>Implementing Hardware Extensions for Multicore RISC-V GPUs <a href="https://t.co/PJa9LkvEzh">https://t.co/PJa9LkvEzh</a></p>&mdash; Masayuki@FPGA開発日記 (@dev_msyksphinz) <a href="https://twitter.com/dev_msyksphinz/status/1538892939207667712?ref_src=twsrc%5Etfw">June 20, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-[https://twitter.com/ogawa_tter/status/1538899055266254849:embed]
+<blockquote class="twitter-tweet" data-conversation="none"><p lang="ja" dir="ltr">ベースとなってる Vortex: OpenCL Compatible RISC-V GPGPUの Micro 2021でのチュートリアルと MICRO 2021発表ペーパーです <a href="https://t.co/KnyNS7mMF6">https://t.co/KnyNS7mMF6</a><br>1stの博士課程の学生とラスト：Hyesoon Kim教授は一緒です、研究室 <a href="https://t.co/5el0C4MQGv">https://t.co/5el0C4MQGv</a><br>では、よろしくお願いします。</p>&mdash; OGAWA, Tadashi (@ogawa_tter) <a href="https://twitter.com/ogawa_tter/status/1538899055266254849?ref_src=twsrc%5Etfw">June 20, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 やるぞい
 
@@ -45,9 +45,9 @@ ISAの方針
 ## 1. Introduction
 
 近年、RISC-V ISAをベースにしたGPUが発表され始めている。
-https://ieeexplore.ieee.org/document/8918510
-https://ieeexplore.ieee.org/document/6942056
-https://carrv.github.io/2017/papers/collange-simty-carrv2017.pdf
+[https://ieeexplore.ieee.org/document/8918510](https://ieeexplore.ieee.org/document/8918510)
+[https://ieeexplore.ieee.org/document/6942056](https://ieeexplore.ieee.org/document/6942056)
+[https://carrv.github.io/2017/papers/collange-simty-carrv2017.pdf](https://carrv.github.io/2017/papers/collange-simty-carrv2017.pdf)
 
 これらのGPUはRISC-Vの整数乗除算や浮動小数点数演算などの標準拡張(MとかFとかDとか)を実装しているが、これに画像解析やグラフ解析、機械学習用の専用ハードウェアを追加するとなると標準拡張だけでは不十分であり、非標準の拡張を実装する必要がある。
 
