@@ -45,8 +45,11 @@ ISAの方針
 ## 1. Introduction
 
 近年、RISC-V ISAをベースにしたGPUが発表され始めている。
+
 [https://ieeexplore.ieee.org/document/8918510](https://ieeexplore.ieee.org/document/8918510)
+
 [https://ieeexplore.ieee.org/document/6942056](https://ieeexplore.ieee.org/document/6942056)
+
 [https://carrv.github.io/2017/papers/collange-simty-carrv2017.pdf](https://carrv.github.io/2017/papers/collange-simty-carrv2017.pdf)
 
 これらのGPUはRISC-Vの整数乗除算や浮動小数点数演算などの標準拡張(MとかFとかDとか)を実装しているが、これに画像解析やグラフ解析、機械学習用の専用ハードウェアを追加するとなると標準拡張だけでは不十分であり、非標準の拡張を実装する必要がある。
