@@ -1,4 +1,8 @@
 # GMII 仕様
+
+これの超下位互換です。
+[https://ieeexplore.ieee.org/document/8457469](https://ieeexplore.ieee.org/document/8457469)
+
 ## Interface
 GMIIの各種信号の働きを説明する。後半に連れて仕様書を読む気が無くなっていて雑になっている。
 
