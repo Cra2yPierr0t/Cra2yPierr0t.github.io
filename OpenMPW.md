@@ -10,16 +10,19 @@
 ---
 
 > The shuttle provides opportunities for designers to experiment and push the state-of-the-art without having to reconcile the risk associated with the cost of fabrication.
-出典：https://efabless.com/open_shuttle_program
+
+> 出典：https://efabless.com/open_shuttle_program
 
 このシャトルはデザイナーに製造コストに纏わるリスクを負うことなく、実験し、最先端を追求する機会を提供します。
  
 > The shuttle program is open to anyone, provided that their project is fully open source and meets the other program requirements.
+
 > 出典：https://efabless.com/open_shuttle_program
 
 シャトルプログラムは、プロジェクトが完全にオープンソースであり、一定の要件を満たしていれば、誰でも参加することができます。
 
 > Costs for fabrication, packaging, evaluation boards and shipping are covered by Google for this program.
+
 > 出典：https://efabless.com/open_shuttle_program
 
 製造、パッケージング、評価ボード、そして送料は全てGoogleが負担します。
@@ -61,23 +64,23 @@ OpenLANEをインストールするための環境を構築する。Linux/M1 Mac
 以下のコマンドはarchlinuxを対象としているが、pipとvirtualenvとdockerが入ればどのOSでもよい。
 
 pipとvirtualenvのインストール
-```bash=
+```bash
 sudo pacman -S python-virtualenv python-pip
 ```
 dockerのインストール
-```bash=
+```bash
 sudo pacman -S docker
 ```
 
 自分をdockerグループに追加する。これはセキュリティ上大変よろしくない。これを回避するためにpodmanを使ったり色々試したが結局無理だったので諦めた。回避出来るなら教えてほしい。
-```bash=
+```bash
 sudo usermod -a -G docker $(whoami)
 ```
 一旦再起動する。
 
 
 Dockerデーモンの起動
-```bash=
+```bash
 systemctl start docker
 ```
 
@@ -85,12 +88,12 @@ systemctl start docker
 次にOpenLANEをインストールするが、後述するCaravel経由でインストールした方がなにかと都合が良いので先にcaravelをインストールする。
 
 最初にcaravelをダウンロード
-```bash=
+```bash
 git clone https://github.com/efabless/caravel_user_project.git
 ```
 
 そしてdependenciesディレクトリを作成、OpenLANEとPDKをインストールするディレクトリを作成し、環境変数を設定する。
-```bash=
+```bash
 cd caravel_user_project
 mkdir dependencies
 export OPENLANE_ROOT=$(pwd)/dependencies/openlane_src
@@ -99,14 +102,14 @@ export PDK_ROOT=$(pwd)/dependencies/pdks
 PDKにはOR回路とかAND回路とかFFとかの設計図が入っている。
 
 `make setup`でインストールを開始する。
-```bash=
+```bash
 make setup
 ```
 
 環境変数の`OPENLANE_ROOT`と`PDK_ROOT`は重要であり、これが設定されていなければOpenLANEもCaravelも動かない。
 ### OpenLANEの動作確認
 OpenLANE以下に入ってmakeを使って動作確認をすることが出来る。
-```bash=
+```bash
 cd $OPENLANE_ROOT
 make test
 ```
@@ -163,12 +166,12 @@ User Project Areaから外部には38本のGPIO線が伸びており、ここか
 ただOpenLANEもpdkもCaravelも全部消してもう一度OpenMPWで必要なOSSをインストールしたいならここを見るのが手っ取り早い。
 
 Caravelをダウンロード
-```bash=
+```bash
 git clone https://github.com/efabless/caravel_user_project.git
 ```
 
 dependenciesディレクトリを作成、OpenLANEとPDKをインストールするディレクトリを作成し、環境変数を設定する。
-```bash=
+```bash
 cd caravel_user_project
 mkdir dependencies
 export OPENLANE_ROOT=$(pwd)/dependencies/openlane_src
@@ -176,13 +179,13 @@ export PDK_ROOT=$(pwd)/dependencies/pdks
 ```
 
 インストールを開始。
-```bash=
+```bash
 make setup
 ```
 
 ### Caravelの動作確認
 caravel_user_project以下に入り、makeを用いて例として用意されているデザインをビルドすることが出来る。
-```bash=
+```bash
 make user_proj_example
 ```
 
@@ -197,6 +200,7 @@ Caravelを使うには以下の4つのディレクトリの使いみちを知っ
 * `verilog/rtl/`：自分のデザインのverilogファイルをここに置く
 
 Caravelの全てのディレクトリの説明はここにある。
+
 https://caravel-harness.readthedocs.io/en/latest/getting-started.html#required-directory-structure
 
 ### Caravelにおけるデザインのビルド
@@ -214,7 +218,7 @@ Caravelにおいて、デザインのビルドは二段階に分かれている�
 
 Caravelのインストール直後では`user_project_wrapper`は`user_proj_example`を含むようになっているため、`user_proj_wrapper`をビルドした後`user_project_wrapper`をビルドすれば上の画像のようなGDSIIが生成される。
 
-```bash=
+```bash
 make user_proj_example
 make user_project_wrapper
 
@@ -224,6 +228,7 @@ klayout gds/user_project_wrapper.gds
 ### Caravelのドキュメント
 
 Caravelのドキュメントはここにあり、後で詳細な使い方を説明する。
+
 https://caravel-harness.readthedocs.io/en/latest/index.html#
 
 ## OpenMPWで自分のデザインを焼こう！
@@ -239,7 +244,9 @@ https://caravel-harness.readthedocs.io/en/latest/index.html#
 
 ### 1. 焼きたいデザインを用意する
 まずはデザインを用意しよう。今回は例としてEthernet MACを用います。
+
 https://github.com/Cra2yPierr0t/Vthernet-SoC/tree/main/verilog/rtl/Vthernet_MAC
+
 貴方のために作りました。
 
 ### 2. 自分のデザインにCaravel用のインターフェースを生やす
@@ -311,7 +318,7 @@ WRITEはMGMT Coreからデータを受け取る操作であり、同様に2サ�
 
 以下に筆者が作ったWishbone interfaceを置いておくので、実装の参考にしてほしい。(ライセンスフリー！)
 
-```verilog=
+```verilog
 module wb_interface #(
     parameter TEST_CSR0 = 32'h3000_0000,
     parameter TEST_CSR1 = 32'h3000_0004,
@@ -435,7 +442,7 @@ Logic Analyzerで用いる信号線は以下の三種類。
 以上より、設計者は`la_oenb`の値を考慮してLogic Analyzerの信号線を扱う必要がある。
 
 以下にLogic Analyzerの使用例を載せておくので実装の参考にしてほしい。
-```verilog=
+```verilog
 assign la_data_out[31:0] = test_signals;
 assign w_super_data = (&la_oenb[63:32]) ? la_data_in[63:32] : 32'h0000_0000;
 ```
@@ -478,6 +485,7 @@ Caravelでは、自分のデザインからMGMT Coreに割り込みを掛ける�
 割り込みを有効化するためにファームウェアでMGMT CoreのCSRを設定する必要があるが、自分のデザインでは割り込みを行いたい時に`user_irq`を立てるだけでよい。
 
 この動画が非常に参考になる。Interrupt!
+
 https://www.youtube.com/watch?v=pPgnVBguNW8
 
 ### 3. 自分のデザインをGDSIIにする
@@ -494,7 +502,7 @@ mkdir openlane/<user design top module>
 ここで作成したディレクトリに設定ファイルを置くわけだが、ゼロから書くのは非常にしんどい。そこで、例として用意されているuser_proj_exampleの設定ファイルをコピーして編集する。
 
 設定ファイルのコピー
-```bash=
+```bash
 cd openlane/<user design top module>
 cp ../user_proj_example/config.tcl .
 ```
@@ -568,6 +576,7 @@ set ::env(PL_TARGET_DENSITY) 0.2
 | `FP_PIN_ORDER_CFG`  | ピンの方角を指定             | 削除 |
 | `PL_TARGET_DENSITY` | 配置密度を指定               | 0~1 |
 
+
 #### GDSIIを生成
 設定ファイルが完成したら、次にGDSIIを生成する。`caravel_user_project`以下で`make <design_name>`でビルドが開始される。
 ```bash
@@ -591,7 +600,7 @@ Caravelに自分のデザインを接続出来たら次はシミュレーショ�
 #### シミュレーション環境のインストール
 
 このコマンドでシミュレーション用の環境をインストールする。
-```bash=
+```bash
 make simenv
 ```
 
@@ -663,7 +672,7 @@ OpenROAD reports unconnected nodes as a warning.
 OpenLane typically treats unconnected node warnings as a critical issue, and simply quits.
 
 We'll be leaving it up to the designer's discretion to enable/disable this: if LVS passes you're probably fine with this option being turned off.
-```bash=
+```bash
 set ::env(FP_PDN_CHECK_NODES) 0
 ```
 
