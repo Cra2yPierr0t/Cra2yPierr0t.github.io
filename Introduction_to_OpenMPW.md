@@ -163,7 +163,7 @@ The size of the Management Area is `2.920um x 3.520um`, which is roughly `10mm`.
 There are 38 GPIO lines extending out from the User Project Area, from which you can directly access your design. The Management Area is connected to the RISC-V core via a 32-bit wishbone interface and 128-bit Logic Analyzer lines, allowing programs running on the RISC-V core to access the RISC-V core via MMIO.
 
 ### Installing Caravel
-If you have already installed Caravel by installing OpenLANE above, you do not need to do this step. **It is better not to do it. **
+If you have already installed Caravel by installing OpenLANE above, you do not need to do this step. **It is better not to do it.**
 
 However, if you want to delete OpenLANE, pdk, Caravel, and everything else and install the OSS you need with OpenMPW again, this is a quick way to do it.
 
