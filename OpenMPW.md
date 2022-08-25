@@ -1,649 +1,693 @@
+# OpenMPW入門 改訂版(未完成)
+久々に以前書いた入門記事を読んだら日本語は雑だし内容は古いしこの世の終わりみたいな出来だったので90nmに備えて書きます。
+
+**オレオレLSIを焼きたいですよね？ 焼きましょう。** Skywater社がPDKを公開し、OSSなGDSIIコンパイラである**OpenLANE**も生まれました。そしてGoogleの出資によってEfablessが無料でLSIを作らせてくれるプログラム、**Open MPW Shuttle Program**をスタートしました。 今こそオレオレLSIを焼くチャンスです。あなたの作りたいチップをGoogleの金で作りましょう！
+
+
+## OpenMPWの概要
+**OpenMPW**(Open Multi Project Wafer)は**Efabless**にGoogleが出資して生まれたシャトルプログラムであり、ホームページには次の文言が書かれている。
+
 ---
-layout: default
-title: OpenMPW
+
+> The shuttle provides opportunities for designers to experiment and push the state-of-the-art without having to reconcile the risk associated with the cost of fabrication.
+出典：https://efabless.com/open_shuttle_program
+
+このシャトルはデザイナーに製造コストに纏わるリスクを負うことなく、実験し、最先端を追求する機会を提供します。
+ 
+> The shuttle program is open to anyone, provided that their project is fully open source and meets the other program requirements.
+> 出典：https://efabless.com/open_shuttle_program
+
+シャトルプログラムは、プロジェクトが完全にオープンソースであり、一定の要件を満たしていれば、誰でも参加することができます。
+
+> Costs for fabrication, packaging, evaluation boards and shipping are covered by Google for this program.
+> 出典：https://efabless.com/open_shuttle_program
+
+製造、パッケージング、評価ボード、そして送料は全てGoogleが負担します。
+
 ---
-# OpenMPW
 
-質問、修正案、その他連絡は@Cra2yPierr0tマデ
+つまりデザインをオープンソースにすれば**完全無料**で自分の半導体を作れるプログラムということですね。これは熱い、参加するしかない、Google最高一生ついていきます。
 
-[https://www.skywatertechnology.com/mpw/open-source-mpw-program/](https://www.skywatertechnology.com/mpw/open-source-mpw-program/)
----
+と言っても提出された全てのデザインを焼いてくれるという訳ではなく、いくつかの条件が存在しています。
 
-## OpenMPWとOpenLANEとSkywaterPDKの概要
-### OpenMPWの概要
-* 無料でLSIを焼いてくれるプロジェクト
-* Googleがefablessに出資して実現した
-* Caravel(RISC-V+各種IO)に自分のデザインを加える形で実装する
-* 提出された中から40デザインがランダムに選ばれる
-
-### 必要要件
+* 提出された中からランダムに40のプロジェクトが選ばれる
 * Skywater PDKの使用
-* オープンなデザイン
+* デザインをオープンソースにすること
+* レイアウトをリポジトリから再現可能にすること
 * ライセンス諸々
-* 再現可能なGDSIIレイアウト
-* Caravelの使用
-* プリチェックツールでの合格
+* Caravel(後述)の使用
+* プリチェックツールをパスしていること
 
-### まとめ
-1. Caravelをforkして改造
-2. プリチェックツールで通るならおｋ(おｋでない場合もたまにある)
-3. EfablessにGDSIIファイルを送りつける
-4. 嬉しい！
+今すぐにでも自分のHDLをLSIにしたい気持ちは分かりますが、必要な事がちょっと多いので少しずつやっていきましょう。
 
-### 各種リンク
-* [OpenLANE](https://github.com/efabless/openlane) : RTLからGDSII吐くやつ
-* [Caravel](https://github.com/efabless/caravel) : パッドフレーム
-* [Caravel User Project](https://github.com/efabless/caravel_user_project)
-* [プリチェックツール](https://github.com/efabless/open_mpw_precheck)
-* [MPW-ONE](https://efabless.com/projects/shuttle_name/MPW-ONE)
-* [MPW-TWO](https://efabless.com/projects/shuttle_name/MPW-TWO)
-* [MPW-3](https://efabless.com/projects/shuttle_name/MPW-3)
+この次は各ツールの概要に入りますが、既に知っておりインストール済みなら飛ばして頂いて構いません。
 
----
+## OpenLANEの概要
+OpenLANEとはOSSなRTL-to-GDSIIコンパイラであり、20個くらいのOSSを組み合わせて作られている。PDKとRTLとコンフィグを揃えて実行するとGDSIIが生えてくる。
 
-## LSIを焼こう！[^21]
-**オレオレLSIを焼きたいですよね？ 焼きましょう。** Skywater社がPDKを公開し、OSSなGDSIIコンパイラである**OpenLANE**も生まれました。そしてGoogleの出資によってEfablessが無料でLSIを作らせてくれるプログラム、**Open MPW Shuttle Program**をスタートしました。
-今こそオレオレLSIを焼くチャンスです。あなたの作りたいチップをGoogleの金で作りましょう！
+このGDSIIをファブに送りつけるとLSIを焼いてくれる。
 
+OpenLANEはDockerコンテナが提供されており、Dockerでインストールするのが推奨されている。一応Dockerコンテナを使わずにインストールすることも可能だが、  It is more complexとか書いてあるので近づかない方がいい。
+### 環境構築
+OpenLANEをインストールするための環境を構築する。Linux/M1 Mac/Intel Mac/Winに対応している。
 
----
+最小要件はこちら
 
-概要はefablessの動画[^8]を見れば大体わかる。また使うツールのバージョンやCaravelの概要はこのドキュメント[^12]に書いてある。また大抵の問題はSkywaterのSlackに質問を飛ばすと解決するので参加をオススメします。
+* GNU Make
+* Python 3.6+ with pip and virtualenv
+* Git 2.22+
+* Docker 19.03.12+
 
-Analogも対応出来るみたいだけど需要があったら書く
+以下のコマンドはarchlinuxを対象としているが、pipとvirtualenvとdockerが入ればどのOSでもよい。
 
-### 必要なもの
-
-* Caravel_user_project  : これのUser Project Areaに自分のデザインを加える
-* Skywater PDK  : Process Design Kit、素材の情報みたいななやつ
-* OpenLANE : RTLをGDSII[^16]に変換するコンパイラ(Synopsysとか持ってるのなら必要ない)
-* 自分のデザイン
-* 時間、精神力 : いっぱい
-
-### 1.各種インストール & ビルド
-
-#### 1.Caravelのインストール
-基本的に、forkしたCaravel_user_projectのリポジトリ[^11]上で全てを進めていく
-```shell
-git clone git@github.com:efabless/caravel_user_project.git
-cd caravel_user_project
-make install
+pipとvirtualenvのインストール
+```bash=
+sudo pacman -S python-virtualenv python-pip
+```
+dockerのインストール
+```bash=
+sudo pacman -S docker
 ```
 
-#### 2.PDKのビルド
-5分くらい掛かる、PDK_ROOTはお好みで設定してよい。
-```shell
-mkdir ~/pdks
-export PDK_ROOT=~/pdks
-cd caravel_user_project
-make pdk
+自分をdockerグループに追加する。これはセキュリティ上大変よろしくない。これを回避するためにpodmanを使ったり色々試したが結局無理だったので諦めた。回避出来るなら教えてほしい。
+```bash=
+sudo usermod -a -G docker $(whoami)
+```
+一旦再起動する。
+
+
+Dockerデーモンの起動
+```bash=
+systemctl start docker
 ```
 
-#### 3.OpenLANEのインストール
-OpenLNAEのDockerイメージが存在しているのでインストールする、Dockerは事前にインストールしてデーモンを起動しておく。OPENLANE_ROOTはお好みで設定してよい。
+### OpenLANEのインストール
+次にOpenLANEをインストールするが、後述するCaravel経由でインストールした方がなにかと都合が良いので先にcaravelをインストールする。
 
-```shell
-mkdir ~/openlane
-export OPENLANE_ROOT=~/openlane
-cd caravel_user_project
-make openlane
+最初にcaravelをダウンロード
+```bash=
+git clone https://github.com/efabless/caravel_user_project.git
 ```
 
-以上で必要なツールは揃いました。
+そしてdependenciesディレクトリを作成、OpenLANEとPDKをインストールするディレクトリを作成し、環境変数を設定する。
+```bash=
+cd caravel_user_project
+mkdir dependencies
+export OPENLANE_ROOT=$(pwd)/dependencies/openlane_src
+export PDK_ROOT=$(pwd)/dependencies/pdks
+```
+PDKにはOR回路とかAND回路とかFFとかの設計図が入っている。
 
-### 2.デザインを自作する
+`make setup`でインストールを開始する。
+```bash=
+make setup
+```
 
-8-bit CPUをCaravelに載せた時のサンプルを置いておきます。適宜参照するとよろし。
-https://github.com/cpu-dev/caravel_jacaranda-8/tree/submission-mpw-3/verilog/rtl
+環境変数の`OPENLANE_ROOT`と`PDK_ROOT`は重要であり、これが設定されていなければOpenLANEもCaravelも動かない。
+### OpenLANEの動作確認
+OpenLANE以下に入ってmakeを使って動作確認をすることが出来る。
+```bash=
+cd $OPENLANE_ROOT
+make test
+```
+Basic test passedと出れば問題なくインストール出来ている。
 
-#### Caravelの概要
-caravelのUser Project Areaに自分のデザインを突っ込む訳ですが、その前にUser Project Areaについて多少知っておいた方が良いのでここで説明する。
+![](https://i.imgur.com/mhYH6Wb.png)
 
-以下がCaravelパッドフレームの概略図
+既に用意されている`design/`以下のデザインをビルドしたい場合は、`make mount`してから`./flow.tcl -design ディレクトリ名`でビルド出来る。
+
+以下は試しにAPUをビルドするコマンドである。
+```bash
+cd $OPENLANE_ROOT
+make mount
+./flow.tcl -design APU
+```
+
+OpenLANEを直接使ってデザインをビルドした際に生成されたGDSIIは
+`OpenLANE/designs/APU/runs/RUN_<date>/results/final/gds`以下に存在しており、klayoutを用いてレイアウトを見られる。
+```bash
+klayout APU.gds
+```
+![](https://i.imgur.com/XJ0v0dL.png)
+
+この画像は回路が生成されている感を感じるためにデキャップセルを非表示にしており、実際に見られるものとは少し異なる。
+
+### OpenLANEの設定
+OpenLANEを使う上でHDLを書くのと同時に、そのデザインに応じたOpenLANE用の設定ファイルを書く必要がある。
+
+試しにデフォルトで用意されているデザインの設定ファイルを見てみよう。デフォルトのデザインは`OpenLANE/designs/`以下に存在しており、usbやpicorv32a等色々あるがそれらのディレクトリ内の**config.tcl**がOpenLANEの設定ファイルである。
+
+設定ファイルはtclファイルの**config.tcl**かjsonファイルの**config.json**で設定出来る。
+
+設定ファイルの基本的な書き方の説明はここにあるが、後で解説する。
+https://openlane.readthedocs.io/en/latest/docs/source/hardening_macros.html
+
+また利用可能な変数の一覧はここにあり、その中で必須な変数を後で解説する。
+https://openlane.readthedocs.io/en/latest/configuration/README.html
+
+## Caravelの概要
+今までさんざん出てきたCaravelだが、これはOpenMPWの半導体設計用テンプレートである。
+このCaravel一つでデザインのビルド、プリチェック、テストベンチをすることが可能である。
+
+CaravelはManagement AreaとUser Project Areaに分かれている。Management Areaは変更不可能な領域であり、軽量なRISC-Vコアと各種IOからなる。User Project Areaは自由に変更できる領域であり、開発者はここに自分のデザインを置く。
+
+Management Areaのサイズは`2.920um x 3.520um`であり、大体`10mm`となっている。
 
 ![caravelの概要](https://i.imgur.com/CQLoSjf.png)
 
-User Project Areaについて抑えておくべき事項は3つ
-* Wishboneバスが繋がっている(32bit)
-* Logic Analyzer Signalsが繋がっている(128bit)
-* GPIOが生えている(38本)
+User Project Areaから外部には38本のGPIO線が伸びており、ここから直接自分のデザインにアクセス出来る。またManagement Areaとは32bitのwishboneインターフェースと128bitのLogic Analyzer線で繋がっており、RISC-Vコア上で走っているプログラムがMMIOでアクセス出来る。
 
-Wishbone、Logic Analyzer Signalsに関してはCPU側からMMIOを通してアクセスが可能であり、Wishboneのアドレスは`0x30000000`から`0x80000000-1`の間で自由に設定できる。
+### Caravelのインストール
+ここの作業は、上記のOpenLANEのインストールで既にCaravelのインストールを完了している場合はやる必要は無い。**むしろやらない方が良い。**
 
-以下では、Wishbone、Logic Analyzer Signals、GPIOそれぞれの扱い方を説明する。
+ただOpenLANEもpdkもCaravelも全部消してもう一度OpenMPWで必要なOSSをインストールしたいならここを見るのが手っ取り早い。
 
-#### Wishboneを扱う
-という訳でWishboneの扱い方を付け焼き刃程度に解説する。既にWishboneについて知ってる方はこの部分を読む必要は無い。
-
-Caravelでは10種類のWishboneに関係した線が存在している。
-
-
-
-| 信号名   | 説明 |
-| ----- | --- |
-|wb_clk_i| マスターから入力されるクロック。この立ち上がりのタイミングで値が読まれる。                               |
-|wb_rst_i| リセット信号。wishboneインターフェイスのステートマシンをリセットさせる。IPコアをリセットする必要は無い。 |
-|wbs_stb_i| ストローブ入力。スレーブが選択されている事を示す。 |
-|wbs_cyc_i| サイクル入力。有効なバスサイクルが進行している事を示す。|
-|wbs_we_i| ライトイネーブル入力。現在のバスサイクルがReadかWriteか示す。1でWrite、0でRead。|
-|wbs_sel_i[3:0]| セレクタ入力。入力データ(wbs_dat_i[31:0])の内、有効なデータがどれか示す。8ビット粒度。|
-|wbs_dat_i[31:0]|データ入力|
-|wbs_adr_i[31:0]|アドレス入力 |
-|wbs_ack_o|アクノリッジ出力。1にすると正常なバスサイクルの終了を示す。|
-|wbs_dat_o[31:0]|データ出力|
-
-とまあ沢山信号線があって制御がダルいように思うかもしれないが、割とシンプルな回路で扱える。
-
-まず信号を整理する。[^25] 
-```verilog
-// WB MI A
-assign valid = wbs_cyc_i & wbs_stb_i; 
-assign wbs_ack_o = ready;
-assign we = wbs_we_i;
-assign wbs_dat_o = rdata;
-assign wdata = wbs_dat_i;
-assign addr = wbs_adr_i;
-// wb_sel_iはお好みで
-
-assign reset = wb_rst_i;
-assign clk   = wb_clk_i;
+Caravelをダウンロード
+```bash=
+git clone https://github.com/efabless/caravel_user_project.git
 ```
 
-そしてシンプルなデータ読み出し、書き込みが出来るロジックを以下に書いた。
-```verilog
-always @(posedge clk) begin
-    if(reset) begin
-        // ここにリセットの処理
-        ready <= 1'b0;
-    end else begin
-        if(ready) begin
-            ready <= 1'b0;
-        end
-        // Read
-        if (valid && !ready && !we) begin
-            case(addr)
-                // こんな感じでRead処理
-                ADDR1: rdata <= nanka_data1;
-                ADDR2: rdata <= nanka_data2;
-                // ・・・
+dependenciesディレクトリを作成、OpenLANEとPDKをインストールするディレクトリを作成し、環境変数を設定する。
+```bash=
+cd caravel_user_project
+mkdir dependencies
+export OPENLANE_ROOT=$(pwd)/dependencies/openlane_src
+export PDK_ROOT=$(pwd)/dependencies/pdks
+```
+
+インストールを開始。
+```bash=
+make setup
+```
+
+### Caravelの動作確認
+caravel_user_project以下に入り、makeを用いて例として用意されているデザインをビルドすることが出来る。
+```bash=
+make user_proj_example
+```
+
+GDSIIファイルは`gds/`以下に生成される。
+
+### Caravelのファイル構造
+Caravelを使うには以下の4つのディレクトリの使いみちを知っていれば十分である。
+
+* `gds/`：ここにGDSIIファイルが生成される
+* `openlane/`：OpenLANEの設定ファイルをここに置く
+* `verilog/dv/`：シミュレーションとテストベンチ用ファイルをここに置く
+* `verilog/rtl/`：自分のデザインのverilogファイルをここに置く
+
+Caravelの全てのディレクトリの説明はここにある。
+https://caravel-harness.readthedocs.io/en/latest/getting-started.html#required-directory-structure
+
+### Caravelにおけるデザインのビルド
+Caravelにおいて、デザインのビルドは二段階に分かれている。第一段階が自分のVerilogのビルドであり、第二段階がラッパーのビルドである。OpenMPWではこのラッパーの方を提出する。
+
+ここで言うラッパーとは自分のデザインを1つ以上包んだデザインの事であり、`user_project_wrapper`という名前である。
+
+ビルドされた`user_project_wrapper`は通常、以下の画像のようにラッパーにデザインが挿入された形になる。
+
+![](https://i.imgur.com/qMfFIJS.png)
+
+この画像も回路が生成されている感を出すためデキャップセルを非表示にしている。
+
+開発者は自分のデザイン用と`user_project_wrapper`用の2つのOpenLANEの設定ファイルを編集する。後者の方は少ししか編集しないので安心してほしい。
+
+Caravelのインストール直後では`user_project_wrapper`は`user_proj_example`を含むようになっているため、`user_proj_wrapper`をビルドした後`user_project_wrapper`をビルドすれば上の画像のようなGDSIIが生成される。
+
+```bash=
+make user_proj_example
+make user_project_wrapper
+
+klayout gds/user_project_wrapper.gds
+```
+
+### Caravelのドキュメント
+
+Caravelのドキュメントはここにあり、後で詳細な使い方を説明する。
+https://caravel-harness.readthedocs.io/en/latest/index.html#
+
+## OpenMPWで自分のデザインを焼こう！
+ここからは本格的に自分のデザインをビルドし、OpenMPWに提出する方法を説明する。なお、Verilogの書き方は説明しないのでデザインは自分で用意してほしい。
+
+必要なものはこちら。上3つに関しては先の章で既に済ませている。
+
+* Caravel_user_project : これのUser Project Areaに自分のデザインを加える
+* Skywater PDK : Process Design Kit、素材の情報みたいななやつ
+* OpenLANE : RTLをGDSIIに変換するコンパイラ(Synopsysとか持ってるのなら必要ない)
+* 自分のデザイン
+* 時間、精神力 : いっぱい
+
+### 1. 焼きたいデザインを用意する
+まずはデザインを用意しよう。今回は例としてEthernet MACを用います。
+https://github.com/Cra2yPierr0t/Vthernet-SoC/tree/main/verilog/rtl/Vthernet_MAC
+貴方のために作りました。
+
+### 2. 自分のデザインにCaravel用のインターフェースを生やす
+自分のデザインをCaravelのMGMT Coreに接続すれば、ファームウェアでレジスタの設定やデータの受送信を行う事が出来るようになる。また、自分のデザインを外部ピンに接続すれば、直接外部とデータを受送信が行えるようになる。
+
+ここでは、自分のデザインをCaravelに対応させるために必要な事項を説明する。
+
+Management Coreと接続する方法は2通り存在し、**Wishbone**と**Logic Analyzer**という名前である。外部と接続する方法は1通りであり、**mprj_io**という名前が付いている。
+
+まとめるとこう。
+
+|   信号名  | バス幅 | 方向 |
+| -------- | ----- | ---- |
+| Wishbone | 32bit | user_design <-> Management Core |
+| Logic Analyzer | 128bit |  user_design <-> Management Core |
+| mprj_io | 38bit | user_design <-> Outside |
+
+また、自分のデザインからMGMT Coreへ割り込みを掛けることも可能である。割り込みについては上の３つの信号の説明の後、扱い方を解説する。
+
+#### WishboneとLogic Analyzerの違い
+自分のデザインとMGMT Core間の通信で32bit幅のWishboneと128bit幅のLogic Analyzerの2通りが用意されいると書いたが、この２つで何が異なるのか、疑問に思う人もいるだろう。なのでここでは、この２つの概要をさっくり説明する。
+
+まずWishboneだが、これは通信プロトコルでありAXI4とかAMBAの友達である。10種類の信号線をプロトコルに沿って操作することでREADやWRITEが可能となる。Wishboneは32bitのデータ線とアドレス線に分かれており、アドレスで指定したデータの読み書きが行える。Caravelにおいては`0x30000000`~`0x80000000-1`までのアドレスがWishbone用に確保されており、この範囲でなら自由に利用できる。
+
+次にLogic Analyzerだが、これはただの信号線名にすぎない。バス幅は128bitとWishboneの4倍あり、データ線もアドレス線も分かれておらず、3種類の信号線があるだけとなっている。MGMT Coreからは128bitを4分割した`0x250000000`, `0x250000004`, `0x250000008`, `0x25000000c`の4つのレジスタとして見えている。
+
+HDLでの実装しやすさで言ったらLogic Analyzerの方が実装しやすいが、アドレスは4つしか割り当てられない。一方WishboneはLogic Analyzerの単純さに比べれば多少複雑だが、広範囲のアドレスを扱える。まあ用途によってどちらが適しているか変わるので、本節では両方の使い方を説明する。
+
+#### Wishbone interfaceを作る
+Wishboneでレジスタのデータを読み出したり、レジスタにデータを書き込んだりする機構の作り方を解説する。これを作ることでRISC-VプロセッサからMMIOで自分のデザインとデータの受送信が出来るようになる。
+
+Wishboneの信号線は以下の通り。
+
+| 信号名             | 方向 | 働き                                                                       |
+| ----------------- | --- | -------------------------------------------------------------------------- |
+| `wb_clk_i`        | MGMT Core -> user_design | マスターから入力されるクロック。<br>この立ち上がりのタイミングで値が読まれる。 |
+| `wb_rst_i`        | MGMT Core -> user_design | リセット信号。                                                             |
+| `wbs_stb_i`       | MGMT Core -> user_design | ストローブ入力。<br>スレーブが選択されている事を示す。                         |
+| `wbs_cyc_i`       | MGMT Core -> user_design | サイクル入力。<br>有効なバスサイクルが進行している事を示す。                   |
+| `wbs_we_i`        | MGMT Core -> user_design | ライトイネーブル入力。<br>1でWrite、0でRead。                                  |
+| `wbs_sel_i[3:0]`  | MGMT Core -> user_design | セレクタ入力。<br>`wbs_dat_i[31:0]`の有効なバイトがどれか示す。8ビット粒度。   |
+| `wbs_dat_i[31:0]` | MGMT Core -> user_design | データ入力。                                                               |
+| `wbs_adr_i[31:0]` | MGMT Core -> user_design | アドレス入力。                                                             |
+| `wbs_ack_o`       | MGMT Core <- user_design | アクノリッジ出力。<br>1にすると正常なバスサイクルの終了を示す。                |
+| `wbs_dat_o[31:0]` | MGMT Core <- user_design | データ出力。                                                               |
+
+信号線が10本もあり、AXI4やAMBA等の通信プロトコルをあまり扱わなかった方は怯むかもしれないが、扱い方は非常に単純である。まずREADとWRITEの波形を以下に示す。これはWishboneの仕様書から拝借した。
+
+READの波形
+![](https://i.imgur.com/42WsBN4.png)
+
+READはMGMT Coreにデータを送る操作(MGMT CoreがMaster)であり、2サイクルで完了する。
+
+WRITEの波形
+![](https://i.imgur.com/ae7Rm82.png)
+
+WRITEはMGMT Coreからデータを受け取る操作であり、同様に2サイクルで完了する。
+以降プロトコルの説明を行う。
+
+まず大前提として知ってほしいのが`adr_o`, `dat_i`, `dat_o`の３つの信号線である。それぞれ`adr_o`はアドレス線であり、`dat_i`はMGMT Coreへのデータ(READ用)であり、`dat_o`はMGMT Coreからのデータ(WRITE用)である。
+
+1サイクル目で最初に見るべきは`stb_o`と`cyc_o`である。この２つが立っていれば、自分が選択され、通信が開始された事になる。次に`we_o`が立っていればそのサイクルではWRITEを行い、立っていなければREADを行う事を意味する。WRITEなら`adr_o`と`dat_o`にはvalidな値が来ており、`adr_o`で指定されている先に`dat_o`の値を入れればよい。READなら`adr_o`は欲しいデータのアドレスとなっている。
+
+2サイクル目で最初に見るべきは`dat_i`と`ack_i`である。`dat_i`はREADの場合のみに用い、`adr_o`で指定されたデータをここに入力する。`ack_i`はREADとWRITEの場合両方に用い、このサイクルで立てて通信が完了したことを示す。
+
+グダグダ説明したが、まあ波形を見ればわかると思う。あと`wbs_sel_i`はバイトイネーブルです。
+
+仕様書にはパイプライン化されたトランザクションとか色々書いてあるが、Caravelは**おそらく**連続したトランザクションを行わず、トランザクション同士の間隔は離れていると思われる。少なくともシミュレーションではそうだった。
+
+以下に筆者が作ったWishbone interfaceを置いておくので、実装の参考にしてほしい。(ライセンスフリー！)
+
+```verilog=
+module wb_interface #(
+    parameter TEST_CSR0 = 32'h3000_0000,
+    parameter TEST_CSR1 = 32'h3000_0004,
+    parameter TEST_CSR2 = 32'h3000_0008
+)(
+    // wishbone signals
+    input   wire        wb_clk_i,
+    input   wire        wb_rst_i,
+    input   wire        wbs_stb_i,
+    input   wire        wbs_cyc_i,
+    input   wire        wbs_we_i,
+    input   wire [3:0]  wbs_sel_i,
+    input   wire [31:0] wbs_dat_i,
+    input   wire [31:0] wbs_adr_i,
+    output  reg         wbs_ack_o,
+    output  reg  [31:0] wbs_dat_o,
+    // CSRs
+    output  reg  [31:0] test_csr0,
+    output  reg  [31:0] test_csr1,
+    output  reg  [31:0] test_csr2
+);
+
+    localparam WB_IDLE  = 2'b00;
+    localparam WB_READ  = 2'b01;
+    localparam WB_WRITE = 2'b10;
+
+    reg [1:0] wb_state;
+
+    always @(posedge wb_clk_i) begin
+        if(wb_rst_i) begin
+            wb_state    <= WB_IDLE;
+            wbs_ack_o   <= 1'b0;
+        end else begin
+            case(wb_state)
+                WB_IDLE : begin
+                    wbs_ack_o   <= 1'b0;
+                    if(wbs_stb_i && wbs_cyc_i) begin
+                        if(wbs_we_i) begin
+                            wb_state <= WB_WRITE;
+                        end else begin
+                            wb_state <= WB_READ;
+                        end
+                    end
+                end
+                WB_READ : begin
+                    wb_state    <= WB_IDLE;
+                    wbs_ack_o   <= 1'b1;
+                    case(wbs_adr_i)
+                        TEST_CSR0 : begin
+                            wbs_dat_o[7:0]   <= wbs_sel_i[0] ? test_csr0[7:0] : 8'h00;
+                            wbs_dat_o[15:8]  <= wbs_sel_i[1] ? test_csr0[15:0] : 8'h00;
+                            wbs_dat_o[23:16] <= wbs_sel_i[2] ? test_csr0[23:16] : 8'h00;
+                            wbs_dat_o[31:24] <= wbs_sel_i[3] ? test_csr0[31:24] : 8'h00;
+                        end
+                        TEST_CSR1 : begin
+                            wbs_dat_o[7:0]   <= wbs_sel_i[0] ? test_csr1[7:0] : 8'h00;
+                            wbs_dat_o[15:8]  <= wbs_sel_i[1] ? test_csr1[15:0] : 8'h00;
+                            wbs_dat_o[23:16] <= wbs_sel_i[2] ? test_csr1[23:16] : 8'h00;
+                            wbs_dat_o[31:24] <= wbs_sel_i[3] ? test_csr1[31:24] : 8'h00;
+                        end
+                        TEST_CSR2 : begin
+                            wbs_dat_o[7:0]   <= wbs_sel_i[0] ? test_csr2[7:0] : 8'h00;
+                            wbs_dat_o[15:8]  <= wbs_sel_i[1] ? test_csr2[15:0] : 8'h00;
+                            wbs_dat_o[23:16] <= wbs_sel_i[2] ? test_csr2[23:16] : 8'h00;
+                            wbs_dat_o[31:24] <= wbs_sel_i[3] ? test_csr2[31:24] : 8'h00;
+                        end
+                        default   : begin
+                            wbs_dat_o <= 32'h0000_0000;
+                        end
+                    endcase
+                end
+                WB_WRITE : begin
+                    wb_state    <= WB_IDLE;
+                    wbs_ack_o   <= 1'b1;
+                    case(wbs_adr_i)
+                        TEST_CSR0 : begin
+                            test_csr0[7:0]   <= wbs_sel_i[0] ? wbs_dat_i[7:0] : 8'h00;
+                            test_csr0[15:8]  <= wbs_sel_i[1] ? wbs_dat_i[15:8] : 8'h00;
+                            test_csr0[23:16] <= wbs_sel_i[2] ? wbs_dat_i[23:16] : 8'h00;
+                            test_csr0[31:24] <= wbs_sel_i[3] ? wbs_dat_i[31:24] : 8'h00;
+                        end
+                        TEST_CSR1 : begin
+                            test_csr1[7:0]   <= wbs_sel_i[0] ? wbs_dat_i[7:0] : 8'h00;
+                            test_csr1[15:8]  <= wbs_sel_i[1] ? wbs_dat_i[15:8] : 8'h00;
+                            test_csr1[23:16] <= wbs_sel_i[2] ? wbs_dat_i[23:16] : 8'h00;
+                            test_csr1[31:24] <= wbs_sel_i[3] ? wbs_dat_i[31:24] : 8'h00;
+                        end
+                        TEST_CSR2 : begin
+                            test_csr2[7:0]   <= wbs_sel_i[0] ? wbs_dat_i[7:0] : 8'h00;
+                            test_csr2[15:8]  <= wbs_sel_i[1] ? wbs_dat_i[15:8] : 8'h00;
+                            test_csr2[23:16] <= wbs_sel_i[2] ? wbs_dat_i[23:16] : 8'h00;
+                            test_csr2[31:24] <= wbs_sel_i[3] ? wbs_dat_i[31:24] : 8'h00;
+                        end
+                    endcase
+                end
             endcase
-            ready <= 1'b1;
-            
-        // Write
-        end else if (valid && !ready && we) begin
-            case(addr)
-                // こんな感じでWrite処理
-                ADDR8: nanka_reg1 <= wdata;
-                ADDR9: nanka_reg2 <= wdata;
-                // ・・・
-            endcase
-            ready <= 1'b1;
         end
     end
-end
+
+endmodule
+
 ```
-あとはこれをたたき台にして、ここのアドレスに書き込んだらスタート〜とかこのアドレスのレジスタがHighになったら処理完了〜とか適当な回路を作れば大体なんとかなる。
 
-#### Logic Analyzer Signalsを扱う
-ついでにLogic Analyzer Signalsの扱い方も解説する。
+多分動きます。
 
-Caravelでは3種類のLogic Analyzer Signalsに関連した信号線が存在している。
-| 信号名 | 説明 |
-| ------ | ---- |
-| la_data_in[127:0] | 入力データ、128ビット。 |
-| la_data_out[127:0] |出力データ、128ビット。 |
-| la_oenb[127:0]|出力イネーブルバー。0で出力、1で入力。これはSoC側がMMIOで1ビットずつ設定するので読むことしか出来ない。  |
-
-まあ流れで扱える
-```verilog
-assign data1 = la_data[31:0];
-```
-とか
-```verilog
-always @(posedge clk) begin
-    la_data_out[63:32] <= data2;
-end
-```
-とか。*_outへの入力をassignかalwaysのどちらでやるかは多分適当でよい。
-
-#### GPIOを扱う
-GPIOの扱い方を解説する。
-
-Caravelでは3種類のGPIOに関連した信号線が存在している。
-
-| 信号名 | 説明 |
-| ------ | ---- |
-| io_in[37:0] | GPIO入力 |
-| io_out[37:0]|GPIO出力 |
-| io_oenb[37:0] |GPIO出力イネーブルバー。0で出力、1で入力。 |
+#### Logic Analyzerを扱う
+Logic Analyzerで128bitのデータを受送信することが出来る。
+Logic Analyzerで用いる信号線は以下の三種類。
 
 
-io_oenbの設定はファームウェア側でどうとでもなるので基本的に全部0でいい。
+| 信号名 | 方向 | 働き |
+| ------ | ---- | ---- |
+| `la_data_in` | MGMT Core -> user_design | データ入力 |
+| `la_data_out` | MGMT Core <- user_diesgn | データ出力 |
+| `la_oenb` | MGMT Core -> user_deisgn | データ出力イネーブルバー |
 
-使い方
+`la_data_in`はデータ入力であり、Logic Analyzerからのデータはここを通じて来る。`la_data_out`はデータ出力であり、Logic Analyzerへのデータはここに送る。注意すべきなのは、`la_oenb`である。これは`la_data_in`と`la_data_out`のどちらが有効になっているかを示す信号であり、MGMT Coreから入力される。つまり、128bitあるLogic Analyzerのどの線が入力用で、どの線が出力用なのかは、MGMT CoreがMMIOを通して決定する。
+
+`la_data_oenb`はデータ出力イネーブル**バー**であるので、0の場合に出力(`la_data_out`)で1の場合に入力(`la_data_in`)が有効になる。**0**utputと**1**nputとして覚えると楽。
+
+以上より、設計者は`la_oenb`の値を考慮してLogic Analyzerの信号線を扱う必要がある。
+
+以下にLogic Analyzerの使用例を載せておくので実装の参考にしてほしい。
 ```verilog=
-assign test_data = io_in[34:32];
-assign io_out[31:0] = data_reg;
+assign la_data_out[31:0] = test_signals;
+assign w_super_data = (&la_oenb[63:32]) ? la_data_in[63:32] : 32'h0000_0000;
 ```
 
-ピンによっては別の機能と同居している場合があるので、ここ[^26]のmprj_ioを参照した方が良い。
+割と簡単に扱える。ちなみに、2行目の`&`はリダクション演算子である。
 
-#### **割り込み**
-次に割り込みについて説明する。CaravelではUser Project Areaから割り込み信号を出す事が可能である。
+#### mprj_ioを扱う
+mprj_ioを用いる事で、自分のデザインと外部の間で38bitの信号を直接やり取りする事が出来る。GPIOと同じものだと思ってくれて構わない。
+mprj_ioで扱う信号線は以下の3種類。
 
-割り込みは、信号線`user_irq[2:0]`の内どのビットを立てても引き起こす事が(多分)可能である。 割り込みベクタはアドレス0である。正確な情報はこの動画[^27]以外に存在しない。
+| 信号名 | 方向 | 働き |
+| ------ | ---- | ---- |
+| `io_in` | MGMT Core -> user_design | データ入力 |
+| `io_out` | MGMT Core <- user_diesgn | データ出力 |
+| `io_oenb` | MGMT Core <- user_deisgn | データ出力イネーブルバー |
 
-またサンプルコード[^28]を一度目を通すことを強くおすすめする。
+Logic Analyzerと非常に似通っているが、注意してほしいのが`io_oenb`である。これは、Logic Analyzerと信号の方向が異なっており、自分のデザインからの出力となっている。よってどの線を出力に用いるか、どの線を入力に用いるかは自分のデザイン側で決定できる。
 
-以上を組み合わせてキミだけのデザインを自作しよう！！
+`io_oenb`はデータ出力イネーブル**バー**であるので、0の場合に出力(`io_out`)で1の場合に入力(`io_in`)が有効になる。**0**utputと**1**nputとして覚えると楽。
 
-### 3.デザインをCaravelに載せる[^3][^13]
+あとはファームウェア側で色々設定する必要はあるが、自分のデザインでは`io_oenb`の値を操作するだけでよい。
 
-基本的に以下の流れで載せる
-1. `caravel_user_project/verilog/rtl/<my_design>`に自分のデザインを入れる
-2. `caravel_user_project/openlane/<my_design>/config.tcl`を編集する
-3. `caravel_user_project/openlane/user_project_wrapper/config.tcl`を編集する
+以下にmprj_ioの使用例を載せておくので実装の参考になれば幸いである。
+```verilog
+assign io_enb[31:0]  = 32'hffff_ffff;
+assign io_enb[32]    = 1'b1;
+assign io_enb[34:33] = 2'b00;
+assign data_in = io_in[31:0];
+assign hard_reset = io_in[32];
+assign io_out[34:33] = led[1:0];
+```
+とか。`io_out`への入力をassignかalwaysのどちらでやるかは多分適当でよい。
 
-#### 1.`caravel_user_project/verilog/rtl/<my_design>`に自分のデザインを入れる
+#### 割り込みの扱い方
+Caravelでは、自分のデザインからMGMT Coreに割り込みを掛けることが可能である。
+割り込みには`user_irq[2:0]`の3bit幅の信号線を用いる。この3bitの内、どれか一つでも立った時に割り込みが発生する。割り込み発生時、MGMT Coreのプログラムカウンタには`0x00000000`がセットされる。
 
-まず`/verilog/rtl/`以下に自分のデザインのディレクトリを作成する。そのディレクトリに自分のデザイン(Verilogファイルとか)を入れる。
+よって、割り込みハンドラはメモリの`0x00000000`に置くべきである。
 
-#### 2. `caravel_user_project/openlane/<my_design>/config.tcl`を編集する
-wrapperに自分のデザインを挿入する前に一旦OpenLANEで.gdsと.lefを生成する必要がある。そのために`config.tcl`を、caravelの`openlane/<my_design>/`以下に作る。
+割り込みを有効化するためにファームウェアでMGMT CoreのCSRを設定する必要があるが、自分のデザインでは割り込みを行いたい時に`user_irq`を立てるだけでよい。
 
-以下をたたき台を置いておくので、下の表に従って編集するとよい
-```tcl
-set script_dir [file dirname [file normalize [info script]]]
+この動画が非常に参考になる。Interrupt!
+https://www.youtube.com/watch?v=pPgnVBguNW8
 
-set ::env(ROUTING_CORES) 8 #これで配線に使うスレッド数を指定できる
+### 3. 自分のデザインをGDSIIにする
+自分のデザインをCaravelに対応できたら、一旦GDSIIに変換する。この操作をHardeningと呼ぶらしい。また、Hardeningされたものをマクロと呼ぶ。
 
-set ::env(DESIGN_NAME) computer
+#### 設定ファイルを書く
 
-set ::env(DESIGN_IS_CORE) 0
-set ::env(FP_PDN_CORE_RING) 0
-set ::env(GLB_RT_MAXLAYER) 5
+まずは自分のデザインのVerilogファイルを`verilog/rtl`以下にあることを確認する。無ければ持ってくる。
+
+次にOpenLANE用の設定ファイルを格納するためのディレクトリを`openlane`以下に作成する。このディレクトリの名前はトップレベルモジュールの名前と合わせる。
+```bash
+mkdir openlane/<user design top module>
+```
+ここで作成したディレクトリに設定ファイルを置くわけだが、ゼロから書くのは非常にしんどい。そこで、例として用意されているuser_proj_exampleの設定ファイルをコピーして編集する。
+
+設定ファイルのコピー
+```bash=
+cd openlane/<user design top module>
+cp ../user_proj_example/config.tcl .
+```
+ここからはコピーしてきた`config.tcl`の編集すべき部分を説明する。
+
+まずtclそのものについてだが、以下の構文を覚えればOpenLANEでは十分である。
+```bash
+set ::env(VAR_NAME) value
+```
+これは`VAR_NAME`という名前の変数に`value`という値をセットしている。以降、変数はこの`VAR_NAME`の事を指す。
+
+`config.tcl`で最初に変更すべき変数は`DESIGN_NAME`と`VERILOG_FILES`の２つである。
+`DESIGN_NAME`は文字通りデザインの名前であり、トップレベルモジュールと同じ名前にする。`VERILOG_FILES`は合成するVerilogファイルのパスである。
+
+書き方の例を以下に載せる。`VERILOG_FILES`には複数のVerilogファイルを指定可能である。
+```bash
+set ::env(DESIGN_NAME) user_design_top_module
 
 set ::env(VERILOG_FILES) "\
     $::env(CARAVEL_ROOT)/verilog/rtl/defines.v \
-    $script_dir/../../verilog/rtl/<my_design>/module1.v \ 
-    $script_dir/../../verilog/rtl/<my_design>/module2.v"
-
-set ::env(CLOCK_PORT) wb_clk_i
-set ::env(CLOCK_PERIOD) 10
-
-set ::env(FP_SIZING) absolute
-set ::env(DIE_AREA) "0 0 2000 2000"
-
-set ::env(FP_PIN_ORDER_CFG) $script_dir/pin_order.cfg
-
-set ::env(VDD_NETS) [list {vccd1}]
-set ::env(GND_NETS) [list {vssd1}]
+    $script_dir/../../verilog/rtl/user_design_top_module.v \
+    $script_dir/../../verilog/rtl/user_design_sub_module.v"
 ```
+`$script_dir`という謎の変数があるが、これは現在読んでいる`config.tcl`がある場所である。`$script_dir`は今後消滅して`$DESIGN_DIR`に変更される可能性が高い。
 
+次に変更すべき変数は`CLOCK_PORT`、`CLOCK_NET`、`CLOCK_PERIOD`の３つであり、これらはクロックに関係している。`CLOCK_PORT`にはデザインのクロック入力に用いるポート指定する、`CLOCK_NET`は正直よくわからない。`CLOCK_PORT`はSTAのための変数で`CLOCK_NET`はCTSのための変数であるとかドキュメントに書いてあるけど同じ値をセットして**多分**問題無いと思う。
 
-| 変数          | 意味                 |
-| ------------- | -------------------- |
-| ROUTING_CORES | 配線に使うスレッド数 |
-| DESIGN_NAME   | 合成するトップデザインの名前 |
-| VERILOG_FILES | 合成するVerilogファイル, defines.vは残しておく |
-| CLOCK_PORT | トップへのクロック入力ポート, 複数指定できる |
-| DIE_AREA | 使うダイの大きさ、最大 0 0 2920 3520 |
+`CLOCK_PERIOD`にはクロック周期をナノ秒単位で設定する。ナノ秒単位なので"10"を設定した場合は100MHzとなる。
 
-以上の設定を終えて
+以下に例を載せる。`CLOCK_NET`に関しては誰か教えてほしい。
 ```bash
-make <my_design>
-```
-をuser_project_wrapper以下で実行するとgds/に自分のデザインのGDSIIファイルが生えてるのでKlayoutとかでオレオレLSIのレイアウトが見られる。
-
-#### 3. `caravel_user_project/openlane/user_project_wrapper/config.tcl`を編集する
-
-`user_project_wrapper.v`のみを編集する場合は特に何もしなくてよいが、自作のデザインは複数のVerilogファイルから構成される場合が殆どなので、GDSIIに変換する前にVerilogファイル達をOpenLANEに教えてやる必要がある。そのために`config.tcl`を編集する。[^5] 
-
-まず、`caravel_user_project/openlane/user_project_wrapper/config.tcl`の以下の変数を編集する。
-
-```tcl
-set ::env(VERILOG_FILES_BLACKBOX) " \
-      $script_dir/../../caravel/verilog/rtl/defines.v \
-      $script_dir/../../verilog/rtl/user_proj_example.v"
-
-set ::env(EXTRA_LEFS) " \
-   $script_dir/../../lef/user_proj_example.lef"
-
-set ::env(EXTRA_GDS_FILES) " \
-   $script_dir/../../gds/user_proj_example.gds"
+set ::env(CLOCK_PORT) "wb_clk_i"
+set ::env(CLOCK_NET) $::env(CLOCK_PORT)
+set ::env(CLOCK_PERIOD) "10"
 ```
 
-* `VERILOG_FILES_BLACKBOX`には`user_project_example.v`を消して自分のVerilogファイル群を書き込む。
-* `defines.v`はそのままでよい。
-* `EXTRA_LEFS`と`EXTRA_GDS_FILES`には`user_proj_example.(lef/gds)`を消して、代わりに2で生成したGDSIIとLEFファイルのパスを書き込む。[^20]
+次に変更すべきなのは`DIE_AREA`である。これにはマクロのサイズをマイクロメートル単位で設定する。設定は`x0 y0 x1 y1`の順であり、仮に`"0 0 200 100"`と設定すると200umx100umの長方形となる。座標は第一象限と同じである。
 
-最後に`MACRO_PLACEMENT_CFG`の行を削除する。
-```cpp
-set ::env(MACRO_PLACEMENT_CFG) $script_dir/macro.cfg
-```
+最初は適当でよく、後述する`PL_TARGET_DENSITY`と合わせて最適な組み合わせを探すと良い。
 
-以上が完了して、
+以下に例を載せる。
 ```bash
-make user_project_wrapper
-```
-を実行するとgds/にラッパーのGDSIIファイルが生えてる、これが最終的にテープアウトされる。
-### 4.テストベンチ/ファームウェアを書く
-
-オレオレLSIが完成したら、それが正しく動作するか確かめる必要がある。そういうわけでテストベンチ又はファームウェアの書き方を解説する。サンプルは`verilog/dv/`以下に色々入っているので参考にするとよい。
-
-`verilog/dv/`以下で作業を行う。
-
-#### General
-ここではCaravelでファームウェア又はテストベンチの実行方法を解説する。
-
-コンパイルとシミュレーション環境に関してはDockerイメージが提供されている。
-```shell=
-docker pull efabless/dv_setup:latest
-```
-環境変数の設定
-```shell
-export PDK_PATH=<pdk-location/sky130A>
-export CARAVEL_ROOT=<caravel_root>
-export UPRJ_ROOT=<user_project_root>  CARAVEL_ROOTと同じ
-```
-コンテナをスタート
-```shell
-docker run -it -v $CARAVEL_ROOT:$CARAVEL_ROOT -v $PDK_PATH:$PDK_PATH -v $UPRJ_ROOT:$UPRJ_ROOT -v $PDK_ROOT:$PDK_ROOT -e CARAVEL_ROOT=$CARAVEL_ROOT -e PDK_PATH=$PDK_PATH -e UPRJ_ROOT=$UPRJ_ROOT -e PDK_ROOT=$PDK_ROOT -u $(id -u $USER):$(id -g $USER) efabless/dv_setup:latest
-```
-dvディレクトリに移動
-```shell
-cd $UPRJ_ROOT/verilog/dv/
-```
-テストが入ったディレクトリでmakeしてシミュレーションを走らせる。
-```shell
-cd <dv-test>
-make
-```
-`SIM=GL make`でゲートレベル[^24]のシミュレーションも出来る。
-```shell
-cd <dv-test>
-SIM=GL make
+set ::env(DIE_AREA) "0 0 900 600"
 ```
 
-ここまで解説してもそもそもプログラムとかテストベンチとかMakefileの書き方とか何もわからないと思うので、以降ではそれぞれ解説していく。
+次に変更するのは`FP_PIN_ORDER_CFG`であり、これはマクロにおいて、どのピンをどの方角から出すかを設定する。だが、設定しなくても勝手にやってくれるので、コメントアウトするなり行ごと削除するなりして消してほしい。
 
-#### Makefileの書き方
-
-他のdv以下のディレクトリからコピペでいい。ただ43行目あたりに`PATTERN = 〜`と書いてある行があるので好きな名前に変えるとよい。
-
-#### **テストベンチのたたき台を作る**
-
-テストベンチを書くための大枠をここでは紹介する。基本はそれに書き加えれば大抵のことは出来るはず。またMakefileを改造したりして自作のライブラリとかも利用出来る。
-
-以下に基本的なテストベンチを載せる。これはCaravelにクロックを70000サイクル流して、波形ファイルを出力する。
-##### verilog
-```verilog
-`default_nettype none
-
-`timescale 1 ns / 1 ps
-
-`include "uprj_netlists.v"
-`include "caravel_netlists.v"
-`include "spiflash.v"
-
-module my_design_tb;
-	reg clock;
-	reg RSTB;
-	reg CSB;
-	reg power1, power2;
-	reg power3, power4;
-
-	wire gpio;
-	wire [37:0] mprj_io;
-
-	// External clock is used by default.  Make this artificially fast for the
-	// simulation.  Normally this would be a slow clock and the digital PLL
-	// would be the fast clock.
-
-	always #12.5 clock <= (clock === 1'b0);
-
-	initial begin
-		clock = 0;
-	end
-
-	initial begin
-        $dumpfile("my_design_tb.fst");
-        $dumpvars(0, my_design_tb);
-
-		// Repeat cycles of 1000 clock edges as needed to complete testbench
-		repeat (70) begin
-			repeat (1000) @(posedge clock);
-			    $display("+1000 cycles");
-		end
-		$finish;
-	end
-
-	initial begin
-		RSTB <= 1'b0;
-		CSB  <= 1'b1;		// Force CSB high
-		#2000;
-		RSTB <= 1'b1;	    	// Release reset
-		#170000;
-		CSB = 1'b0;		// CSB can be released
-	end
-
-	initial begin		// Power-up sequence
-		power1 <= 1'b0;
-		power2 <= 1'b0;
-		power3 <= 1'b0;
-		power4 <= 1'b0;
-		#100;
-		power1 <= 1'b1;
-		#100;
-		power2 <= 1'b1;
-		#100;
-		power3 <= 1'b1;
-		#100;
-		power4 <= 1'b1;
-	end
-
-	wire flash_csb;
-	wire flash_clk;
-	wire flash_io0;
-	wire flash_io1;
-
-	wire VDD3V3 = power1;
-	wire VDD1V8 = power2;
-	wire USER_VDD3V3 = power3;
-	wire USER_VDD1V8 = power4;
-	wire VSS = 1'b0;
-
-	caravel uut (
-		.vddio	  (VDD3V3),
-		.vssio	  (VSS),
-		.vdda	  (VDD3V3),
-		.vssa	  (VSS),
-		.vccd	  (VDD1V8),
-		.vssd	  (VSS),
-		.vdda1    (USER_VDD3V3),
-		.vdda2    (USER_VDD3V3),
-		.vssa1	  (VSS),
-		.vssa2	  (VSS),
-		.vccd1	  (USER_VDD1V8),
-		.vccd2	  (USER_VDD1V8),
-		.vssd1	  (VSS),
-		.vssd2	  (VSS),
-		.clock	  (clock),
-		.gpio     (gpio),
-        .mprj_io  (mprj_io),
-		.flash_csb(flash_csb),
-		.flash_clk(flash_clk),
-		.flash_io0(flash_io0),
-		.flash_io1(flash_io1),
-		.resetb	  (RSTB)
-	);
-
-	spiflash #(
-		.FILENAME("jacaranda_test.hex")
-	) spiflash (
-		.csb(flash_csb),
-		.clk(flash_clk),
-		.io0(flash_io0),
-		.io1(flash_io1),
-		.io2(),			// not used
-		.io3()			// not used
-	);
-
-endmodule
-`default_nettype wire
+コメントアウトした例を以下に載せる。
+```bash
+#set ::env(FP_PIN_ORDER_CFG) $script_dir/pin_order.cfg
 ```
-##### **ファームウェア**
-以下はIOをコンフィグしたり、0x30000004に0xDEADBEEFを書き込んだりLogic Analyzerの[31:0]に1を入力したり、色々適当な事をやるファームウェアの例。各インターフェースに対する詳しいファームウェアの書き方をこの下から解説する。
-```c
-#include "verilog/dv/caravel/defs.h"
-#include "verilog/dv/caravel/stub.c"
+必要になったら各自で設定してほしい。
 
-#define BASE_ADDR 0x30000000
+最後に変更するのは`PL_TARGET_DENSITY`である。これは`DIE_AREA`設定した面積で、どの程度の密度で配置するかを決定する。値は0から1の実数を取る。0か1かの極端な値を設定すると、OpenLANEが最適な値を教えてくれるのでそれを参考にしてもいいが、適当に0.4とか入れても問題ない。
 
-static void
-write(uint32_t addr, uint32_t val)
-{
-    *(volatile uint32_t *)addr = val;
-}
-
-void
-reset()
-{
-    reg_mprj_io_37 = GPIO_MODE_MGMT_STD_OUTPUT;
-    reg_la0_iena = 0;
-    reg_la0_oenb = 0;
-
-    reg_la0_data = 0;
-    reg_mprj_xfer = 1;
-    while (reg_mprj_xfer == 1);
-}
-
-void
-main()
-{
-    reg_spimaster_config = 0xa002;
-
-    reset();
-
-    reg_la0_data = 1;
-
-    write(BASE_ADDR+4, 0xDEADBEEF);
-
-    reg_la0_data = 0;
-
-    while(1) {}
-}
+以下に例を載せる。
+```bash
+set ::env(PL_TARGET_DENSITY) 0.2
 ```
 
-#### User Project Areaから外部へ出ているGPIO
+変更すべき変数をまとめた表が以下になる。
 
-##### Configuration
-このGPIOは38本存在するが、それぞれにコンフィグ用のレジスタ(グローバル変数として扱える)`reg_mprj_io_0`~`reg_mprj_io_37`が存在する。それぞれに以下の値を設定出来る。
+| 変数名              | 働き                         | 備考 |
+| ------------------- | ---------------------------- | ---- |
+| `DESIGN_NAME`       | トップレベルモジュールを指定 |      |
+| `VERILOG_FILES`     | Verilogファイルを指定        |      |
+| `CLOCK_PORT`        | クロックポートを指定         |      |
+| `CLOCK_NET`         | 謎                           | 謎 |
+| `CLOCK_PERIOD`      | クロック周期を指定           | ナノ秒単位 |
+| `DIE_AREA`          | マクロのサイズを指定         | マイクロメートル単位<br>`x0 y0 x1 y1` |
+| `FP_PIN_ORDER_CFG`  | ピンの方角を指定             | 削除 |
+| `PL_TARGET_DENSITY` | 配置密度を指定               | 0~1 |
 
-| 値   | 説明 |
-| ---- | ---- |
-|  GPIO_MODE_MGMT_STD_INPUT_NOPULL  | SoCへの入力に設定(謎) |
-|  GPIO_MODE_MGMT_STD_INPUT_PULLDOWN| SoCへの入力に設定(プルダウン) |
-|  GPIO_MODE_MGMT_STD_INPUT_PULLUP  | SoCへの入力に設定(プルアップ) |
-|  GPIO_MODE_MGMT_STD_OUTPUT        | SoCからの出力に設定 |
-|  GPIO_MODE_MGMT_STD_BIDIRECTIONAL | SoCの入出力に設定 |
-|  GPIO_MODE_MGMT_STD_ANALOG        | 謎 |
-|  GPIO_MODE_USER_STD_INPUT_NOPULL  | 自作デザイン側への入力に設定(謎) |
-|  GPIO_MODE_USER_STD_INPUT_PULLDOWN| 自作デザイン側への入力に設定(プルダウン) |
-|  GPIO_MODE_USER_STD_INPUT_PULLUP  | 自作デザイン側への入力に設定(プルアップ) |
-|  GPIO_MODE_USER_STD_OUTPUT        | 自作デザイン側からの出力に設定 |
-|  GPIO_MODE_USER_STD_BIDIRECTIONAL | 自作デザイン側との入出力に設定 |
-|  GPIO_MODE_USER_STD_OUT_MONITORED | 謎 |
-|  GPIO_MODE_USER_STD_ANALOG        | 謎 |
-
-こんな感じでコンフィグする。
-```c
-reg_mprj_io_0 = GPIO_MODE_USER_STD_OUTPUT;
-reg_mprj_io_1 = GPIO_MODE_USER_STD_INPUT_PULLUP;
+#### GDSIIを生成
+設定ファイルが完成したら、次にGDSIIを生成する。`caravel_user_project`以下で`make <design_name>`でビルドが開始される。
+```bash
+make <user design top module>
 ```
 
-##### Activation
-
-GPIOを有効にするためのグローバル変数`reg_mprj_xfer`が存在する。これをHighにすれば上記の設定内容が適用され、GPIOが有効になるが、その際に以下の記述が必要である[^22]。
-```c
- reg_mprj_xfer = 1;
- while (reg_mprj_xfer == 1);
+生成されたGDSIIは、`openlane/<user design top module>/runs/RUN_<date>/results/final/gds`以下に存在しており、klayoutを用いてレイアウトを見られる。
+```bash
+klayout <user design top module>.gds
 ```
-一見無限ループだが、謎のテクノロジーでループを抜けるので機械的にコピペすればいい。
+かわいいね。
 
-##### Data
-GPIOを`GPIO_MGMT_MODE_STD_*`に設定した場合にのみ(未検証)、以下のレジスタを介してGPIOからSoC側にデータを入出力することが可能である。
-* `reg_mprj_datal` : 最初の32本の値を入出力
-* `reg_mprj_datah` : 残りの6本の値を入出力
+### 4. user_project_wrapperに自分のデザインを加える
+`verilog/rtl/user_project_wrapper.v`に`user_proj_example`の代わりに自分のモジュールを入れるだけである。なお、`user_project_wrapper`でANDやNOT等のロジックを組むのは予期せぬエラーの原因になるのでオススメしない。
 
-#### User Project AreaとSoCをつなぐLogic Analyzer線
-User Project AreaとSoCは128本のLogic Analyzer線(以下LA線)で接続されており、名前とは裏腹にデータのやり取りが可能である。
+### 5. シミュレーションで動作を確認する
+Caravelに自分のデザインを接続出来たら次はシミュレーションで動作確認をする。
 
-##### Configuration
-各LA線の入出力は`reg_la0_oenb` ~ `reg_la3_oenb`と`reg_la0_ienb` ~ `reg_la3_oenb`という各32ビットのレジスタで設定できる。1でSoC側への入力、0でSoC側から出力と考えればよい[^23]。
-```c
-//  LA probes [31:0], [127:64] をCPUへの入力に設定 
-// Configure LA probes [63:32] をCPUからの出力に設定
-reg_la0_oenb = reg_la0_iena = 0xFFFFFFFF;    // [31:0]
-reg_la1_oenb = reg_la1_iena = 0x00000000;    // [63:32]
-reg_la2_oenb = reg_la2_iena = 0xFFFFFFFF;    // [95:64]
-reg_la3_oenb = reg_la3_iena = 0xFFFFFFFF;    // [127:96]
+シミュレーションを行うには、少々の設定と、MGMT Coreで動かすファームウェア及び`io_in`等にどんな信号を入力するかのテストベンチを書く必要があるので、順番に説明する。
+
+#### シミュレーション環境のインストール
+
+このコマンドでシミュレーション用の環境をインストールする。
+```bash=
+make simenv
 ```
-一括だけでなく、各ビット毎に設定可能
 
-##### Data
-LA線を介したデータのやり取りは`reg_la0_data` ~ `reg_la3_data`というレジスタを介して行うことが出来る。以下の例では、上記の設定でLA線の`[63:32]`を出力に設定したため、SoC側からUser Project Areaへ値`0xdeadbeef`を出力している。
-```c
-buffer0 = reg_la0_data;    // [31:0]
-reg_la1_data = 0xdeadbeef; // [63:32]
-buffer2 = reg_la2_data;    // [95:64]
-buffer3 = reg_la3_data;    // [127:96]
+#### 使うファイルを指定する
+OpenLANEで自分のデザインのVerilogファイルのパスを`config.tcl`に設定したのと同様に、シミュレーションにおいても、利用するファイルをシミュレーション環境に伝える必要がある。
+
+編集する必要のある設定ファイルは以下の３つである。
+
+* `verilog/includes/includes.gl+sdf.caravel_user_project`
+* `verilog/includes/includes.gl.caravel_user_project`
+* `verilog/includes/includes.rtl.caravel_user_project`
+
+まず`includes.rtl.caravel_user_project`に関してだが、ここには`user_project_wrapper`を含めた、自分のデザインに必要はVerilogファイルのパスを追加する。
+
+以下に例を載せる。
+```bash
+-v $(USER_PROJECT_VERILOG)/rtl/user_project_wrapper.v	     
+-v $(USER_PROJECT_VERILOG)/rtl/user_design_top_module.v
+-v $(USER_PROJECT_VERILOG)/rtl/user_design_sub_module.v
 ```
-このLA線を使ってSoC側からUser Project Areaにいい感じに分周したクロックとかリセットを入力出来たりするらしい。需要があったら書く(つかれた)。
 
-ここ[^15]らへんを読めば出来る
+次に`includes.gl.caravel_user_project`に関してだが、ここには`verilog/gl/`以下に生成されているVerilogファイルのパスを追加する。`verilog/gl/`以下のファイルは自動生成され、複数のVerilogをまとめたものになっている。
 
-### 5.GDSIIのビルド[^4]
-
-以下を実行すればgds以下にGDSIIが生える。
-```shell
-make <my_design>
-make user_project_wrapper
+以下に例を載せる。
+```bash
+-v $(USER_PROJECT_VERILOG)/gl/user_project_wrapper.v
+-v $(USER_PROJECT_VERILOG)/gl/user_design_top_module.v
 ```
-### 6.プリチェックツールを走らせる[^9][^17]
-以下のコマンドを実行する
-```shell
-make precheck // プリチェックツールのインストール
-make run-precheck // プリチェックツールを走らせる
-```
-既にプリチェックツールがインストールされている場合は1つ目は必要ない、これで全部パスしたなら殆どの場合Tapeout出来る。
 
-### footnote
-[^1]:https://caravel-harness.readthedocs.io/en/latest/memory-mapped-io-summary.html
-[^2]:実装を辿ってったら謎のマクロが生えてたので置いとく https://github.com/efabless/caravel-lite/blob/13f2590e4b3a74b910dac56a6b757f5a66fd5212/verilog/rtl/chip_io.v#L229
-[^3]: https://github.com/efabless/caravel_user_project/blob/main/docs/source/index.rst#caravel-integration
-[^4]: https://github.com/efabless/caravel_user_project/blob/main/docs/source/index.rst#hardening-the-user-project-macro-using-openlane
-[^5]:https://caravel-harness.readthedocs.io/en/latest/quick-start.html#configuration
-[^6]:https://github.com/efabless/openlane/tree/master/configuration
-[^7]:https://twitter.com/Cra2yPierr0t/status/1427088118025392131
-[^8]: https://youtu.be/jBrBqhVNgDo?t=1326
-[^9]: 明記されてないけどefablessの動画[^8]でそうしてました
-[^10]:各ドキュメントではefablessのOpenLaneを使っているが、MPW2が終わった直後のためefabless版は更新が止まっており``make pdk`` でコケるのでOpenROADを一時的に使う。(多分SKYWATER_COMMITの値を更新してないだけ)
-[^11]:https://github.com/efabless/caravel_user_project
-[^12]:https://caravel-harness.readthedocs.io/en/latest/index.html
-[^13]:https://caravel-harness.readthedocs.io/en/latest/quick-start.html#adding-a-user-project
-[^14]:https://caravel-harness.readthedocs.io/en/latest/quick-start.html#adding-a-new-design
-[^15]:https://github.com/efabless/caravel_user_project/tree/main/verilog/dv#simulation-environment-setup
-[^16]:これをファブに投げるとLSIが生えてくる(らしい)
-[^17]:あったわ https://github.com/efabless/caravel_user_project/blob/main/docs/source/index.rst#running-open-mpw-precheck-locally
-[^18]:https://github.com/konradwilk/caravel_user_project/blob/submission-mpw-two/openlane/user_project_wrapper/config.tcl
-[^19]:https://github.com/efabless/caravel/blob/master/docs/source/_static/caravel_harness.png
-[^20]:つまり`user_project_wrapper`がモジュール`wrapper1.v`と`wrapper2.v`で出来ている場合、`EXTRA_LEFS`には`wrapper1.lef`, `wrapper2.lef`と書き換え、`EXTRA_GDS_FILES`には`wrapper1.gds`, `wrapper2.gds`と書き換えてやる。どうしてもわからない場合、これ[^18]が参考になる。
-[^21]:気軽にLSIが焼けたらうれしいので
-[^22]:シフトレジスタになってるからどうとか
-[^23]:1nputと0utputで覚えやすいね！！！
-[^24]:よく知らないけどRTL記述レベルではなくてffとか論理回路のレベルまで変換した上でのシミュレーションだと思う。必要性はよくわからない。
-[^25]:https://github.com/efabless/caravel_user_project/blob/mpw-3/verilog/rtl/user_proj_example.v#L86
-[^26]:https://caravel-harness.readthedocs.io/en/latest/pinout.html
-[^27]:https://www.youtube.com/watch?v=pPgnVBguNW8
-[^28]:https://github.com/efabless/caravel_user_project/blob/mpw-3/verilog/rtl/user_project_wrapper.v
+最後に`includes.gl+sdf.caravel_user_project`に関してだが、これも`includes.gl.caravel_user_project`と同様に`verilog/gl/`以下のファイルのパスを追加する。
+
+以下に例を載せる。
+```bash
+$USER_PROJECT_VERILOG/gl/user_project_wrapper.v	     
+$USER_PROJECT_VERILOG/gl/user_design_top_module.v
+```
+
+以上で設定は完了となる。
+
+#### ファームウェアを書く
+ファームウェアはC言語で書ける。CaravelはRISCV toolchainの入ったDockerコンテナを引っ張ってきて`make`コマンドでコンパイルなりなんなりしてくれる。
+
+
+#### テストベンチを書く
+
+#### シミュレーションを実行する
+
+### 6. OpenLANEの設定をする
+### 7. 最終レイアウトを生成する
+### 8. 提出
+
+## memo
+
+### PDKのアップデート
+1. caravel_user_projectで`$ make uninstall`
+2. dependenciesのpdksとopenlane_srcを削除
+3. caravel_user_projectで`$ make install`
+4. caravel_user_projectで`$ make setup`
+
+### その他
+
+`[0:0]`なポートを作るとLVS Error
+
+FP_PDN_MACRO_HOOKSはモジュール毎にカンマで区切る
+
+ポートのビット幅はちゃんと揃えた方がいい
+
+OpenROAD reports unconnected nodes as a warning.
+OpenLane typically treats unconnected node warnings as a critical issue, and simply quits.
+
+We'll be leaving it up to the designer's discretion to enable/disable this: if LVS passes you're probably fine with this option being turned off.
+```bash=
+set ::env(FP_PDN_CHECK_NODES) 0
+```
+
+### podmanで試行錯誤した時のメモ
+
+OpenLANEイメージをpullする際に
+```
+Error: short-name "efabless/openlane:2022.07.02_01.38.08" did not resolve to an alias and no unqualified-search registries are defined in "/etc/containers/registries.conf"
+```
+とか言われる場合があるので、`/etc/containers/registeries.conf`に次の行を追加する。
+
+```bash
+sudo vim /etc/containers/registries.conf
+```
+以下の行を追加
+```
+ unqualified-search-registries = ["docker.io"]
+```
+
+実行時のエラーはこれで消せる
+```bash
+sudo touch /etc/subuid /etc/subgid
+sudo usermod --add-subuids 10000-75535 $(whoami)
+sudo usermod --add-subgids 10000-75535 $(whoami)
+podman system migrate
+```
+---
