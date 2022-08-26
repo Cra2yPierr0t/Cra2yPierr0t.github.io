@@ -158,7 +158,7 @@ The User Project Area is an area that can be freely modified, where developers p
 
 The size of the Management Area is `2.920um x 3.520um`, which is roughly `10mm`.
 
-![](https://i.imgur.com/CQLoSjf.png)
+![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/caravel_eng.png?raw=true)
 
 There are 38 GPIO lines extending out from the User Project Area, from which you can directly access your design. The Management Area is connected to the RISC-V core via a 32-bit wishbone interface and 128-bit Logic Analyzer lines, allowing programs running on the RISC-V core to access the RISC-V core via MMIO.
 
