@@ -583,6 +583,8 @@ The following table summarizes the variables that should be changed.
 | `FP_PIN_ORDER_CFG`  | Specify the direction of the pin  | delete |
 | `PL_TARGET_DENSITY` | Specify the placement density  | 0~1 |
 
+
+
 #### Generate GDSII
 
 Once the configuration file is complete, the next step is to generate GDSII. The build is started by running `make <design_name>` under `caravel_user_project/`.
