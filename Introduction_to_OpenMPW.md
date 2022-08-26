@@ -707,7 +707,7 @@ while (reg_mprj_xfer == 1);
 In the above example, `mprj_io[7:0]` is set as input and `mprj_io[34:33]` as output.
 The part of `reg_mprj_xfer, while` after that is the part where the settings are applied, and when the settings are applied, it exits from the while statement. The mechanism here is unknown.
 
-GPIO_MODE_USER_STD_INPUT_PULLDOWN` is a constant that sets `mprj_io` to the input of pulldown, and `GPIO_MODE_USER_STD_OUTPUT` to the output.
+`GPIO_MODE_USER_STD_INPUT_PULLDOWN` is a constant that sets `mprj_io` to the input of pulldown, and `GPIO_MODE_USER_STD_OUTPUT` to the output.
 
 #### Write a test bench
 
