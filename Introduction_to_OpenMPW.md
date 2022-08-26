@@ -583,16 +583,135 @@ The following table summarizes the variables that should be changed.
 | `FP_PIN_ORDER_CFG`  | Specify the direction of the pin  | delete |
 | `PL_TARGET_DENSITY` | Specify the placement density  | 0~1 |
 
+#### Generate GDSII
 
-### 3. check the operation by simulation
+Once the configuration file is complete, the next step is to generate GDSII. The build is started by running `make <design_name>` under `caravel_user_project/`.
+
+```bash
+make <user design top module>
+```
+
+The generated GDSII exists in `openlane/<user design top module>/runs/run_<date>/results/final/gds` and the layout can be viewed using klayout.
+
+```bash
+klayout <user design top module>.gds
+```
+
+Cute.
+
+### 4. add your own design to `user_project_wrapper`
+
+Simply put your own module in `verilog/rtl/user_project_wrapper.v` instead of `user_proj_example`. Note that it is not recommended to set up logic such as AND and NOT in `user_project_wrapper`, as it may cause unexpected errors.
+
+### 5. check the operation by simulation
 Once you have connected your design to Caravel, the next step is to check its operation in simulation.
+
+In order to run the simulation, it is necessary to write a few settings and a test bench for the firmware to be run on the MGMT Core and what signals to input to `io_in`, etc. I will explain in turn.
+
+#### Installing the simulation environment
 
 First, install the environment for simulation with this command.
 ```bash
 make simenv
 ````
 
-### 4. Configure OpenLANE
-### 5. Generate the layout
-### 6. submit
+#### Specify the file to use
+
+Just as you set the path to the Verilog files for your design in OpenLANE to `config.tcl`, in simulation, you need to tell the simulation environment which files to use.
+
+There are three configuration files that need to be edited.
+
+* `verilog/includes/includes.gl+sdf.caravel_user_project`
+* `verilog/includes/includes.gl.caravel_user_project`
+* `verilog/includes/includes.rtl.caravel_user_project`
+
+First, regarding `includes.rtl.caravel_user_project`, add the path to the Verilog files you need for your design, including the `user_project_wrapper`.
+
+An example is given below.
+
+```bash
+-v $(USER_PROJECT_VERILOG)/rtl/user_project_wrapper.v	     
+-v $(USER_PROJECT_VERILOG)/rtl/user_design_top_module.v
+-v $(USER_PROJECT_VERILOG)/rtl/user_design_sub_module.v
+```
+
+Next, for `includes.gl.caravel_user_project`, add the path to the Verilog files generated in `verilog/gl/`. The files in `verilog/gl/` are automatically generated and are a collection of multiple Verilog files.
+
+An example is shown below.
+
+```bash
+-v $(USER_PROJECT_VERILOG)/gl/user_project_wrapper.v
+-v $(USER_PROJECT_VERILOG)/gl/user_design_top_module.v
+```
+
+Finally, for `includes.gl+sdf.caravel_user_project`, add the path to the file under `verilog/gl/` as well as `includes.gl.caravel_user_project`.
+
+An example is shown below.
+
+```bash
+$USER_PROJECT_VERILOG/gl/user_project_wrapper.v	     
+$USER_PROJECT_VERILOG/gl/user_design_top_module.v
+```
+
+The setup is now complete.
+
+#### Writing the firmware
+
+The firmware can be written in C. Caravel will pull a Docker container containing the RISCV toolchain, so you can run the `make` command to compile the firmware or whatever.
+
+First, create a directory for the simulation in `verilog/dv`.
+
+```bash
+mkdir verilog/dv/<sim_name>
+```
+
+Store the firmware and test bench in this directory.
+
+The name of the firmware should be `<sim_name>.c`. Hereafter, we will explain how to write the firmware.
+
+First, include two files.
+
+```c
+#include <defs.h>
+#include <stub.c>
+```
+
+Various global variables and constants are defined in this `defs.h`.
+
+[https://github.com/efabless/caravel/blob/main/verilog/dv/caravel/defs.h
+](https://github.com/efabless/caravel/blob/main/verilog/dv/caravel/defs.h
+)
+
+The rest of the program is written in the `main` function, but you may define functions and split files as in ordinary C language.
+
+The configuration part of CSR should be written as follows.
+
+```c
+reg_mprj_io_0   = GPIO_MODE_USER_STD_INPUT_PULLDOWN;
+reg_mprj_io_1   = GPIO_MODE_USER_STD_INPUT_PULLDOWN;
+reg_mprj_io_2   = GPIO_MODE_USER_STD_INPUT_PULLDOWN;
+reg_mprj_io_3   = GPIO_MODE_USER_STD_INPUT_PULLDOWN;
+reg_mprj_io_4   = GPIO_MODE_USER_STD_INPUT_PULLDOWN;
+reg_mprj_io_5   = GPIO_MODE_USER_STD_INPUT_PULLDOWN;
+reg_mprj_io_6   = GPIO_MODE_USER_STD_INPUT_PULLDOWN;
+reg_mprj_io_7   = GPIO_MODE_USER_STD_INPUT_PULLDOWN;
+reg_mprj_io_33  = GPIO_MODE_USER_STD_OUTPUT;
+reg_mprj_io_34  = GPIO_MODE_USER_STD_OUTPUT;
+
+reg_mprj_xfer = 1;
+while (reg_mprj_xfer == 1);
+```
+
+In the above example, `mprj_io[7:0]` is set as input and `mprj_io[34:33]` as output.
+The part of `reg_mprj_xfer, while` after that is the part where the settings are applied, and when the settings are applied, it exits from the while statement. The mechanism here is unknown.
+
+GPIO_MODE_USER_STD_INPUT_PULLDOWN` is a constant that sets `mprj_io` to the input of pulldown, and `GPIO_MODE_USER_STD_OUTPUT` to the output.
+
+#### Write a test bench
+
+#### Run a simulation
+
+### 6. Configure OpenLANE
+### 7. Generate the layout
+### 8. submit
 
