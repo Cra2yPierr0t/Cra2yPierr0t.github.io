@@ -723,7 +723,7 @@ initial begin
 ```
 
 次にファイルの一番下にある`spiflash`に読み込ませるファイル名を変更する。
-```vering
+```verilog
 spiflash #(
     .FILENAME("<sim_name>.hex")
 ) spiflash (
