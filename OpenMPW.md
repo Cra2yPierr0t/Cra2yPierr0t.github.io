@@ -764,9 +764,89 @@ make verify-<sim_name>-rtl
 ### 6. OpenLANEの設定をする
 
 作成したデザインのデバッグが完了したら、ラッパーをビルドする準備に移る。
+まずは`user_project_wrapper`の`config.tcl`を編集する。
+
+`config.tcl`で変更すべき変数は以下の通り。
+
+| 変数名                   | 働き                     | 備考 |
+| ------------------------ | ------------------------ | ---- |
+| `CLOCK_NET` | 謎  | `CLOCK_PORT`と同じでよい |
+| `CLOCK_PERIOD`      | クロック周期を指定           | ナノ秒単位 |
+| `FP_PDN_MACRO_HOOKS`     | マクロへの電源接続の明示 |      |
+| `VERILOG_FILES_BLACKBOX` | マクロのVerilogファイルの指定 |      |
+| `EXTRA_LEFS`             | 利用するLEFファイルの指定 |      |
+| `EXTRA_GDS_FILES`        | 利用するGDSファイルの指定 |  |
+
+#### `CLOCK_NET`の変更
+デフォルトでは`mprj.clk`になっているので、`CLOCK_PORT`と同じものにするかその他の適切なものに変更する。
+
+```bash
+set ::env(CLOCK_NET) $::env(CLOCK_PORT)
+```
+
+#### `CLOCK_PERIOD`の変更
+これにはお好みの動作クロック周期を設定する。
+
+#### `FP_PDN_MACRO_HOCKS`の変更
+デフォルトでは`mprj`というマクロへの電源の接続になっているので、自分のマクロ名に変更する。
+```bash
+set ::env(FP_PDN_MACRO_HOOKS) "\
+	<user design top module> vccd1 vssd1 vccd1 vssd1"
+```
+
+#### `VERILOG_FILES_BLACKBOX`の変更
+
+自分のデザインのトップモジュールのパスに変更する。`define.v`のパスには変更を加えてはいけない。
+```bash
+set ::env(VERILOG_FILES_BLACKBOX) "\
+	$::env(CARAVEL_ROOT)/verilog/rtl/defines.v \
+	$script_dir/../../verilog/rtl/<user design top module>.v"
+```
+
+#### `EXTRA_LEFS`の変更
+`EXTRA_LEFS`には`caravel_user_project/lef/`に自動生成されている、自分のデザインのLEFファイルのパスを設定する。
+```bash
+set ::env(EXTRA_LEFS) "\
+	$script_dir/../../lef/<user design top module>.lef"
+```
+
+#### `EXTRA_GDS_FILES`の変更
+`EXTRA_GDS_FILES`には`caravel_user_project/gds/`に自動生成されている、自分のデザインのGDSIIファイルのパスを設定する。
+```bash
+set ::env(EXTRA_GDS_FILES) "\
+	$script_dir/../../gds/<user design top module>.gds"
+```
+
+#### `macro.cfg`の編集
+
+`config.tcl`の設定が完了したら、最後に`macro.cfg`を編集する。
+
+デフォルトでは`mprj`という名前のインスタンスの位置を指定しているが、これを自分のマクロのインスタンスの位置の指定に変更する。フォーマットは`instance_name X_pos Y_pos Orientation`になっている。
+
+以下に例を載せる。
+```bash
+<user design instance> 100 100 N
+```
+
+この`macro.cfg`には複数のインスタンスの位置を指定することが出来る。
+
+
+以上の設定が完了したら、最後にラッパーのビルドを行う。
 
 ### 7. 最終レイアウトを生成する
-### 8. 提出
+`caravel_user_project/`で以下のコマンドを実行することで、ラッパーのビルドが開始される。
+
+```bash
+make user_project_wrapper
+```
+
+これが成功した時、`gds/`には`user_project_wrapper.gds`が生成されている事だろう。
+
+**おめでとう！** これであなたのデザインは完成しました！あとはEfablessの指示に従ってリポジトリを登録するだけです。抽選に当たる事を願いましょう！
+
+自分のリポジトリをここに提出しましょう。
+[https://efabless.com/open_shuttle_program](https://efabless.com/open_shuttle_program)
+
 
 ## memo
 
