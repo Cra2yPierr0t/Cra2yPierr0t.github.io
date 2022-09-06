@@ -20,9 +20,7 @@ title: OpenMPW入門 改訂版
 出典：[https://efabless.com/open_shuttle_program](https://efabless.com/open_shuttle_program])
 
 このシャトルはデザイナーに製造コストに纏わるリスクを負うことなく、実験し、最先端を追求する機会を提供します。
- 
 シャトルプログラムは、プロジェクトが完全にオープンソースであり、一定の要件を満たしていれば、誰でも参加することができます。
-
 製造、パッケージング、評価ボード、そして送料は全てGoogleが負担します。
 
 
