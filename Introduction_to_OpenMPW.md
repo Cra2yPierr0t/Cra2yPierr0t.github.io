@@ -786,9 +786,10 @@ The variables to be changed in `config.tcl` are as follows.
 
 | Variable name | Function | Remarks |
 | ------------- | -------- | ------- |
-| `CLOCK_NET` | mystery | may be the same as `CLOCK_PORT` |
+| `CLOCK_NET` | mystery | may be the same as `CLOCK_PORT` | 
 | `CLOCK_PERIOD` | Specify the clock period | in nanoseconds |
-| `FP_PDN_MACRO_HOOKS` | explicit power connection to the macro | | `VERILOG_FILES` | same as `CLOCK_PORT` | |
+| `FP_PDN_MACRO_HOOKS` | explicit power connection to the macro | |
+| `VERILOG_FILES` | same as `CLOCK_PORT` | |
 | `VERILOG_FILES_BLACKBOX` | Verilog file specification for the macro | |
 | `EXTRA_LEFS_LEFS` | Specify the LEF file to be used | |
 | `EXTRA_GDS_FILES` | Specify GDS file to be used | |
