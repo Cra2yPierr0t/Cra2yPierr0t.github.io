@@ -14,22 +14,17 @@ title: OpenMPW入門 改訂版
 ---
 
 > The shuttle provides opportunities for designers to experiment and push the state-of-the-art without having to reconcile the risk associated with the cost of fabrication.
+> The shuttle program is open to anyone, provided that their project is fully open source and meets the other program requirements.
+> Costs for fabrication, packaging, evaluation boards and shipping are covered by Google for this program.
 
-> 出典：https://efabless.com/open_shuttle_program
+出典：[https://efabless.com/open_shuttle_program](https://efabless.com/open_shuttle_program])
 
 このシャトルはデザイナーに製造コストに纏わるリスクを負うことなく、実験し、最先端を追求する機会を提供します。
  
-> The shuttle program is open to anyone, provided that their project is fully open source and meets the other program requirements.
-
-> 出典：https://efabless.com/open_shuttle_program
-
 シャトルプログラムは、プロジェクトが完全にオープンソースであり、一定の要件を満たしていれば、誰でも参加することができます。
 
-> Costs for fabrication, packaging, evaluation boards and shipping are covered by Google for this program.
-
-> 出典：https://efabless.com/open_shuttle_program
-
 製造、パッケージング、評価ボード、そして送料は全てGoogleが負担します。
+
 
 ---
 
@@ -847,8 +842,10 @@ make user_project_wrapper
 自分のリポジトリをここに提出しましょう。
 [https://efabless.com/open_shuttle_program](https://efabless.com/open_shuttle_program)
 
+お疲れ様でした。
 
-## memo
+
+## Tips
 
 ### PDKのアップデート
 1. caravel_user_projectで`$ make uninstall`
