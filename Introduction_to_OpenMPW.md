@@ -740,7 +740,7 @@ initial begin
 
 Next, rename the file to be loaded into `spiflash` at the bottom of the file.
 
-```vering
+```verilog
 spiflash #(
     .FILENAME("<sim_name>.hex")
 ) spiflash (
