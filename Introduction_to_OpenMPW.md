@@ -709,11 +709,79 @@ The part of `reg_mprj_xfer, while` after that is the part where the settings are
 
 `GPIO_MODE_USER_STD_INPUT_PULLDOWN` is a constant that sets `mprj_io` to the input of pulldown, and `GPIO_MODE_USER_STD_OUTPUT` to the output.
 
+Other constants such as `GPIO_MODE_MGMT_STD_OUTPUT` and `GPIO_MODE_MGMT_STD_INPUT_PULLDOWN` can be set, in which case signals can be sent and received between the MGMT Core and GPIO.
+
+Basically, you can write the setting before `while(reg_mprj_xfer == 1)` and the processing after that.
+
 #### Write a test bench
+Since it is very troublesome to write a testbench from scratch, an existing testbench is copied and pasted and used. As an example, we use `io_ports/io_ports_tb.v` as a starting point.
+
+Copy Test Bench
+```bash
+cp ./dv/io_ports/io_ports_tb.v ./dv/<sim_name>/<sim_name>_tb.v
+```
+
+In the following, we will make the necessary configuration changes.
+
+First, change the name of the test bench.
+```verilog
+module <sim_name>_tb;
+```
+
+Below that is a spooky area surrounded by `ifdef ENABLE_SDF`, but there is no need to edit this area.
+
+Next, change the target and name of the waveform file.
+```verilog
+initial begin
+    $dumpfile("<sim_name>.vcd");
+    $dumpvars(0, <sim_name>_tb);
+    ...
+```
+
+Next, rename the file to be loaded into `spiflash` at the bottom of the file.
+
+```vering
+spiflash #(
+    .FILENAME("<sim_name>.hex")
+) spiflash (
+...
+```
+
+That's all for the setup. After this is done, write your own signals in the `initial` statement starting at line 162.
+[https://github.com/efabless/caravel_user_project/blob/main/verilog/dv/io_ports/io_ports_tb.v#L162](https://github.com/efabless/caravel_user_project/blob/main/verilog/dv/io_ports/io_ports_tb.v#L162)
+
+An example is given below. Don't worry about the `ifdef GL` in the original file. Just remember `$finish;`.
+
+```verilog
+initial begin
+    mprj_io[7:0] <= 8'h55;
+    # 100
+    mprj_io[7:0] <= 8'haa;
+    # 100
+    wait(mprj_io[34:33] == 2'b11);
+    $finish;
+end
+```
+
+#### Copy the Makefile
+
+Copy the Makefile, no need to edit the contents.
+```bash
+cp ./dv/io_ports/Makefile ./dv/<sim_name>/
+```
 
 #### Run a simulation
 
+Now you are ready to run the simulation. Run the following command in `caravel_user_project/` to start the simulation.
+```bash
+make verify-<sim_name>-rtl
+```
+Good luck with the debugging.
+
 ### 6. Configure OpenLANE
+
+Once debugging of the created design is complete, move on to preparing to build the wrapper.
+
 ### 7. Generate the layout
 ### 8. submit
 

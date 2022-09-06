@@ -644,11 +644,123 @@ $USER_PROJECT_VERILOG/gl/user_design_top_module.v
 ファームウェアはC言語で書ける。CaravelはRISCV toolchainの入ったDockerコンテナを引っ張ってきて`make`コマンドでコンパイルなりなんなりしてくれる。
 
 
+まずはシミュレーション用のディレクトリを`verilog/dv`以下に作成する。
+```bash
+mkdir verilog/dv/<sim_name>
+```
+
+このディレクトリにファームウェアとテストベンチを格納する。
+
+ファームウェアの名前は`<sim_name>.c`にする。以降、ファームウェアの書き方を説明する。
+
+最初に２つのファイルをインクルードする。
+```c
+#include <defs.h>
+#include <stub.c>
+```
+この`defs.h`には様々なグローバル変数と定数が定義されている。
+
+[https://github.com/efabless/caravel/blob/main/verilog/dv/caravel/defs.h
+](https://github.com/efabless/caravel/blob/main/verilog/dv/caravel/defs.h
+)
+
+後は`main`関数内にプログラムを書いていくが、普通のC言語と同様に関数を定義したりファイル分割してもいい。
+
+CSRのコンフィギュレーション部分は以下のように記述する。
+```c
+reg_mprj_io_0   = GPIO_MODE_USER_STD_INPUT_PULLDOWN;
+reg_mprj_io_1   = GPIO_MODE_USER_STD_INPUT_PULLDOWN;
+reg_mprj_io_2   = GPIO_MODE_USER_STD_INPUT_PULLDOWN;
+reg_mprj_io_3   = GPIO_MODE_USER_STD_INPUT_PULLDOWN;
+reg_mprj_io_4   = GPIO_MODE_USER_STD_INPUT_PULLDOWN;
+reg_mprj_io_5   = GPIO_MODE_USER_STD_INPUT_PULLDOWN;
+reg_mprj_io_6   = GPIO_MODE_USER_STD_INPUT_PULLDOWN;
+reg_mprj_io_7   = GPIO_MODE_USER_STD_INPUT_PULLDOWN;
+reg_mprj_io_33  = GPIO_MODE_USER_STD_OUTPUT;
+reg_mprj_io_34  = GPIO_MODE_USER_STD_OUTPUT;
+
+reg_mprj_xfer = 1;
+while (reg_mprj_xfer == 1);
+```
+
+この例では、`mprj_io[7:0]`を入力に設定し、`mprj_io[34:33]`を出力に設定している。
+その後の`reg_mprj_xfer, while`の部分は設定の適用を行っている部分であり、設定が適用されるとwhile文から抜ける。ここの仕組みは不明。
+
+`GPIO_MODE_USER_STD_INPUT_PULLDOWN`は`mprj_io`を自分のデザインへの入力に設定する定数であり、`GPIO_MODE_USER_STD_OUTPUT`は自分のデザインからの出力に設定する定数である。
+
+その他に`GPIO_MODE_MGMT_STD_OUTPUT`や`GPIO_MODE_MGMT_STD_INPUT_PULLDOWN`などの定数を設定する事ができ、この場合はMGMT CoreとGPIOで信号を受送信を行えるようになる。
+
+基本的に、`while(reg_mprj_xfer == 1)`以前に設定、以降に処理を書けば良い。
+
 #### テストベンチを書く
 
+テストベンチをゼロから書くのは非常に面倒であるため、既存のテストベンチをコピペしてきて使う。今回は例として、`io_ports/io_ports_tb.v`をたたき台に用いる。
+
+たたき台のコピー
+```bash
+cp ./dv/io_ports/io_ports_tb.v ./dv/<sim_name>/<sim_name>_tb.v
+```
+
+以下では必要な設定の変更を行う。
+
+まずテストベンチ名を変える。
+```verilog
+module <sim_name>_tb;
+```
+
+その下に`ifdef ENABLE_SDF`で囲まれている不気味な部分があるが、ここを編集する必要は無い。
+
+次に波形ファイルの対象と名前を変更する。
+```verilog
+initial begin
+    $dumpfile("<sim_name>.vcd");
+    $dumpvars(0, <sim_name>_tb);
+    ...
+```
+
+次にファイルの一番下にある`spiflash`に読み込ませるファイル名を変更する。
+```vering
+spiflash #(
+    .FILENAME("<sim_name>.hex")
+) spiflash (
+...
+```
+
+設定は以上、これが終わったら162行目から始まるinitial文の中に、自由に信号を書き込んでいく。
+[https://github.com/efabless/caravel_user_project/blob/main/verilog/dv/io_ports/io_ports_tb.v#L162](https://github.com/efabless/caravel_user_project/blob/main/verilog/dv/io_ports/io_ports_tb.v#L162)
+
+以下に例を載せる。元のファイルにある`ifdef GL`は気にしなくて良い。`$finish;`だけは忘れないようにする。
+```verilog
+initial begin
+    mprj_io[7:0] <= 8'h55;
+    # 100
+    mprj_io[7:0] <= 8'haa;
+    # 100
+    wait(mprj_io[34:33] == 2'b11);
+    $finish;
+end
+```
+
+#### Makefileをコピーする
+
+Makefileをコピーする、内容を編集する必要は無い。
+```bash
+cp ./dv/io_ports/Makefile ./dv/<sim_name>/
+```
+
+
 #### シミュレーションを実行する
+ここまでやればシミュレーションの実行準備は万全である。`caravel_user_project/`で以下のコマンドを実行すればシミュレーションが始まる。
+```bash
+make verify-<sim_name>-rtl
+```
+
+デバッグ頑張ってね。
 
 ### 6. OpenLANEの設定をする
+
+作成したデザインのデバッグが完了したら、ラッパーをビルドする準備に移る。
+
 ### 7. 最終レイアウトを生成する
 ### 8. 提出
 
