@@ -780,8 +780,97 @@ Good luck with the debugging.
 
 ### 6. Configure OpenLANE
 
-Once debugging of the created design is complete, move on to preparing to build the wrapper.
+First, edit `config.tcl` in `user_project_wrapper/`.
+
+The variables to be changed in `config.tcl` are as follows.
+
+| Variable name | Function | Remarks |
+| ------------- | -------- | ------- |
+| `CLOCK_NET` | mystery | may be the same as `CLOCK_PORT` |
+| `CLOCK_PERIOD` | Specify the clock period | in nanoseconds |
+| `FP_PDN_MACRO_HOOKS` | explicit power connection to the macro | | `VERILOG_FILES` | same as `CLOCK_PORT` | |
+| `VERILOG_FILES_BLACKBOX` | Verilog file specification for the macro | |
+| `EXTRA_LEFS_LEFS` | Specify the LEF file to be used | |
+| `EXTRA_GDS_FILES` | Specify GDS file to be used | |
+
+#### Change `CLOCK_NET`
+The default is `mprj.clk`, so change it to the same as `CLOCK_PORT` or other appropriate one.
+
+```bash
+set ::env(CLOCK_NET) $::env(CLOCK_PORT)
+```
+
+#### Change `CLOCK_PERIOD`
+Set this to your preferred operating clock period.
+
+#### Change `FP_PDN_MACRO_HOCKS`
+Change `FP_PDN_MACRO_HOCKS` to your own macro name, since the default is `mprj`, which is the power supply connection to the macro.
+
+```bash
+set ::env(FP_PDN_MACRO_HOOKS) "\
+	<user design top module> vccd1 vssd1 vccd1 vssd1"
+```
+
+#### Change `VERILOG_FILES_BLACKBOX`
+
+Change to the path of the top module of your design. Do not make any changes to the `define.v` path.
+
+```bash
+set ::env(VERILOG_FILES_BLACKBOX) "\
+	$::env(CARAVEL_ROOT)/verilog/rtl/defines.v \
+	$script_dir/../../verilog/rtl/<user design top module>.v"
+```
+
+#### Change `EXTRA_LEFS`
+Set `EXTRA_LEFS` to the path of the LEF file of your design, which is automatically generated in `caravel_user_project/lef/`.
+
+```bash
+set ::env(EXTRA_LEFS) "\
+	$script_dir/../../lef/<user design top module>.lef"
+```
+
+
+#### Change `EXTRA_GDS_FILES`
+Set `EXTRA_GDS_FILES` to the path of the GDSII files of your design that are automatically generated in `caravel_user_project/gds/`.
+
+```bash
+set ::env(EXTRA_GDS_FILES) "\
+	$script_dir/../../gds/<user design top module>.gds"
+```
+#### Editing `macro.cfg`
+
+After completing the configuration of `config.tcl`, edit `macro.cfg` at the end.
+
+The default is to specify the location of the instance named `mprj`, but change this to the specification of the location of the instance of your macro. The format is `instance_name X_pos Y_pos Orientation`.
+
+An example is shown below.
+```bash
+<user design instance> 100 100 N
+```
+
+Multiple instance locations can be specified in this `macro.cfg`.
+
+
+After completing the above settings, finally build the wrapper.
 
 ### 7. Generate the layout
-### 8. submit
+Execute the following command in `caravel_user_project/` to start the wrapper build.
+```bash
+make user_project_wrapper
+```
+
+When this succeeds, `user_project_wrapper.gds` will have been generated in `gds/`.
+
+**Congratulations!!!** Your design is now complete! Now all you have to do is follow the instructions in Efabless to register your repository. Let's hope you win the lottery!
+
+Submit your repository here.
+
+[https://efabless.com/open_shuttle_program](https://efabless.com/open_shuttle_program)
+
+
+
+P.S.
+
+If you know of any recommended books, papers or documents on computer architecture, HPC, FPGA, digital circuit design, etc., please let me know and I will weep for joy.
+
 
