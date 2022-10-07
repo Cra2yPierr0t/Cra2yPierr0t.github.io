@@ -862,6 +862,21 @@ make user_project_wrapper
 
 When this succeeds, `user_project_wrapper.gds` will have been generated in `gds/`.
 
+### 8. run precheck
+
+Install Docker image for precheck
+```bash
+make precheck
+```
+
+run precheck.
+```bash
+make run-precheck
+```
+
+Make sure there are no problems with the precheck.
+
+
 **Congratulations!!!** Your design is now complete! Now all you have to do is follow the instructions in Efabless to register your repository. Let's hope you win the lottery!
 
 Submit your repository here.
