@@ -73,7 +73,7 @@ SRAMの各IOの役割については以下の通り。後ろの数字は省略�
 | `din`   | I   | 32bit(SRAMによる) | データ入力 |
 | `dout`  | O   | 32bit(SRAMによる) | データ出力 |
 
-データ書き込み、読み出しの方法は以下の波形の通りであり、読み出しには遅延が存在する。また`clk`の周期は20ns以上にする必要がある。(ありがとうMatthew Guthausサン)
+データ書き込み、読み出しの方法は以下の波形の通りであり、読み出しには遅延が存在する。また`clk`の周期は20ns以上にする必要がある。[^1]
 
 ![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/MPWRAM/wave.png?raw=true)
 
@@ -181,3 +181,7 @@ sky130_sram_1kbyte_1rw1r_8x1024_8 #(.NUM_WMASKS(2)) rx_mem(
 僕も欲しい。大人しくOpenRAMを使って生成するか、1kBのSRAMをたくさん置いてアドレスをいい感じにするモジュールを作ればいいと思います。
 
 OpenMPWでメモリをどう作るかは死活問題な気がするのでOpenRAMの使い方を知りたいですね。
+
+--- 
+
+[^1]: ありがとうMatthew Guthausサン
