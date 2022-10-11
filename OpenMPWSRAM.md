@@ -7,7 +7,9 @@ title: OpenMPWでSRAMを使う
 読む時間が無い場合は例となるリポジトリを用意したので適当に参考にして頑張ってほしい。
 [https://github.com/Cra2yPierr0t/sky130_sram_test](https://github.com/Cra2yPierr0t/sky130_sram_test)
 
-OpenMPWで自作のメモリを使ったら本当に酷い目にあった。どうやらOpenRAMで生成したメモリを使うと幸せになれるらしいので色々試行錯誤した結果をここに記す。
+---
+
+OpenMPWで自作のメモリを使ったら**本当に酷い目にあった**。どうやらOpenRAMで生成したメモリを使うと幸せになれるらしいので色々試行錯誤した結果をここに記す。
 
 OpenRAMは任意の構成のSRAMを生成してくれるOSSらしい。
 [https://openram.org](https://openram.org)
