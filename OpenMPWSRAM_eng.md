@@ -74,11 +74,11 @@ The role of each IO in the SRAM is described below. The numbers behind are omitt
 | `din`| I |32bit (by SRAM) | Data Input |
 | `dout` | O | 32bit (by SRAM) | data output |
 
-The data write and read methods are as shown in the waveform below, and there is a delay in the readout.
+The data write and read methods are as shown in the waveform below, and there is a delay in the readout. Also, the period of `clk` needs to be 20ns or longer.[^1] 
 
 ![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/MPWRAM/wave.png?raw=true)
 
-As for the delay in data readout, it is better to wait a little because the description that causes the delay is written in the SRAM code.
+~As for the delay in data readout, it is better to wait a little because the description that causes the delay is written in the SRAM code.~
 
 ![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/MPWRAM/arbi.png?raw=true)
 
@@ -199,3 +199,7 @@ I want to be able to use OpenRAM properly because I feel that how to create memo
 
 
 Please contact @Cra2yPierr0t if you have any comments.
+
+---
+
+[^1]: Thank you Matthew Guthaus-san.

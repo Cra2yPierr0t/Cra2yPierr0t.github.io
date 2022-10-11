@@ -73,7 +73,7 @@ SRAMの各IOの役割については以下の通り。後ろの数字は省略�
 | `din`   | I   | 32bit(SRAMによる) | データ入力 |
 | `dout`  | O   | 32bit(SRAMによる) | データ出力 |
 
-データ書き込み、読み出しの方法は以下の波形の通りであり、読み出しには遅延が存在する。
+データ書き込み、読み出しの方法は以下の波形の通りであり、読み出しには遅延が存在する。また`clk`の周期は20ns以上にする必要がある。(ありがとうMatthew Guthausサン)
 
 ![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/MPWRAM/wave.png?raw=true)
 
