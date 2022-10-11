@@ -78,7 +78,7 @@ The data write and read methods are as shown in the waveform below, and there is
 
 ![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/MPWRAM/wave.png?raw=true)
 
-~As for the delay in data readout, it is better to wait a little because the description that causes the delay is written in the SRAM code.~
+~~As for the delay in data readout, it is better to wait a little because the description that causes the delay is written in the SRAM code.~~
 
 ![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/MPWRAM/arbi.png?raw=true)
 

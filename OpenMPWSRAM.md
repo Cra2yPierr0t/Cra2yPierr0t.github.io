@@ -77,7 +77,7 @@ SRAMの各IOの役割については以下の通り。後ろの数字は省略�
 
 ![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/MPWRAM/wave.png?raw=true)
 
-データ読み出しの遅延に関しては、SRAMのコード内に†FIXME: This delay is arbitrary†とか書いてあるので少し待ったほうが良い。
+~~データ読み出しの遅延に関しては、SRAMのコード内に†FIXME: This delay is arbitrary†とか書いてあるので少し待ったほうが良い。~~
 
 ![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/MPWRAM/arbi.png?raw=true)
 
