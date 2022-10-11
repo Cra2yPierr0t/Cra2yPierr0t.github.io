@@ -133,6 +133,20 @@ $::env(PDK_ROOT)/sky130B/libs.ref/sky130_sram_macros/lef/sky130_sram_1kbyte_1rw1
 $::env(PDK_ROOT)/sky130B/libs.ref/sky130_sram_macros/gds/sky130_sram_1kbyte_1rw1r_8x1024_8.gds \
 ```
 
+### DRCエラーの回避
+
+指摘により追加。
+`config.tcl`に以下の三行を追加してmagicによるDRCエラーを回避する。
+
+```bash
+set ::env(MAGIC_DRC_USE_GDS) 0
+set ::env(RUN_MAGIC_DRC) 0
+set ::env(QUIT_ON_MAGIC_DRC) 0
+```
+
+OpenRAMのSRAMを使う場合magicがどうしてもDRCエラーを発生させるらしい、magicによるDRCは行わなくなるがプリチェックには(殆ど場合)通るので安心してほしい。
+
+
 これで最低限の`config.tcl`の編集が完了した。
 
 ## 3. `macro.cfg`で位置を指定

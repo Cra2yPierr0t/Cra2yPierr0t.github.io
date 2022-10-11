@@ -140,6 +140,19 @@ The following is an example of using 1kB of 32x256 memory.
 $::env(PDK_ROOT)/sky130B/libs.ref/sky130_sram_macros/gds/sky130_sram_1kbyte_1rw1r_8x1024_8.gds \
 ```
 
+### DRC error avoidance
+
+Added by suggestion.
+Add the following three lines to `config.tcl` to avoid DRC errors caused by magic.
+
+```bash
+set ::env(MAGIC_DRC_USE_GDS) 0
+set ::env(RUN_MAGIC_DRC) 0
+set ::env(QUIT_ON_MAGIC_DRC) 0
+````
+
+If you use OpenRAM SRAMs, magic will inevitably generate DRC errors. magic will not do DRC, but will pass the precheck (in most cases).
+
 This completes the minimal editing of `config.tcl`.
 
 
