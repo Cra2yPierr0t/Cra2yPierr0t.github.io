@@ -7,21 +7,21 @@ title: OpenMPWでSRAMを使う
 読む時間が無い場合は例となるリポジトリを用意したので適当に参考にして頑張ってほしい。
 [https://github.com/Cra2yPierr0t/sky130_sram_test](https://github.com/Cra2yPierr0t/sky130_sram_test)
 
-OpenMPWで自作のメモリを使ったら本当に酷い目にあった。どうやらOpenRAMで生成されたメモリを使うと幸せになれるらしいので色々試行錯誤した結果をここに記す。
+OpenMPWで自作のメモリを使ったら本当に酷い目にあった。どうやらOpenRAMで生成したメモリを使うと幸せになれるらしいので色々試行錯誤した結果をここに記す。
 
 OpenRAMは任意の構成のSRAMを生成してくれるOSSらしい。
 [https://openram.org](https://openram.org)
 
-素敵なOSSであるが、今回はこれを直接使う訳ではない。というか使い方がわからない。ドキュメントどこにあるねん。今回はCaravelでのSKY130のインストール時に、既にOpenRAMでビルドされた1kB, 2kBのSRAMも一緒にインスールされているのでこれを使おう。
+素敵なOSSであるが、今回はこれを直接使う訳ではない。というか使い方がわからない。ドキュメントどこにあるねん。今回Caravelを用いたSKY130 PDKのインストールと同時に、OpenRAMでビルドされた1kB, 2kBのSRAMも一緒にインスールされているみたいなのでそれを使おう。
 
 SRAMのVerilogとGDSIIは以下のディレクトリに用意されている。
 ```
 $PDK_ROOT/sky130B/libs.ref/sky130_sram_macros/
 ```
 
-32x256, 8x1024の1kBのメモリと、32x512の2kBメモリが用意されている。
+このディレクトリには32x256, 8x1024の1kBのメモリと、32x512の2kBメモリが用意されている。
 
-メモリを使う順序は以下の通り。
+このメモリを使う順序は以下の通り。
 
 1. `user_project_wrapper.v`にメモリを設置
 2. `config.tcl`を編集
