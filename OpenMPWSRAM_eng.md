@@ -69,7 +69,7 @@ The role of each IO in the SRAM is described below. The numbers behind are omitt
 | `clk` | I | 1bit | Clock input, write and read on falling edge.       |
 | `csb` | I | 1bit | Chip select signal bar, 0 for select, 1 for deselect |
 | `web` | I | 1bit | Write enable bar; 0 to write, 1 to read |
-| `wmask` | I | 4bit (depends on SRAM) | Byte enable; 8bit unit |
+| `wmask` | I | 4bit (by SRAM) | Byte enable; 8bit unit |
 | `addr` | I | 8-bit (by SRAM) | address |
 | `din`| I |32bit (by SRAM) | Data Input |
 | `dout` | O | 32bit (by SRAM) | data output |
