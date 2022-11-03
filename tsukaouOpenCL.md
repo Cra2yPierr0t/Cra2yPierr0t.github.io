@@ -407,7 +407,7 @@ OpenCLホストプログラミング入門と特に変更はない。
 
 そこでワークアイテムを直線状に配置し、各ワークアイテムにはCの行ごとの計算をさせる。一度に計算する量が減るかもしれないが、ワークアイテムの数がNに削減できる。
 
-![ワークアイテムにCの行毎に計算させる](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/overhead_workitem.png?raw=true){
+![ワークアイテムにCの行毎に計算させる](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/overhead_workitem.png?raw=true)
 ついでに今後の最適化を見越して、`clEnqueueNDRangeKernel()`をいじってワークグループが持つワークアイテムの数(`local_work_size`)を64に設定しておく。この場合、仮にN=1024だと16個のワークグループで実行できる。
 
 以上の最適化を加えたカーネルが以下になる。
