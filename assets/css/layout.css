@@ -56,13 +56,14 @@ pre.highlight {
 
 @media screen and (max-width:1024px) {
     table.highlight tr td,table.highlight tr td span {
-        font-size: 25px !important;
+        /*font-size: 25px !important;*/
         height: 30px;
     }
     body {
         height: auto;
         width: auto;
     }
+    /*
     h1 {
         font-size: 55px;
     }
@@ -97,6 +98,7 @@ pre.highlight {
         overflow-wrap: break-word;
         font-size: 30px;
     }
+    */
     .sidebar {
         overflow: auto;
         margin-left: 3%;
