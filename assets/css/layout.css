@@ -16,6 +16,10 @@ p {
     color: #3d4245!important;
 }
 
+table {
+  margin-bottom: 16px;
+}
+
 img{
  display: block;
  margin: 0px auto;
