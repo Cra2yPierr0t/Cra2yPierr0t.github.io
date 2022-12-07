@@ -1,6 +1,7 @@
 ---
 layout: default
 title: RgGen ✕ OpenMPWでLSIを焼こう！
+image: "https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/RISC5000choyen.png"
 ---
 # RgGen ✕ OpenMPWでLSIを焼こう！
 
