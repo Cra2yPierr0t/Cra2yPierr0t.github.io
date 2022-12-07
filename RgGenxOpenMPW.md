@@ -32,6 +32,7 @@ OpenMPWの参加者、中々増えませんね。寂しい。
 ### OpenMPWについて
 GoogleとEfablessとSkywaterが結託して始めたシャトルプログラム、製造料・送料全て無料！
 アメリカの金でLSIを焼けるぜ！
+[https://efabless.com/open_shuttle_program](https://efabless.com/open_shuttle_program)
 
 ### Caravelについて
 OpenMPWではCaravelというフレームワークを使います。
