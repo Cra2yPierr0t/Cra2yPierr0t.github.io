@@ -612,12 +612,12 @@ endmodule
 
 wishboneの接続が完了したら残りはCSRのデータの接続ですが、これは繋げるだけです。
 
-`vccd1`と`vssd1`は電源ラインですのでとりあえず書いときます。
-
 また外部入出力の`io_out`と`io_in`をそれぞれ`tx`と`rx`に接続します。ピン配置はここに載ってます。
 [https://caravel-harness.readthedocs.io/en/latest/pinout.html](https://caravel-harness.readthedocs.io/en/latest/pinout.html)
 
 31番は出力で30番は入力なので、`io_oeb`にそれぞれ値を入力します。負論理になっていますので出力に用いる場合は0を入力します。
+
+`vccd1`と`vssd1`は電源ラインですのでとりあえず書いときます。
 
 ```verilog
 module uart #(
