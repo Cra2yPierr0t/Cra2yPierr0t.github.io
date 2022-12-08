@@ -757,7 +757,7 @@ cp user_proj_example/config.json uart/
 
 `DIE_AREA`と`PL_TARGET_DENSITY`はデザインによっては試行錯誤が必要です。
 
-```jsonld
+```
 {
     "DESIGN_NAME": "uart",
     "DESIGN_IS_CORE": 0,
@@ -899,7 +899,7 @@ uart 1500 1500 N
 ## OpenLANEの設定ファイルを書く(user_project_wrapper)
 
 `VERILOG_FILES_BLACKBOX`に自分のVerilogのパス、`EXTRA_LEFS`と`EXTRA_GDS`に`lef/`と`gds/`以下に生成されているファイルのパスを設定。`CLOCK_PERIOD`にクロック周期(ns)、`CLOCK_PORT`と`CLOCK_NET`にクロック信号線を設定。あとは`ROUTING_CORES`の値で配線に使うスレッドの数を増やせるので時短になって嬉しいです。
-```jsonld
+```
 {
     "DESIGN_NAME": "user_project_wrapper",
     "ROUTING_CORES": 16,
