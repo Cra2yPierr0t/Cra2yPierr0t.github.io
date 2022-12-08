@@ -108,12 +108,13 @@ This is about right.
 Next, let's consider what CSRs are likely to be necessary. Naturally, registers to store receive and transmit data are necessary. In addition, a register to start transmission, an interrupt ON/OFF for reception, and a register to specify the baud rate or operating frequency are necessary since UART has a baud rate. Since it is currently unknown at what MHz the LSI can operate, we will use the register that specifies the operating frequency this time. The baud rate is fixed at 115200.
 
 The table below shows the CSRs we have determined above.
+
 | address       | CSR                  | field                         | access | Description                                 |
 | ------------- | -------------------- | ----------------------------- | ------ | ------------------------------------------- |
-| `0x3000_0000` | `CLOCK_FREQ`         | `clock_freq[31:0]`            | RW     |    LSI operating frequency                          |
-| `0x3000_0004` | `RECEIVED_DATA`      | `reserved[31:8], rx[7:0]`     | RO     | received data                                  |
-| `0x3000_0008` | `TRANSMISSION_DATA`  | `reserved[31:8], tx[7:0]`     | RW     | transmission data                                  |
-| `0x3000_000c` | `INTERRUPT_ENABLE`   | `reserved[31:1], irq_en[0]`   | RW     | receive interrupt enabled                          |
+| `0x3000_0000` | `CLOCK_FREQ`         | `clock_freq[31:0]`            | RW     |    LSI operating frequency                  |
+| `0x3000_0004` | `RECEIVED_DATA`      | `reserved[31:8], rx[7:0]`     | RO     | received data                               |
+| `0x3000_0008` | `TRANSMISSION_DATA`  | `reserved[31:8], tx[7:0]`     | RW     | transmission data                           |
+| `0x3000_000c` | `INTERRUPT_ENABLE`   | `reserved[31:1], irq_en[0]`   | RW     | receive interrupt enabled                      |
 | `0x3000_0010` | `TRANSMISSION_START` | `reserved[31:1], tx_start[0]` | RW     | Write 1 to start sending, auto drop on completion |
 
 Note that even simple hardware such as UART requires CSRs with **special functions**, such as `TRANSMISSION_START`, which automatically drops bits, and `RECEIVED_DATA`, which drops interrupt bits after reading a value.
