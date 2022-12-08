@@ -1,3 +1,8 @@
+---
+layout: default
+title: RgGen ✕ OpenMPW Walkthrough
+image: "https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/RISC5000choyen.png"
+---
 # RgGen ✕ OpenMPW Walkthrough
 ## Abstract
 The motivation of this article is to lower the threshold for participation in OpenMPW, and the method is to generate CSRs with Wishbone interface using RgGen. It's done, it's certainly easy, it's going viral, let's donate to RgGen, that's all.
