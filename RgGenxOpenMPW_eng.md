@@ -368,8 +368,6 @@ From `i_clk` to `o_wb_dat` is the wishbone interface. Below that, there is a 32-
 
 Let's stick this `CSR.v` into `user_project_wrapper/verilog/rtl/`.
 
-The path to the header file to be included has been changed for the reason described below.
-
 By the way, you will be happy to see the `CSR.md` generated at the same time in `$ glow CSR.md`.
 
 ### Common modules for RgGen
@@ -381,6 +379,13 @@ Since `CSR.v` alone is not usable, place rggen-verilog-rtl as a submodule in `us
 ```bash
 cd user_project_wrapper/verilog/rtl/
 git submodule add git@github.com:rggen/rggen-verilog-rtl.git
+```
+
+And because of the inclusion, place the symbolic link of `rggen-verilog-rtl/rggen_rtl_macro.vh` under `verilog/rtl/`.
+
+```bash
+cd verilog/rtl
+ln -s rggen-verilog-rtl/rggen_rtl_macro.vh rggen_rtl_macro.vh
 ```
 
 ## Create a UART module
@@ -971,7 +976,7 @@ This also adds the path to the files under `verilog/gl`, the format is a bit dif
 
 ### `includes.rtl.caravel_user_project`
 
-This is quite tricky. Add all the paths to the files you use under `verilog/rtl`. I mocked it up by loading `rggen_rtl_macros.vh`. I had to edit the include statement in `CSR.v` and so on, no wonder. This file is a cmdfile of icarus verilog, so I stared at the document and made it look good, as follows.
+Add all the paths to the files you use under `verilog/rtl`. Use `+incdir+` for `rggen_rtl_macros.vh` since various files are included in it. This file is the cmdfile for icarus verilog, so I stared at the documentation and made it look good, as follows The file is as shown in the following.
 
 ```
 # Caravel user project includes

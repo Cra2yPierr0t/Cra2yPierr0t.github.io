@@ -334,8 +334,7 @@ rggen --plugin rggen-verilog -c config.yml register_map.yml
 生成された`CSR.v`の一部を以下に載せます。
 
 ```verilog
-- `include "rggen_rtl_macros.vh"
-+ `include "rggen-verilog-rtl/rggen_rtl_macros.vh"
+`include "rggen_rtl_macros.vh"
 module CSR #(
   parameter ADDRESS_WIDTH = 5,
   parameter PRE_DECODE = 0,
@@ -375,8 +374,6 @@ module CSR #(
 
 この`CSR.v`を`user_project_wrapper/verilog/rtl/`に突っ込みましょう。
 
-後述の関係によりインクルードするヘッダファイルのパスに変更を加えてあります。
-
 ちなみに同時に生成される`CSR.md`を`$ glow CSR.md`で見ると嬉しい気持ちになります。
 
 ### RgGenの共通モジュール
@@ -386,6 +383,13 @@ module CSR #(
 ```bash
 cd user_project_wrapper/verilog/rtl/
 git submodule add git@github.com:rggen/rggen-verilog-rtl.git
+```
+
+そしてインクルードの関係上、`rggen-verilog-rtl/rggen_rtl_macro.vh`のシンボリックリンクを`verilog/rtl/`以下に設置しましょう。
+
+```bash
+cd verilog/rtl
+ln -s rggen-verilog-rtl/rggen_rtl_macro.vh rggen_rtl_macro.vh
 ```
 
 
@@ -976,7 +980,7 @@ $USER_PROJECT_VERILOG/gl/uart.v
 
 ### `includes.rtl.caravel_user_project`
 
-これがかなり厄介。`verilog/rtl`以下の使うファイルのパスを全て追加する。`rggen_rtl_macros.vh`の読み込みでコケまくった。`CSR.v`のinclude文編集したりしましたからね、仕方ないね。このファイルはicarus verilogのcmdfileなのでドキュメントとにらめっこしていい感じに仕上げたのが以下の通りです。
+`verilog/rtl`以下の使うファイルのパスを全て追加する。`rggen_rtl_macros.vh`をいろんなファイルがインクルードしているので、`+incdir+`を使う。 このファイルはicarus verilogのcmdfileなのでドキュメントとにらめっこしていい感じに仕上げたのが以下の通りです。
 
 ```
 # Caravel user project includes
