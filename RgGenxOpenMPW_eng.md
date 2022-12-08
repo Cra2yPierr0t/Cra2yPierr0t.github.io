@@ -489,7 +489,7 @@ module uart_transmission(
 
 endmodule
 ```
-https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/rtl/UART/uart_transmission.v
+[https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/rtl/UART/uart_transmission.v](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/rtl/UART/uart_transmission.v)
 
 ### Reception
 Oraggghhhh ！！！！
@@ -749,7 +749,7 @@ Next, edit the `config.json` that you have copied and pasted, mostly adding the 
 
 The `DIE_AREA` and `PL_TARGET_DENSITY` may require some trial and error depending on your design.
 
-```jsonld
+```
 {
     "DESIGN_NAME": "uart",
     "DESIGN_IS_CORE": 0,
@@ -894,7 +894,7 @@ uart 1500 1500 N
 
 Set `VERILOG_FILES_BLACKBOX` to the path of our Verilog, `EXTRA_LEFS` and `EXTRA_GDS` to the paths of files generated under `lef/` and `gds/`. Set the clock period (ns) in `CLOCK_PERIOD` and the clock signal line in `CLOCK_PORT` and `CLOCK_NET`. Then you can increase the number of threads used for wiring by the value of `ROUTING_CORES`, which is nice to shorten the time.
 
-```jsonld
+```
 {
     "DESIGN_NAME": "user_project_wrapper",
     "ROUTING_CORES": 16,
