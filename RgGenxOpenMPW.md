@@ -492,7 +492,7 @@ module uart_transmission(
 
 endmodule
 ```
-https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/rtl/UART/uart_transmission.v
+[https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/rtl/UART/uart_transmission.v](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/rtl/UART/uart_transmission.v)
 
 ### 受信
 
