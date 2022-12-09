@@ -147,10 +147,10 @@ OpenLANEを使う上でHDLを書くのと同時に、そのデザインに応じ
 設定ファイルはtclファイルの**config.tcl**かjsonファイルの**config.json**で設定出来る。
 
 設定ファイルの基本的な書き方の説明はここにあるが、後で解説する。
-https://openlane.readthedocs.io/en/latest/docs/source/hardening_macros.html
+[https://openlane.readthedocs.io/en/latest/usage/hardening_macros.html](https://openlane.readthedocs.io/en/latest/usage/hardening_macros.html)
 
 また利用可能な変数の一覧はここにあり、その中で必須な変数を後で解説する。
-https://openlane.readthedocs.io/en/latest/configuration/README.html
+[https://openlane.readthedocs.io/en/latest/reference/configuration.html](https://openlane.readthedocs.io/en/latest/reference/configuration.html)
 
 ## Caravelの概要
 今までさんざん出てきたCaravelだが、これはOpenMPWの半導体設計用テンプレートである。

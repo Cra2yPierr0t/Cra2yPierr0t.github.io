@@ -150,11 +150,11 @@ The configuration file can be set either in the tcl file **config.tcl** or in th
 
 A basic description of how to write a configuration file can be found here, but will be explained later.
 
-https://openlane.readthedocs.io/en/latest/docs/source/hardening_macros.html
+[https://openlane.readthedocs.io/en/latest/usage/hardening_macros.html](https://openlane.readthedocs.io/en/latest/usage/hardening_macros.html)
 
 A list of available variables can be found here, and the essential variables will be explained later.
 
-https://openlane.readthedocs.io/en/latest/configuration/README.html
+[https://openlane.readthedocs.io/en/latest/reference/configuration.html](https://openlane.readthedocs.io/en/latest/reference/configuration.html)
 
 ## Caravel Overview
 Caravel, which has been mentioned many times before, is an OpenMPW semiconductor design template.
