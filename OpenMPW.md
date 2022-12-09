@@ -603,6 +603,9 @@ klayout <user design top module>.gds
 ### 4. user_project_wrapperに自分のデザインを加える
 `verilog/rtl/user_project_wrapper.v`に`user_proj_example`の代わりに自分のモジュールを入れるだけである。なお、`user_project_wrapper`でANDやNOT等のロジックを組むのは予期せぬエラーの原因になるのでオススメしない。
 
+#### 追記: `user_defines.v`を編集
+`verilog/rtl/user_defines.v`を編集し、IOの状態を設定する。全ての`GPIO_MODE_INVALID`をデザインに応じて`GPIO_MODE_USER_STD_OUTPUT`や`GPIO_MODE_USER_STD_INPUT_PULLDOWN`に変更する。
+
 ### 5. シミュレーションで動作を確認する
 Caravelに自分のデザインを接続出来たら次はシミュレーションで動作確認をする。
 

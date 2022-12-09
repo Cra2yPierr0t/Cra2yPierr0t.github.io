@@ -623,6 +623,9 @@ Cute.
 
 Simply put your own module in `verilog/rtl/user_project_wrapper.v` instead of `user_proj_example`. Note that it is not recommended to set up logic such as AND and NOT in `user_project_wrapper`, as it may cause unexpected errors.
 
+#### PS: Edit `user_defines.v`
+Edit `verilog/rtl/user_defines.v` to set IO state. Change all `GPIO_MODE_INVALID` to `GPIO_MODE_USER_STD_OUTPUT`, `GPIO_MODE_USER_STD_INPUT_PULLDOWN`, etc. depending on your design.
+
 ### 5. check the operation by simulation
 Once you have connected your design to Caravel, the next step is to check its operation in simulation.
 
