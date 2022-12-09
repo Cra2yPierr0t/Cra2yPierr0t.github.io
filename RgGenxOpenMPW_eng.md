@@ -57,7 +57,7 @@ You can create a repository from template, fork it, or clone it as you like, but
 
 In this case, we will generate and clone from template.
 ```bash
-clone git@github.com:Cra2yPierr0t/caravel_walkthrough_uart.git
+clone git@github.com:<Github ID>/caravel_walkthrough_uart.git
 ```
 
 Go into the repository and create a dependencies directory.

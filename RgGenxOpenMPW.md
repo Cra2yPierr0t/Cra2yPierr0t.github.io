@@ -59,7 +59,7 @@ Caravelのメモリマップは以下のドキュメントの通りになって�
 
 templateから作るなりforkするなりcloneするなり好きにしてください、templateからリポジトリを作るとアップデートが面倒かもしれないです。今回はtemplateから生成してcloneします。
 ```bash
-clone git@github.com:Cra2yPierr0t/caravel_walkthrough_uart.git
+clone git@github.com:<Github ID>/caravel_walkthrough_uart.git
 ```
 
 リポジトリに入ってdependenciesディレクトリを作る。
