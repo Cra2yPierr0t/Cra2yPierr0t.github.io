@@ -19,7 +19,7 @@ Seeing is believing, and this article introduces the flow of easy LSI design usi
 
 ## Prerequisites
 ### About RgGen
-**RgGen** is a CSR generation tool created by Mr. Ishitani ([@taichi600730](https://twitter.com/taichi600730)). It can generate **CSR** with various functions from a **configuration file**. It is also possible to add a **wishbone interface** to the CSRs (APB, AXI4-lite, etc. are also possible).
+**RgGen** is a CSR generation tool created by Mr. Ishitani ([@taichi600730](https://twitter.com/taichi600730)). It can generate **CSR** with various functions from a **configuration file**. It is also possible to add a **wishbone interface** to the CSRs (APB and AXI4-lite are also possible).
 
 What this means is that with RgGen, you are free from having to read the wishbone specification to create the control logic for the wishbone, and from the tedious work of setting some registers to RO and others to RW! I'm very happy about that.
 
