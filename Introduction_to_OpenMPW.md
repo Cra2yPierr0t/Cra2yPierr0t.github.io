@@ -78,9 +78,11 @@ systemctl start docker
 
 Next, install OpenLANE, but install caravel first because it is more convenient to install via caravel, which is described later.
 
-Download caravel first
+Download caravel first. The `<tag>` should be the latest one from the following page. At the time of writing, it is `mpw-8c` for shuttles using Skywater's 130nm and `gfmpw-0d` for GlobalFoundries' 180nm.
+[https://github.com/efabless/caravel_user_project/tags](https://github.com/efabless/caravel_user_project/tags)
+
 ```bash
-git clone https://github.com/efabless/caravel_user_project.git
+git clone -branch <tag> https://github.com/efabless/caravel_user_project.git
 ```
 
 Then create a `dependencies` directory, a directory to install OpenLANE and PDK, and set environment variables.
@@ -92,7 +94,13 @@ export OPENLANE_ROOT=$(pwd)/dependencies/openlane_src
 export PDK_ROOT=$(pwd)/dependencies/pdks
 ```
 
-The PDK contains blueprints for OR circuits, AND circuits, FF, and so on.
+Next, set the type of PDK to be installed; a PDK contains blueprints for OR circuits, AND circuits, FF, etc.
+
+The `<pdk>` field specifies the type of PDK you want to install, such as `sky130A`, `sky130B`, `gf180mcuC`, etc. Select the type according to the process to be used in the shuttle.
+
+```bash
+export PDK=<pdk>
+```
 
 Start installation with `make setup`.
 ```bash
@@ -167,9 +175,11 @@ If you have already installed Caravel by installing OpenLANE above, you do not n
 
 However, if you want to delete OpenLANE, pdk, Caravel, and everything else and install the OSS you need with OpenMPW again, this is a quick way to do it.
 
-Download Caravel
+Download caravel. The `<tag>` should be the latest one from the following page. At the time of writing, it is `mpw-8c` for shuttles using Skywater's 130nm and `gfmpw-0d` for GlobalFoundries' 180nm.
+[https://github.com/efabless/caravel_user_project/tags](https://github.com/efabless/caravel_user_project/tags)
+
 ```bash
-git clone https://github.com/efabless/caravel_user_project.git
+git clone -branch <tag> https://github.com/efabless/caravel_user_project.git
 ```
 
 Create a `dependencies` directory, a directory to install OpenLANE and PDK, and set environment variables.
@@ -178,6 +188,14 @@ cd caravel_user_project
 mkdir dependencies
 export OPENLANE_ROOT=$(pwd)/dependencies/openlane_src
 export PDK_ROOT=$(pwd)/dependencies/pdks
+```
+
+Next, set the type of PDK to be installed; a PDK contains blueprints for OR circuits, AND circuits, FF, etc.
+
+The `<pdk>` field specifies the type of PDK you want to install, such as `sky130A`, `sky130B`, `gf180mcuC`, etc. Select the type according to the process to be used in the shuttle.
+
+```bash
+export PDK=<pdk>
 ```
 
 Start installation.

@@ -8,8 +8,8 @@ title: OpenMPW入門 改訂版
 **オレオレLSIを焼きたいですよね？ 焼きましょう。** Skywater社がPDKを公開し、OSSなGDSIIコンパイラである**OpenLANE**も生まれました。そしてGoogleの出資によってEfablessが無料でLSIを作らせてくれるプログラム、**Open MPW Shuttle Program**をスタートしました。 今こそオレオレLSIを焼くチャンスです。あなたの作りたいチップをGoogleの金で作りましょう！
 
 
-## OpenMPWの概要
-**OpenMPW**(Open Multi Project Wafer)は**Efabless**にGoogleが出資して生まれたシャトルプログラムであり、ホームページには次の文言が書かれている。
+## OpenMPWとは
+**OpenMPW**(Open Multi Project Wafer)は**Efabless**にGoogleが出資して生まれたシャトルプログラムであり、ホームページには次の文言が書かれています。
 
 ---
 
@@ -19,19 +19,18 @@ title: OpenMPW入門 改訂版
 
 出典：[https://efabless.com/open_shuttle_program](https://efabless.com/open_shuttle_program])
 
-このシャトルはデザイナーに製造コストに纏わるリスクを負うことなく、実験し、最先端を追求する機会を提供します。
-シャトルプログラムは、プロジェクトが完全にオープンソースであり、一定の要件を満たしていれば、誰でも参加することができます。
-製造、パッケージング、評価ボード、そして送料は全てGoogleが負担します。
+> このシャトルはデザイナーに製造コストに纏わるリスクを負うことなく、実験し、最先端を追求する機会を提供します。
+> シャトルプログラムは、プロジェクトが完全にオープンソースであり、一定の要件を満たしていれば、誰でも参加することができます。
+> 製造、パッケージング、評価ボード、そして送料は全てGoogleが負担します。
 
 
 ---
 
-つまりデザインをオープンソースにすれば**完全無料**で自分の半導体を作れるプログラムということですね。これは熱い、参加するしかない、Google最高一生ついていきます。
+つまりデザインをオープンソースにすれば**完全無料**で自分の半導体を作れるプログラムという事ですね。これは熱い、参加するしかない、Google最高一生ついていきます。
 
 と言っても提出された全てのデザインを焼いてくれるという訳ではなく、いくつかの条件が存在しています。
 
 * 提出された中からランダムに40のプロジェクトが選ばれる
-* Skywater PDKの使用
 * デザインをオープンソースにすること
 * レイアウトをリポジトリから再現可能にすること
 * ライセンス諸々
@@ -42,13 +41,8 @@ title: OpenMPW入門 改訂版
 
 この次は各ツールの概要に入りますが、既に知っておりインストール済みなら飛ばして頂いて構いません。
 
-## OpenLANEの概要
-OpenLANEとはOSSなRTL-to-GDSIIコンパイラであり、20個くらいのOSSを組み合わせて作られている。PDKとRTLとコンフィグを揃えて実行するとGDSIIが生えてくる。
 
-このGDSIIをファブに送りつけるとLSIを焼いてくれる。
-
-OpenLANEはDockerコンテナが提供されており、Dockerでインストールするのが推奨されている。一応Dockerコンテナを使わずにインストールすることも可能だが、  It is more complexとか書いてあるので近づかない方がいい。
-### 環境構築
+## 環境構築
 OpenLANEをインストールするための環境を構築する。Linux/M1 Mac/Intel Mac/Winに対応している。
 
 最小要件はこちら
@@ -81,12 +75,19 @@ Dockerデーモンの起動
 systemctl start docker
 ```
 
+## OpenLANEの概要
+OpenLANEとはOSSなRTL-to-GDSIIコンパイラであり、20個くらいのOSSを組み合わせて作られている。PDKとRTLとコンフィグを揃えて実行するとGDSIIが生えてくる。
+
+このGDSIIをファブに送りつけるとLSIを焼いてくれる。
+
+OpenLANEはDockerコンテナが提供されており、Dockerでインストールするのが推奨されている。一応Dockerコンテナを使わずにインストールすることも可能だが、  It is more complexとか書いてあるので近づかない方がいい。
+
 ### OpenLANEのインストール
 次にOpenLANEをインストールするが、後述するCaravel経由でインストールした方がなにかと都合が良いので先にcaravelをインストールする。
 
-最初にcaravelをダウンロード
+最初にcaravelをダウンロード。`<tag>`は次のページから最新のものを指定してください。執筆時点ではSkywaterの130nmを使うシャトルの場合は`mpw-8c`でGlobalFoundriesの180nmを使う場合は`gfmpw-0d`です。[https://github.com/efabless/caravel_user_project/tags](https://github.com/efabless/caravel_user_project/tags)
 ```bash
-git clone https://github.com/efabless/caravel_user_project.git
+git clone -b <tag> https://github.com/efabless/caravel_user_project.git
 ```
 
 そしてdependenciesディレクトリを作成、OpenLANEとPDKをインストールするディレクトリを作成し、環境変数を設定する。
@@ -96,7 +97,13 @@ mkdir dependencies
 export OPENLANE_ROOT=$(pwd)/dependencies/openlane_src
 export PDK_ROOT=$(pwd)/dependencies/pdks
 ```
-PDKにはOR回路とかAND回路とかFFとかの設計図が入っている。
+
+次にインストールするPDKの種類を設定する。PDKにはOR回路とかAND回路とかFFとかの設計図が入っている。
+
+`<pdk>`にはインストールしたいPDKの種類を指定する。PDKの種類には`sky130A`, `sky130B`, `gf180mcuC`などがあり、シャトルで使うプロセスに応じて選択する。
+```bash
+export PDK=<pdk>
+```
 
 `make setup`でインストールを開始する。
 ```bash
@@ -162,9 +169,9 @@ User Project Areaから外部には38本のGPIO線が伸びており、ここか
 
 ただOpenLANEもpdkもCaravelも全部消してもう一度OpenMPWで必要なOSSをインストールしたいならここを見るのが手っ取り早い。
 
-Caravelをダウンロード
+caravelをダウンロード。`<tag>`は次のページから最新のものを指定してください。執筆時点ではSkywaterの130nmを使うシャトルの場合は`mpw-8c`でGlobalFoundriesの180nmを使う場合は`gfmpw-0d`です。[https://github.com/efabless/caravel_user_project/tags](https://github.com/efabless/caravel_user_project/tags)
 ```bash
-git clone https://github.com/efabless/caravel_user_project.git
+git clone -b <tag> https://github.com/efabless/caravel_user_project.git
 ```
 
 dependenciesディレクトリを作成、OpenLANEとPDKをインストールするディレクトリを作成し、環境変数を設定する。
@@ -173,6 +180,13 @@ cd caravel_user_project
 mkdir dependencies
 export OPENLANE_ROOT=$(pwd)/dependencies/openlane_src
 export PDK_ROOT=$(pwd)/dependencies/pdks
+```
+
+次にインストールするPDKの種類を設定する。PDKにはOR回路とかAND回路とかFFとかの設計図が入っている。
+
+`<pdk>`にはインストールしたいPDKの種類を指定する。PDKの種類には`sky130A`, `sky130B`, `gf180mcuC`などがあり、シャトルで使うプロセスに応じて選択する。
+```bash
+export PDK=<pdk>
 ```
 
 インストールを開始。
@@ -610,7 +624,7 @@ OpenLANEで自分のデザインのVerilogファイルのパスを`config.tcl`�
 * `verilog/includes/includes.gl.caravel_user_project`
 * `verilog/includes/includes.rtl.caravel_user_project`
 
-まず`includes.rtl.caravel_user_project`に関してだが、ここには`user_project_wrapper`を含めた、自分のデザインに必要はVerilogファイルのパスを追加する。
+まず`includes.rtl.caravel_user_project`に関してだが、ここには`user_project_wrapper`を含めた、自分のデザインに必要なVerilogファイルのパスを追加する。
 
 以下に例を載せる。
 ```bash
