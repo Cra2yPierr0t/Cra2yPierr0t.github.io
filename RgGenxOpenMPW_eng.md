@@ -66,11 +66,11 @@ cd caravel_user_project
 mkdir dependencies
 ```
 
-Select the OpenLANE installation location and the PDK to be installed in the environment variable. `sky130B` will install Skywater's 130nm and `GF180mcuC` will install GlobalFoundries' 180nm PDK. Decide according to the shuttle you want to submit, this time assuming SKY130.
+Select the OpenLANE installation location and the PDK to be installed in the environment variable. `sky130A` will install Skywater's 130nm and `gf180mcuC` will install GlobalFoundries' 180nm PDK. Decide according to the shuttle you want to submit, this time assuming SKY130.
 ```bash
 export OPENLANE_ROOT=$(pwd)/dependencies/openlane_src
 export PDK_ROOT=$(pwd)/dependencies/pdks
-export PDK=sky130B or export PDK=GF180mcuC
+export PDK=sky130A or export PDK=gf180mcuC
 ```
 
 Start installation

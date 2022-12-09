@@ -68,11 +68,11 @@ cd caravel_user_project
 mkdir dependencies
 ```
 
-環境変数でOpenLANEのインストール場所とインストールするPDKを選択する。`sky130B`でSkywaterの130nm、`GF180mcuC`でGlobalFoundriesの180nmのPDKがインストールされます。提出したいシャトルに応じて決めてください、今回はSKY130を想定します。
+環境変数でOpenLANEのインストール場所とインストールするPDKを選択する。`sky130A`でSkywaterの130nm、`gf180mcuC`でGlobalFoundriesの180nmのPDKがインストールされます。提出したいシャトルに応じて決めてください、今回はSKY130を想定します。
 ```bash
 export OPENLANE_ROOT=$(pwd)/dependencies/openlane_src
 export PDK_ROOT=$(pwd)/dependencies/pdks
-export PDK=sky130B or export PDK=GF180mcuC
+export PDK=sky130A or export PDK=gf180mcuC
 ```
 
 インストールを開始
