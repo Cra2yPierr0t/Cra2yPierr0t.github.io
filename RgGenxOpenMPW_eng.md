@@ -166,7 +166,7 @@ bus_width: 32
 address_width: 5
 protocol: wishbone
 ```
-[https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/rggen_configs/config.yml](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/rggen_configs/config.yml)
+[config.yml](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/rggen_configs/config.yml)
 
 ### Register map
 Next, specify the register configuration. Let's call the register map configuration file `register_map.yml`. Since `register_map.yml` is a bit long, we will start from the top and show you the whole file at the end.
@@ -312,7 +312,7 @@ register_blocks:
         - { name: tx_start, bit_assignment: { width: 1 }, type: rwc, initial_value: 0x0}
         - { name: reserved, bit_assignment: { width: 30 }, type: reserved }
 ```
-[https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/rggen_configs/register_map.yml](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/rggen_configs/register_map.yml)
+[register_map.yml](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/rggen_configs/register_map.yml)
 
 
 ### Generate
@@ -362,7 +362,7 @@ module CSR #(
   wire [1:0] w_register_access;
   wire [4:0] w_register_address;
 ```
-[https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/rtl/CSR.v](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/rtl/CSR.v)
+[CSR.v](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/rtl/CSR.v)
 
 From `i_clk` to `o_wb_dat` is the wishbone interface. Below that, there is a 32-bit output signal called `o_CLOCK_FREQ_clock_freq`, which is `CLOCK_FREQ`. There is another 8-bit input signal called `i_RECEIVED_DATA_rx`, which is received data, and `i_TRANSMISSION_START_tx_start_clear` is the clear signal for `tx_start`. We have generated it correctly.
 
@@ -489,7 +489,7 @@ module uart_transmission(
 
 endmodule
 ```
-[https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/rtl/UART/uart_transmission.v](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/rtl/UART/uart_transmission.v)
+[uart_transmission.v](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/rtl/UART/uart_transmission.v)
 
 ### Reception
 Oraggghhhh ！！！！
@@ -590,7 +590,7 @@ module uart_receive (
 
 endmodule
 ```
-[https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/rtl/UART/uart_receive.v](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/rtl/UART/uart_receive.v)
+[uart_receive.v](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/rtl/UART/uart_receive.v)
 
 ### Top Module
 
@@ -723,7 +723,7 @@ module uart #(
 
 endmodule
 ```
-[https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/rtl/UART/uart.v](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/rtl/UART/uart.v)
+[uart.v](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/rtl/UART/uart.v)
 
 You may be wondering why all the `io_in`, `io_out` and `io_oeb` that are only partially used are pulled into this module. This is because if you only put out `tx` and `rx` in uart's IO and try to connect to `io_in[30]` and `io_out[31]` in the `user_project_wrapper`, you will run into non-trivial LVS errors.
 
@@ -806,7 +806,7 @@ The `DIE_AREA` and `PL_TARGET_DENSITY` may require some trial and error dependin
     }
 }
 ```
-[https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/openlane/uart/config.json](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/openlane/uart/config.json)
+[uart/config.json](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/openlane/uart/config.json)
 
 ## Generate GDSII for UART
 
@@ -862,7 +862,7 @@ uart uart (
 
 endmodule	// user_project_wrapper
 ```
-[https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/rtl/user_project_wrapper.v](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/rtl/user_project_wrapper.v)
+[verilog/rtl/user_project_wrapper.v](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/rtl/user_project_wrapper.v)
 
 ## Set the initial state of GPIOs with `user_defines.v`.
 As shown above, GPIO No. 31 is used for output and No. 30 for input. Originally, this can be changed dynamically by firmware, but if you edit `user_defines.v` and set it, No.31 will be output and No.30 will be input from the beginning.
@@ -880,7 +880,7 @@ A part of `user_defines.v` is shown below.
 `define USER_CONFIG_GPIO_32_INIT `GPIO_MODE_USER_STD_OUTPUT
 `define USER_CONFIG_GPIO_33_INIT `GPIO_MODE_USER_STD_OUTPUT
 ```
-[https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/rtl/user_defines.v](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/rtl/user_defines.v)
+[verilog/rtl/user_defines.v](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/rtl/user_defines.v)
 
 ## Set the position in `macro.cfg`
 The die size is 3000nmx3000nm, so place it around the center of the die.
@@ -888,7 +888,7 @@ The die size is 3000nmx3000nm, so place it around the center of the die.
 ```
 uart 1500 1500 N
 ```
-[https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/openlane/user_project_wrapper/macro.cfg](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/openlane/user_project_wrapper/macro.cfg)
+[openlane/user_project_wrapper/macro.cfg](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/openlane/user_project_wrapper/macro.cfg)
 
 ## Write OpenLANE configuration file (user_project_wrapper)
 
@@ -916,7 +916,7 @@ Set `VERILOG_FILES_BLACKBOX` to the path of our Verilog, `EXTRA_LEFS` and `EXTRA
     "FP_PDN_CHECK_NODES": 0,
     "SYNTH_ELABORATE_ONLY": 1,
 ```
-[https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/openlane/user_project_wrapper/config.json](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/openlane/user_project_wrapper/config.json)
+[openlane/user_project_wrapper/config.json](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/openlane/user_project_wrapper/config.json)
 
 ## Generate GDSII for user_project_wrapper
 Run the following command in the repository root. It's time to pray. If this succeeds, we are good to go for submission.
@@ -948,20 +948,20 @@ Next, add the name of the testbench you want to add to the Makefile under `veril
 ```bash
 PATTERNS = io_ports la_test1 la_test2 wb_port mprj_stimulus uart_test
 ```
-[https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/dv/Makefile](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/dv/Makefile)
+[verilog/dv/Makefile](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/dv/Makefile)
 
 Then edit all files under `verilog/include/`.
 
 ### `includes.gl+sdf.caravel_user_project`
 
-Add paths to files under `verilog/gl
+Add paths to files under `verilog/gl`
 
 ```
 // Caravel user project includes		
 $USER_PROJECT_VERILOG/gl/user_project_wrapper.v	     
 $USER_PROJECT_VERILOG/gl/uart.v
 ```
-[https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/includes/includes.gl+sdf.caravel_user_project](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/includes/includes.gl+sdf.caravel_user_project)
+[verilog/includes/includes.gl+sdf.caravel_user_project](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/includes/includes.gl+sdf.caravel_user_project)
 
 ### `includes.gl.caravel_user_project`
 
@@ -972,7 +972,7 @@ This also adds the path to the files under `verilog/gl`, the format is a bit dif
 -v $(USER_PROJECT_VERILOG)/gl/user_project_wrapper.v	     
 -v $(USER_PROJECT_VERILOG)/gl/uart.v    
 ```
-[https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/includes/includes.gl.caravel_user_project](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/includes/includes.gl.caravel_user_project)
+[verilog/includes/includes.gl.caravel_user_project](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/includes/includes.gl.caravel_user_project)
 
 ### `includes.rtl.caravel_user_project`
 
@@ -989,12 +989,12 @@ Add all the paths to the files you use under `verilog/rtl`. Use `+incdir+` for `
 -v $(USER_PROJECT_VERILOG)/rtl/UART/uart_transmission.v
 -v $(USER_PROJECT_VERILOG)/rtl/UART/uart_receive.v
 ```
-[https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/includes/includes.rtl.caravel_user_project](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/includes/includes.rtl.caravel_user_project)
+[verilog/includes/includes.rtl.caravel_user_project](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/includes/includes.rtl.caravel_user_project)
 
 ### `uart_test_tb.v`
 Cut out the parts you don't want from `wb_port_tb.v`. This is the process of removing what you don't understand until it becomes something you can understand. This is tedious to explain, so please look at the repository.
 
-[https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/dv/uart_test/uart_test_tb.v](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/dv/uart_test/uart_test_tb.v)
+[verilog/dv/uart_test/uart_test_tb.v](https://github.com/Cra2yPierr0t/caravel_walkthrough_uart/blob/main/verilog/dv/uart_test/uart_test_tb.v)
 
 ### `uart_test.c`
 
