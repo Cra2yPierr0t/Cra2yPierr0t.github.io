@@ -142,34 +142,34 @@ klayout APU.gds
 この画像は回路が生成されている感を感じるためにデキャップセルを非表示にしており、実際に見られるものとは少し異なります。
 
 ### OpenLANEの設定
-OpenLANEを使う上でHDLを書くのと同時に、そのデザインに応じたOpenLANE用の設定ファイルを書く必要がある。
+OpenLANEを使う上で、HDLを書くのと同時に、そのデザインに応じてOpenLANE用の設定ファイルを書く必要があります。
 
-試しにデフォルトで用意されているデザインの設定ファイルを見てみよう。デフォルトのデザインは`OpenLANE/designs/`以下に存在しており、usbやpicorv32a等色々あるがそれらのディレクトリ内の**config.tcl**がOpenLANEの設定ファイルである。
+試しにデフォルトで用意されているデザインの設定ファイルを見てみましょう。デフォルトのデザインは`OpenLANE/designs/`以下に存在しており、usbやpicorv32a等色々ありますがそれらのディレクトリ内の**config.tcl**がOpenLANEの設定ファイルとなっています。
 
-設定ファイルはtclファイルの**config.tcl**かjsonファイルの**config.json**で設定出来る。
+設定ファイルはtclファイルの**config.tcl**かjsonファイルの**config.json**で記述可能です。
 
-設定ファイルの基本的な書き方の説明はここにあるが、後で解説する。
+設定ファイルの基本的な書き方の説明はここにあります、後で解説します。
 [https://openlane.readthedocs.io/en/latest/usage/hardening_macros.html](https://openlane.readthedocs.io/en/latest/usage/hardening_macros.html)
 
-また利用可能な変数の一覧はここにあり、その中で必須な変数を後で解説する。
+また利用可能な変数の一覧はここにあり、その中で必須な変数を後で解説します。
 [https://openlane.readthedocs.io/en/latest/reference/configuration.html](https://openlane.readthedocs.io/en/latest/reference/configuration.html)
 
 ## Caravelの概要
-今までさんざん出てきたCaravelだが、これはOpenMPWの半導体設計用テンプレートである。
-このCaravel一つでデザインのビルド、プリチェック、テストベンチをすることが可能である。
+今までさんざん出てきたCaravelですが、これはOpenMPWの半導体設計用テンプレートです。
+このCaravel一つでデザインのビルド、プリチェック、テストベンチをすることが可能となっています。凄いですね。
 
-CaravelはManagement AreaとUser Project Areaに分かれている。Management Areaは変更不可能な領域であり、軽量なRISC-Vコアと各種IOからなる。User Project Areaは自由に変更できる領域であり、開発者はここに自分のデザインを置く。
+CaravelはManagement AreaとUser Project Areaに分かれています。Management Areaは変更不可能な領域であり、軽量なRISC-Vコアと各種IOからなります。またUser Project Areaは自由に変更できる領域であり、開発者はここに自分のデザインを挿入します。
 
-Management Areaのサイズは`2.920um x 3.520um`であり、大体`10mm`となっている。
+Management Areaのサイズは`2.920um x 3.520um`であり、大体`10mm^2`です。
 
 ![caravelの概要](https://i.imgur.com/CQLoSjf.png)
 
-User Project Areaから外部には38本のGPIO線が伸びており、ここから直接自分のデザインにアクセス出来る。またManagement Areaとは32bitのwishboneインターフェースと128bitのLogic Analyzer線で繋がっており、RISC-Vコア上で走っているプログラムがMMIOでアクセス出来る。
+User Project Areaから外部には38本のGPIO線が伸びており、ここから直接自分のデザインにアクセス出来ます。またManagement Areaとは32bitのwishboneインターフェースと128bitのLogic Analyzer線で繋がっており、RISC-Vコア上で走っているプログラムがMMIOでアクセスを行えます。
 
 ### Caravelのインストール
-ここの作業は、上記のOpenLANEのインストールで既にCaravelのインストールを完了している場合はやる必要は無い。**むしろやらない方が良い。**
+ここの作業は、上記のOpenLANEのインストールで既にCaravelのインストールを完了している場合はやる必要はありません。**むしろやらない方が良い。**
 
-ただOpenLANEもpdkもCaravelも全部消してもう一度OpenMPWで必要なOSSをインストールしたいならここを見るのが手っ取り早い。
+ただOpenLANEもpdkもCaravelも全部消してもう一度OpenMPWで必要なOSSをインストールしたいならここを見るのが手っ取り早いです。
 
 caravelをダウンロード。`<tag>`は次のページから最新のものを指定してください。執筆時点ではSkywaterの130nmを使うシャトルの場合は`mpw-8c`でGlobalFoundriesの180nmを使う場合は`gfmpw-0d`です。[https://github.com/efabless/caravel_user_project/tags](https://github.com/efabless/caravel_user_project/tags)
 ```bash
