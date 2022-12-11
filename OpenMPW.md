@@ -43,7 +43,7 @@ title: OpenMPW入門 改訂版
 
 
 ## 環境構築
-OpenLANEをインストールするための環境を構築する。Linux/M1 Mac/Intel Mac/Winに対応している。
+まずはOpenMPWの開発を始めるための最低限の環境を構築しましょう。Linux/M1 Mac/Intel Mac/Winに対応しています。
 
 最小要件はこちら
 
@@ -52,7 +52,7 @@ OpenLANEをインストールするための環境を構築する。Linux/M1 Mac
 * Git 2.22+
 * Docker 19.03.12+
 
-以下のコマンドはarchlinuxを対象としているが、pipとvirtualenvとdockerが入ればどのOSでもよい。
+以下のコマンドはarchlinuxを対象としたのもですが、pipとvirtualenvとdockerがインストールさえ出来ればどんなOSでも構いません。
 
 pipとvirtualenvのインストール
 ```bash
@@ -63,7 +63,7 @@ dockerのインストール
 sudo pacman -S docker
 ```
 
-自分をdockerグループに追加する。これはセキュリティ上大変よろしくない。これを回避するためにpodmanを使ったり色々試したが結局無理だったので諦めた。回避出来るなら教えてほしい。
+自分をdockerグループに追加しましょう。これはセキュリティ上大変よろしくありませんが、これを回避するためにpodmanを使ったり色々試したが結局無理だったので諦めました。回避出来るなら教えてほしい。
 ```bash
 sudo usermod -a -G docker $(whoami)
 ```
@@ -76,21 +76,21 @@ systemctl start docker
 ```
 
 ## OpenLANEの概要
-OpenLANEとはOSSなRTL-to-GDSIIコンパイラであり、20個くらいのOSSを組み合わせて作られている。PDKとRTLとコンフィグを揃えて実行するとGDSIIが生えてくる。
+OpenLANEとはOSSなRTL-to-GDSIIコンパイラであり、20個くらいのOSSを組み合わせて作られています。このOpenLANEにPDKとRTLとコンフィグを揃えて実行するとGDSIIが生成されます。凄いですね。
 
-このGDSIIをファブに送りつけるとLSIを焼いてくれる。
+このGDSIIをファブに送りつけるとLSIを焼いてくれます。
 
-OpenLANEはDockerコンテナが提供されており、Dockerでインストールするのが推奨されている。一応Dockerコンテナを使わずにインストールすることも可能だが、  It is more complexとか書いてあるので近づかない方がいい。
+OpenLANEはDockerコンテナが提供されており、Dockerでインストールするのが推奨されています。一応Dockerコンテナを使わずにインストールすることも可能ですが、It is more complexとか書いてあるので近づかない方が良いです。
 
 ### OpenLANEのインストール
-次にOpenLANEをインストールするが、後述するCaravel経由でインストールした方がなにかと都合が良いので先にcaravelをインストールする。
+次にOpenLANEをインストールしますが、後述するCaravel経由でインストールした方がなにかと都合が良いので先にcaravelをインストールします。
 
 最初にcaravelをダウンロード。`<tag>`は次のページから最新のものを指定してください。執筆時点ではSkywaterの130nmを使うシャトルの場合は`mpw-8c`でGlobalFoundriesの180nmを使う場合は`gfmpw-0d`です。[https://github.com/efabless/caravel_user_project/tags](https://github.com/efabless/caravel_user_project/tags)
 ```bash
 git clone -b <tag> https://github.com/efabless/caravel_user_project.git
 ```
 
-そしてdependenciesディレクトリを作成、OpenLANEとPDKをインストールするディレクトリを作成し、環境変数を設定する。
+そしてdependenciesディレクトリを作成、OpenLANEとPDKをインストールするディレクトリを作成し、環境変数を設定します。
 ```bash
 cd caravel_user_project
 mkdir dependencies
@@ -98,9 +98,9 @@ export OPENLANE_ROOT=$(pwd)/dependencies/openlane_src
 export PDK_ROOT=$(pwd)/dependencies/pdks
 ```
 
-次にインストールするPDKの種類を設定する。PDKにはOR回路とかAND回路とかFFとかの設計図が入っている。
+次にインストールするPDKの種類を設定する。PDKの中身はOR回路とかAND回路とかFFとかの設計図とか物性情報です。
 
-`<pdk>`にはインストールしたいPDKの種類を指定する。PDKの種類には`sky130A`, `sky130B`, `gf180mcuC`などがあり、シャトルで使うプロセスに応じて選択する。
+`<pdk>`にはインストールしたいPDKの種類を指定します。PDKの種類には`sky130A`, `sky130B`, `gf180mcuC`などがあり、シャトルで使うプロセスに応じて選択してください。
 ```bash
 export PDK=<pdk>
 ```
@@ -110,20 +110,22 @@ export PDK=<pdk>
 make setup
 ```
 
-環境変数の`OPENLANE_ROOT`と`PDK_ROOT`は重要であり、これが設定されていなければOpenLANEもCaravelも動かない。
+環境変数の`OPENLANE_ROOT`と`PDK_ROOT`と`PDK`は重要であり、これが設定されていなければOpenLANEもCaravelも動きませんので、必ず設定するようにしてください。
 ### OpenLANEの動作確認
-OpenLANE以下に入ってmakeを使って動作確認をすることが出来る。
+
+OpenLANE以下に入り`make test`を実行してOpenLANEの動作確認をすることが出来ます。やってみましょう。
 ```bash
 cd $OPENLANE_ROOT
 make test
 ```
-Basic test passedと出れば問題なくインストール出来ている。
+
+Basic test passedと出れば問題なくインストール出来ています。
 
 ![](https://i.imgur.com/mhYH6Wb.png)
 
-既に用意されている`design/`以下のデザインをビルドしたい場合は、`make mount`してから`./flow.tcl -design ディレクトリ名`でビルド出来る。
+既に用意されている`design/`以下のデザインをビルドしたい場合は、`make mount`してから`./flow.tcl -design ディレクトリ名`でビルド出来ます。
 
-以下は試しにAPUをビルドするコマンドである。
+以下では試しにAPUをビルドしています。
 ```bash
 cd $OPENLANE_ROOT
 make mount
@@ -131,13 +133,13 @@ make mount
 ```
 
 OpenLANEを直接使ってデザインをビルドした際に生成されたGDSIIは
-`OpenLANE/designs/APU/runs/RUN_<date>/results/final/gds`以下に存在しており、klayoutを用いてレイアウトを見られる。
+`OpenLANE/designs/APU/runs/RUN_<date>/results/final/gds`以下に存在しており、klayoutを用いてレイアウトを見られます、見てみましょう。テンションが上がりますね。
 ```bash
 klayout APU.gds
 ```
 ![](https://i.imgur.com/XJ0v0dL.png)
 
-この画像は回路が生成されている感を感じるためにデキャップセルを非表示にしており、実際に見られるものとは少し異なる。
+この画像は回路が生成されている感を感じるためにデキャップセルを非表示にしており、実際に見られるものとは少し異なります。
 
 ### OpenLANEの設定
 OpenLANEを使う上でHDLを書くのと同時に、そのデザインに応じたOpenLANE用の設定ファイルを書く必要がある。
