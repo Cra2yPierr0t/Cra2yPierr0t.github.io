@@ -186,7 +186,7 @@ export PDK_ROOT=$(pwd)/dependencies/pdks
 
 次にインストールするPDKの種類を設定する。PDKにはOR回路とかAND回路とかFFとかの設計図が入っている。
 
-`<pdk>`にはインストールしたいPDKの種類を指定する。PDKの種類には`sky130A`, `sky130B`, `gf180mcuC`などがあり、シャトルで使うプロセスに応じて選択する。
+`<pdk>`にはインストールしたいPDKの種類を指定する。PDKの種類には`sky130A`, `sky130B`, `gf180mcuC`などがありますので、シャトルで使うプロセスに応じて選択してください。
 ```bash
 export PDK=<pdk>
 ```
@@ -197,39 +197,39 @@ make setup
 ```
 
 ### Caravelの動作確認
-caravel_user_project以下に入り、makeを用いて例として用意されているデザインをビルドすることが出来る。
+Caravelが正しくインストールされている事を確認するために、既に用意されているデザインをビルドしてみましょう。`caravel_user_project`のルートに入り、以下のコマンドでビルドを開始します。
 ```bash
 make user_proj_example
 ```
 
-GDSIIファイルは`gds/`以下に生成される。
+GDSIIファイルは`gds/`以下に生成されます。klayoutで見てみましょう。
 
 ### Caravelのファイル構造
-Caravelを使うには以下の4つのディレクトリの使いみちを知っていれば十分である。
+Caravelには多くのディレクトリがありますが、基本的に以下の4つのディレクトリの使い途を知っていれば十分です。
 
 * `gds/`：ここにGDSIIファイルが生成される
 * `openlane/`：OpenLANEの設定ファイルをここに置く
 * `verilog/dv/`：シミュレーションとテストベンチ用ファイルをここに置く
 * `verilog/rtl/`：自分のデザインのverilogファイルをここに置く
 
-Caravelの全てのディレクトリの説明はここにある。
+Caravelの全てのディレクトリの説明はここにあります。気になりましたら見てみてください。
 
-https://caravel-harness.readthedocs.io/en/latest/getting-started.html#required-directory-structure
+[https://caravel-harness.readthedocs.io/en/latest/getting-started.html#required-directory-structure](https://caravel-harness.readthedocs.io/en/latest/getting-started.html#required-directory-structure)
 
 ### Caravelにおけるデザインのビルド
-Caravelにおいて、デザインのビルドは二段階に分かれている。第一段階が自分のVerilogのビルドであり、第二段階がラッパーのビルドである。OpenMPWではこのラッパーの方を提出する。
+Caravelにおいて、デザインのビルドは二段階に分かれています。第一段階では自分のVerilogのGDSIIへのビルドであり、第二段階がそのGDSIIを内包したラッパーのビルドです。OpenMPWではこのラッパーの方を提出します。
 
-ここで言うラッパーとは自分のデザインを1つ以上包んだデザインの事であり、`user_project_wrapper`という名前である。
+ここで言うラッパーとは自分のデザインを1つ以上包んだデザインの事であり、`user_project_wrapper`という名前です。
 
-ビルドされた`user_project_wrapper`は通常、以下の画像のようにラッパーにデザインが挿入された形になる。
+ビルドされた`user_project_wrapper`は通常、以下の画像のようにラッパーにデザインが挿入された形になります。
 
 ![](https://i.imgur.com/qMfFIJS.png)
 
-この画像も回路が生成されている感を出すためデキャップセルを非表示にしている。
+この画像も回路が生成されている感を出すためデキャップセルを非表示にしています。
 
-開発者は自分のデザイン用と`user_project_wrapper`用の2つのOpenLANEの設定ファイルを編集する。後者の方は少ししか編集しないので安心してほしい。
+開発者は自分のデザイン用と`user_project_wrapper`用の2つのOpenLANEの設定ファイルを編集する必要がある、という事です。後者の方は少ししか編集しないので安心してください。
 
-Caravelのインストール直後では`user_project_wrapper`は`user_proj_example`を含むようになっているため、`user_proj_wrapper`をビルドした後`user_project_wrapper`をビルドすれば上の画像のようなGDSIIが生成される。
+Caravelのインストール直後では`user_project_wrapper`は`user_proj_example`を含むようになっているため、`user_proj_wrapper`をビルドした後`user_project_wrapper`をビルドすれば上の画像のようなGDSIIが生成されます。
 
 ```bash
 make user_proj_example
@@ -240,9 +240,9 @@ klayout gds/user_project_wrapper.gds
 
 ### Caravelのドキュメント
 
-Caravelのドキュメントはここにあり、後で詳細な使い方を説明する。
+Caravelのドキュメントはここにあり、後で詳細な使い方を説明します。
 
-https://caravel-harness.readthedocs.io/en/latest/index.html#
+[https://caravel-harness.readthedocs.io/en/latest/index.html](https://caravel-harness.readthedocs.io/en/latest/index.html)
 
 ## OpenMPWで自分のデザインを焼こう！
 ここからは本格的に自分のデザインをビルドし、OpenMPWに提出する方法を説明する。なお、Verilogの書き方は説明しないのでデザインは自分で用意してほしい。
