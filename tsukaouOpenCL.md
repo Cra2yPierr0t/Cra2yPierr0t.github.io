@@ -19,7 +19,9 @@ OpenCLの思想としてループの関数(カーネル)への展開が挙げら
 
 古典的な実装
 <script src="https://gist.github.com/Cra2yPierr0t/bc7f6ab26084f30d4d02b28351c4e491.js"></script>
+
 OpenCLでデータ並列性を活用する
+
 <script src="https://gist.github.com/Cra2yPierr0t/66248ebbd550713f1474a2aa063919fc.js"></script>
 
 ## OpenCLの計算機システム
@@ -112,10 +114,13 @@ OpenCLの基礎知識は以上にとどめ、次は具体例を出しながら�
 
 例として、ベクトル加算を行う場合、3つのメモリオブジェクトが必要になる。a, bを入力ベクタとして、cを出力ベクタとする。
 先にホスト側でメモリを確保し、適当に初期化する。
+
 <script src="https://gist.github.com/Cra2yPierr0t/a5b7b41da558e8f088386fcbeab4feac.js"></script>
 
 次にデバイスメモリを確保し、メモリオブジェクトを得る。関数は`clCreateBuffer()`を使う。この関数を使ってメモリを確保するコードが以下になる。
+
 <script src="https://gist.github.com/Cra2yPierr0t/39eafb28a64b6d0d18131bdd779d37fd.js"></script>
+
 `clCreateBuffer()`の引数を見てみると、入力ベクタには`CL_MEM_READ_ONLY`や`CL_MEM_COPY_HOST_PTR`、ホストメモリへのポインタが指定されていたり、出力ベクタには`CL_MEM_WRITE_ONLY`が指定されていたりと、なんとなく何を意図して引数を設定しているか分かるかもしれない。分からなければ後でリファレンスを読めばよい。
 
 ### 4. カーネルの引数を設定する
@@ -347,6 +352,7 @@ GPUへのカーネルの展開は`clEnqueueNDRangeKernel`によって行われ�
 #### ホストプログラムを書く
 カーネルプログラムが書けたら次はそれらを展開するホストプログラムを書いてやる必要がある。忘れない内に`clEnqueueNDRangeKernel()`を真っ先に書く。
 <script src="https://gist.github.com/Cra2yPierr0t/a974b3b3e6fd00f3a86e0eb4f7819477.js"></script>
+
 行列の列サイズを仮に1024としてる。また今回は、第6引数である`local_work_size`をNULLに設定し、OpenCLランタイムにワークグループが持つワークアイテムの数の設定を任せている。
 
 他の部分はOpenCLホストプログラミング入門の流れに沿って書いていく。
