@@ -41,6 +41,12 @@ title: OpenMPW入門 改訂版
 
 この次は各ツールの概要に入りますが、既に知っておりインストール済みなら飛ばして頂いて構いません。
 
+## 宣伝
+
+高位合成ツール、RgGenを使ったWalkthorughが生えました！
+
+[RgGen ✕ OpenMPWでLSIを焼こう！](https://vlsi.jp/RgGenxOpenMPW.html)
+
 
 ## 環境構築
 まずはOpenMPWの開発を始めるための最低限の環境を構築しましょう。Linux/M1 Mac/Intel Mac/Winに対応しています。
