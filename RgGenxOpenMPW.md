@@ -4,6 +4,7 @@ title: RgGen ✕ OpenMPWでLSIを焼こう！
 image: "https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/RISC5000choyen.png"
 ---
 # RgGen ✕ OpenMPWでLSIを焼こう！
+質問、修正案、その他連絡は@Cra2yPierr0tマデ
 
 ## Abstract
 この記事の動機はOpenMPW参加の敷居を下げる事で、手法はRgGenを利用したWishboneインタフェース付きCSRの生成です。出来ました、確かに楽です、これは流行る、RgGenにお布施しよう、以上です。

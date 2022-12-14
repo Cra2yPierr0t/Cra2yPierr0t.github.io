@@ -3,6 +3,8 @@ layout: default
 title: OpenMPW入門 改訂版
 ---
 # OpenMPW入門 改訂版
+質問、修正案、その他連絡は@Cra2yPierr0tマデ
+
 久々に以前書いた入門記事を読んだら日本語は雑だし内容は古いしこの世の終わりみたいな出来だったので90nmに備えて書きます。
 
 **オレオレLSIを焼きたいですよね？ 焼きましょう。** Skywater社がPDKを公開し、OSSなGDSIIコンパイラである**OpenLANE**も生まれました。そしてGoogleの出資によってEfablessが無料でLSIを作らせてくれるプログラム、**Open MPW Shuttle Program**をスタートしました。 今こそオレオレLSIを焼くチャンスです。あなたの作りたいチップをGoogleの金で作りましょう！
