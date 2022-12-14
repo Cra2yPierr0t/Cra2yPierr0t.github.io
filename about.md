@@ -19,5 +19,5 @@ title: About me
 
 ## Background
 - (2022/5 - Present) : Intern at PEZY Computing Inc.
-- (2022/5 - Present) : Engineer at TIER IV, Inc.
+- (2022/5 - Present) : Intern at TIER IV, Inc.
 - (2019/4 - Preesnt) : Student at Information Security Engineering Program, University of Electro-Communications
