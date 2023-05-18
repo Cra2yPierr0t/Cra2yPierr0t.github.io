@@ -339,7 +339,7 @@ GPUへのカーネルの展開は`clEnqueueNDRangeKernel`によって行われ�
 なお、ベクトルは全て列ベクトルとして扱われる。また行列の行サイズを**N**, 列サイズを**M**とする。
 
 #### とりあえずカーネルプログラムを書く
-このSGEMVをどうにか並列に実行したい。パッと思いつくのはワークアイテムを一次元に展開して$$A$$の行毎に実行しやる方法だろう。
+このSGEMVをどうにか並列に実行したい。パッと思いつくのはワークアイテムを一次元に展開して$$A$$の行毎に実行してやる方法だろう。
 
 ![ワークアイテムが行毎に積和を行うイメージ](https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/tsukaouOpenCL/sgemv.png?raw=true)
 
