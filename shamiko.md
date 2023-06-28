@@ -13,7 +13,7 @@ We also welcome the alternative project name, or more suitable words for abbrevi
 
 
 
-<embed src="https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/pdf/Poster_SHAMIKO%20RISC-V%20Days2023.pdf?raw=true" type="application/pdf" width="100%" height="100%" />
+<embed src="https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/cb2369be291cdcaebb1e95e98c3951279d9b3122/pdf/Poster_SHAMIKO%20RISC-V%20Days2023.pdf" type="application/pdf" width="100%" height="100%" />
 
 # Publications
 
