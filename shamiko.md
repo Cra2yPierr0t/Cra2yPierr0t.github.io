@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Shamiko
-image: "https://github.com/Cra2yPierr0t/Cra2yPierr0t.github.io/blob/master/images/poster_shami.png?raw=true"
+image: "https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/poster_shami.png"
 ---
 # SHAMIKO (tentative) project.
 SHAMIKO stands for Side-cHannel Attack experiMents and Implements Kindly bOard. 
