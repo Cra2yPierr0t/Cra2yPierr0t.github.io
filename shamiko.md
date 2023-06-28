@@ -11,10 +11,6 @@ Specifications of the board will be determined.
 If you have any questions or want to join us, please let us know.
 We also welcome the alternative project name, or more suitable words for abbreviation of SHAMIKO.
 
-
-
-<embed src="https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/cb2369be291cdcaebb1e95e98c3951279d9b3122/pdf/Poster_SHAMIKO%20RISC-V%20Days2023.pdf" type="application/pdf" width="100%" height="100%" />
-
 # Publications
 
 - [大原 遼太郎, 平田 遼, "オープンソースなサイドチャネル解析評価ボードの開発", RISC-V Day Tokyo 2023 Summer](https://riscv.or.jp/risc-v-day-tokyo-2023-summer/)
