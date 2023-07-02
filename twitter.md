@@ -28,3 +28,9 @@ image: "https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/ma
 <button> いいね♡ </button>
 
 ピエロ：おっできるじゃん
+
+ピエロ：志望理由書が自分の人生の意味を聞いてきて鬱になってる
+
+ピエロ：UNHAPPY
+
+<button> いいね♡ </button> <button> リツート🔄 </button> <button> 処刑☠ </button>
