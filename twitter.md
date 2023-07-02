@@ -15,3 +15,5 @@ image: "https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/ma
 ピエロ：生き返ったマジ？
 
 ピエロ：斉藤和樹のカーラジオすき
+
+ピエロ：出願がヤバい
