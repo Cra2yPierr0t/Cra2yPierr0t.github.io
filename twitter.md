@@ -8,8 +8,8 @@ image: "https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/ma
 
 ## 2023-07-02
 
-Twitter死んだつらい
+ピエロ：Twitter死んだつらい
 
-えーつらい
+ピエロ：えーつらい
 
-生き返ったマジ？
+ピエロ：生き返ったマジ？
