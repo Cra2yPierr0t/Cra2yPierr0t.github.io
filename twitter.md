@@ -26,3 +26,5 @@ image: "https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/ma
 ピエロ：これhtml直書きでいいねボタン出せんのかな
 
 <button> いいね♡ </button>
+
+ピエロ：おっできるじゃん
