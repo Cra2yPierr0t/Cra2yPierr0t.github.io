@@ -22,3 +22,7 @@ image: "https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/ma
 ### 07-03
 
 ピエロ：出願がヤバい２
+
+ピエロ：これhtml直書きでいいねボタン出せんのかな
+
+<button> いいね♡ </button>
