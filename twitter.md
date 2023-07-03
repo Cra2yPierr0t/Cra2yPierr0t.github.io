@@ -34,3 +34,5 @@ image: "https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/ma
 ピエロ：UNHAPPY
 
 <button> いいね♡ </button> <button> リツート🔄 </button> <button> 処刑☠ </button>
+
+ピエロ：API制限食らった、もうおしまいだよ
