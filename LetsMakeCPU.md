@@ -7,9 +7,41 @@ image: "https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/ma
 ![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/LetsMakeCPU/letsmakecpu.png)
 
 # 無から始める自作CPU(作成中)
-自作CPUはコンピュータサイエンスの全てを理解する第一歩！この記事はコンピュータサイエンスやプログラミングの知識が無くてもCPUを自作出来る所まであなたを持っていく事を目的としています。やっていきましょう。
+自作CPUはコンピュータサイエンスの全てを理解する第一歩！この記事はコンピュータサイエンスやプログラミングの知識が無くてもCPUを自作出来る所までお前を持っていく事を目的としています。やっていきましょう。
 
 ## 基礎知識
+
+ここではCPUを作るのに必要な知識を説明します。いくつかは知っているかもしれません、もしくはどれも初めて見る単語かもしれません。ここで全て覚えろとは言いません。とりあえずざっと読んで必要になったら読み返してください。
+
+### CPU
+
+CPU、我々が作る対象です。CPUはとは一体なんでしょうか？概要すら知らないのに作ろうとするのは流石に無謀と言えます。ちょっとだけ先に知っておきましょう。
+
+プログラミングという単語は皆さん人生のどこかで聞いたことがあるでしょう。最近の若人は中学高校の授業で実際にプログラミングをした経験があるかもしれませんし、実務で散々やっている方もいるかもしれませんし、報道番組で「時代はプログラミングだ！」とか与太話を聞いた事があるかもしれません。プログラミング、プログラムを書いて画面に何かが出たり音が出たりモーターが動いたりするアレですね。あなたがこの記事を読んでいるSafariやChromeもプログラムですし、YoutubeもTwitterもInstagramもTiktokもプログラムです。ああ素晴らしきかなプログラム。プログラムが無ければお前は生きてはいけません。
+
+```c
+#include <stdio.h>
+int main(){
+    printf("Hello World!\n");
+    return 0;
+}
+```
+↑ 素晴らしいプログラム
+
+ですが考えてみてください、そのプログラム、一体どこで動いているのでしょうか？説明できますか？ その答えがCPUです。
+
+CPUとはCentral Processing Unit、中央演算装置の略で、石みたいなガラスみたいな物質で出来ています。見た目は大体こんな感じです。
+
+![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/LetsMakeCPU/cpu_image.jpeg)
+
+この世に存在するプログラムは全てCPUの上で動いています。このCPUが無ければプログラムは動かせませんし、いくらプログラムを書いても意味がありません。我々の生活基盤はこの石に支えられているという訳ですね、ありがとうCPU。消えないでCPU。本記事ではそんなCPUを作ります。
+
+![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/LetsMakeCPU/world_of_cpu.png)
+
+### ディジタル回路
+
+### FPGA
+
 * FPGA : ディジタル回路を内部に生成できる半導体
 * HDL : ディジタル回路(RTL)を記述する言語の種類
 * Quartus : Intel FPGAの開発環境 Vivadoの敵
