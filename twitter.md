@@ -11,6 +11,10 @@ image: "https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/ma
 
 ## 2023
 
+### 07-09
+
+ピエロ：コーラ、この世で一番うまい液体
+
 ### 07-03
 
 ピエロ：ワシ社会人から最も遠い人種やな
