@@ -58,7 +58,7 @@ icarus verilogとgtkwaveをインストールをせえ
 とりあえず以下のコードを`day01.v`として保存しましょう。
 何を書いているのか分からなくて不安でしょうが、今は写経していただくだけで結構です。
 
-```verilog=
+```verilog
 module adder8(
      input wire       clk,
      input wire [7:0] in0,
@@ -72,7 +72,7 @@ endmodule
 ```
 
 次に以下のコードを`day01_tb.v`として保存して下さい。
-```verilog=
+```verilog
 module addr8_tb;
     reg             clk = 1'b0;
     reg    [7:0]    in0 = 8'h00;
@@ -147,7 +147,7 @@ Verilog HDLではシステム全体をモジュールという単位で分割し
 
 モジュール名は`module`の後ろに記述し、回路の内容は`module` ~ `endmodule`の間に記述します。
 
-```verilog=
+```verilog
 module test_module();
  // ここに回路を記述
 endmodule
@@ -157,7 +157,7 @@ endmodule
 
 回路には入出力が必要ですね、回路の入出力ポートは`input`, `output`で作成します。入力信号名は`input`の後ろに宣言し、出力信号名は`output`の後ろに宣言します。IOの個数や順番に決まりはありませんが、最後の宣言にはカンマが必要ないことに注意しましょう。
 
-```verilog=
+```verilog
 module test_module (
     input    test_input1, // 入力信号線の定義
     input    test_input2,
@@ -174,7 +174,7 @@ endmodule
 
 `wire`の使い方は以下の通りです。
 
-```verilog=
+```verilog
 wire [31:0] 信号線名;
 ```
 
@@ -182,7 +182,7 @@ wire [31:0] 信号線名;
 
 また、以下のように信号線の幅の記述を省略すると1本の幅を持った信号線になります。
 
-```verilog=
+```verilog
 wire 信号線名;
 ```
 
@@ -190,7 +190,7 @@ wire 信号線名;
 #### assign文
 
 型が`wire`の信号にはキーワード`assign`を用いて入力できる。`assign`を用いて書かれた回路は、入力が変化すると即座に出力が変化する**組み合わせ回路**となる。型が`reg`の信号には入力できないので注意。
-```verilog=
+```verilog
 module test_module (
     input [9:0] test_input,
     output wire [4:0] test_output
@@ -203,7 +203,7 @@ endmodule
 
 #### 数値リテラル
 Verilog HDLで数値を記述する際は、`ビット幅'進数 数値`という形式で記述する。`進数`に関しては`b`で2進数、`d`で10進数、`h`で16進数となる。`ビット幅`を指定しない場合は処理系による(Quartusでは32ビット)。
-```verilog=
+```verilog
     assign test_wire1 = 5'b10101; //2進5ビット
     assign test_wire2 = 8'd43;    //10進8ビット 
     assign test_wire3 = 16'hdead; //16進16ビット
@@ -211,7 +211,7 @@ Verilog HDLで数値を記述する際は、`ビット幅'進数 数値`とい�
 
 #### 定数
 Verilogには定数として`define`と`parameter`が存在するが、`define`は定数の利用時に定数名の前に｀が必要でキモいので`parameter`を使うことを推奨する。
-```verilog=
+```verilog
 module test_module(
     // 省略
 );
@@ -231,7 +231,7 @@ endmodule
 後述するが、`reg`変数に入力する際は`<=`と`=`で意味が変わってくるので注意。
 接続するときは<=というイメージ
 (多分out(t)=out(t-1)のように、代入先と元に時間差がある時には<=するのかな？)
-```verilog=
+```verilog
 module test_module (
     input  wire clk,    // 入出力の信号線も種類を定義できる
     input  wire [4:0] test_input,
@@ -247,7 +247,7 @@ endmodule
 #### if文
 
 if文は順序回路及び後述するfunction文で記述可能であり、`begin`~`end`で処理を囲う。
-```verilog=
+```verilog
 module test_module(
     // 省略
 );
@@ -267,7 +267,7 @@ endmodule
 #### function文
 
 assignで書けない複雑な組み合わせ回路の場合、function文を利用する。`function`~`endfunction`で回路の内容を囲み、`function 返り値のビット幅 回路名(input 入力信号)`と記述する。functionの返り値はfunction名に入力する形で記述する。
-```verilog=
+```verilog
     assign test_wire = test_function(test_input);
 
     function [4:0] test_function(input [2:0] func_in);
@@ -284,7 +284,7 @@ assignで書けない複雑な組み合わせ回路の場合、function文を利
 #### case文
 
 case文は、always文とfunction文内で記述可能であり、`case`~`endcase`で囲んで利用する。`case`の後に条件に利用する信号名を記述し、コロン`:`の後ろにマッチした場合の処理を記述する。どの条件にも当てはまらない場合の処理は`default`の後ろに記述する。`default`を記述していない場合、処理系に依るが警告かエラーが出る。
-```verilog=
+```verilog
 always @(posedge clk) begin
     case(test_input)
         5'b0000 : test_out <= 5'b10101;
@@ -305,7 +305,7 @@ end
 
 作成したモジュールは`モジュール名 インスタンス名`で生成する。またIOは`.IO名(信号線|変数)`で接続する。
 ※インスタンスは他言語でいうオブジェクトだと理解すればよい(これ説明いらない感じ？)(気になる人もいるだろうし残しとこう)
-```verilog=
+```verilog
 
 module test_module(
     // 省略
@@ -342,14 +342,14 @@ endmodule
 #### シミュレーション用構文
 シミュレーションに使うverilogの構文の解説
 * クロック生成
-```verilog=
+```verilog
 always #1 begin
     clk <= !clk;
 end
 ```
 1秒毎にclkの値を反転させる。これをクロック信号として扱う
 * 時間経過で入力を変化
-```verilog=
+```verilog
 initial begin
     #2
     data_i <= 8'h05;
@@ -361,7 +361,7 @@ end
 
 #### テストベンチの例
 適当なモジュール例(インクリメントするだけのモジュール)
-```verilog=
+```verilog
 module test (
     input   clk,
     input   [7:0] data_i,
@@ -377,7 +377,7 @@ module test (
 endmodule
 ```
 テストベンチの例
-```verilog=
+```verilog
 module test_sim();
     reg             clk = 0;
     reg     [7:0]   data_i = 8'h00;
