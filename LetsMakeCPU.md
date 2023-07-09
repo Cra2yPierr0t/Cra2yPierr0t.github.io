@@ -418,13 +418,13 @@ endmodule
 * gtkwave : オープンソースの波形ビューワー
 
 使い方
-```bash=
+```bash
 iverilog -o 出力ファイル名 -s トップモジュール名 Verilogファイル名
 vvp 出力ファイル名
 gtkwave 波形ファイル名
 ```
 実行例
-```bash=
+```bash
 iverilog -s test_sim test_sim.v test.v 
 vvp a.out
 gtkwave wave.vcd &
