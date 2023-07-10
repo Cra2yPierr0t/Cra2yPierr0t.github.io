@@ -1,3 +1,7 @@
+---
+layout: default
+title: GMII 仕様
+---
 # GMII 仕様
 
 これの超下位互換です。

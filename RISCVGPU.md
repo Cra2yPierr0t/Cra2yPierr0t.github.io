@@ -1,3 +1,7 @@
+---
+layout: default
+title:  Implementing Hardware Extensions for Multicore RISC-V GPUsを読む
+---
 # Implementing Hardware Extensions for Multicore RISC-V GPUsを読む
 
 RISC-V GPUへのハードウェア拡張の実装に関する論文の内容をサマライズしていく。
