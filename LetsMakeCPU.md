@@ -261,9 +261,7 @@ Verilog HDLで数値を記述する際は、`ビット幅'進数 数値`とい�
 
 ![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/LetsMakeCPU/problem1.png)
 
-出来ましたか？模範解答はこちらです。
-
-<details><summary>模範解答(クリックで表示)</summary><div>
+#### 模範解答１
 
 ```verilog
 module problem1(
@@ -281,9 +279,7 @@ module problem1(
 endmodule
 ```
 
-</div></details>
-
-
+### Verilogの文法を学ぼう(基礎２)
 
 #### 定数
 Verilogには定数として`define`と`parameter`が存在するが、`define`は定数の利用時に定数名の前に｀が必要でキモいので`parameter`を使うことを推奨する。
