@@ -513,8 +513,35 @@ CPUを作るために読んでるのに、なんでプログラミングを勉�
 ### プログラムが動く流れ
 ### ちいさなプログラムを書こう
 
-## CPUを自作しよう
+## CPU自作入門
+
+さあ始めましょう
+
 ### コンピュータアーキテクチャ概論
+
+ここではCPUの内部構造、つまりアーキテクチャについて解説していきます。
+
+以下の図は非常に単純化したCPUのアーキテクチャです。一つずつ見ていきましょう。
+
+![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/LetsMakeCPU/computer_abst.png)
+
+#### Instr Mem
+
+まずは一番左にある部品、**Instr Mem**です。これは命令メモリ(Instruction Memory)と呼び、中に命令が入っています。命令メモリ内の各命令にはアドレスが振られており、命令メモリにアドレスを入力すると命令が出力されます。
+
+![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/LetsMakeCPU/instr_mem.png)
+
+#### PC
+
+次はCPUの中を見ていきましょう。このCPUの中にある**PC**はプログラムカウンタ(Program Counter)と呼び、命令メモリにアドレスを供給します。通常、プログラムは上から下に実行されるのでプログラムカウンタが出す値は毎クロック増えていきます。
+
+プログラムカウンタ・命令メモリ・CPUの関係をまとめると、プログラムカウンタがアドレスを命令メモリに入力し、命令メモリが命令をCPUへを出力するという流れになります。このデータの流れを**フェッチ(Fetch)**と呼びます。覚えておきましょう。
+
+![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/LetsMakeCPU/fetch.png)
+
+#### Decoder
+
+### ディジタルビルディングブロックを作る
 
 ## 自作CPUでプログラムを動かそう
 
