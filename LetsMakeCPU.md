@@ -7,7 +7,10 @@ image: "https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/ma
 ![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/LetsMakeCPU/letsmakecpu.png)
 
 # 無から始める自作CPU(作成中)
-自作CPUはコンピュータサイエンスの全てを理解する第一歩！
+
+CPUは作れる！！！！！！！！ご存知でしたか！！！？？？？？？
+
+魔法の石、究極のブラックボックス、人類の英知たるCPUは不世出の天才にしか作れないとお思いですか？ 違います！適切な知識さえあれば割と凡庸な人間でも作ることが出来ます！！！作りましょう！！
 
 この記事はコンピュータサイエンスやプログラミングの知識が無くても、CPUを自作出来る所までお前を持っていく事を目的としています。やっていきましょう。
 
