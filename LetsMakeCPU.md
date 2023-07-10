@@ -544,6 +544,26 @@ CPUを作るために読んでるのに、なんでプログラミングを勉�
 
 #### Decoder
 
+PCの次はDecoderです。これは**デコーダ**と呼び、命令から各種制御信号を生成します。具体的な動作の説明は他の部品の説明をしてから行いますので、とりあえず今は命令に応じて各部品を制御するモジュールだと認識しておいてください。
+
+![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/LetsMakeCPU/decoder.png)
+
+#### Register File
+
+Register File、これは**レジスタファイル**と呼び、CPUがデータを保持するのに使います。
+
+![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/LetsMakeCPU/regfile.png)
+
+動作としてはアドレスを入力するとデータを出力する**読み出し**と、
+
+![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/LetsMakeCPU/regfile_read.png)
+
+アドレスとデータを入力するとレジスタファイルに書き込まれる**書き込み**を行います。
+
+![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/LetsMakeCPU/regfile_write.png)
+
+#### ALU
+
 ### ディジタルビルディングブロックを作る
 
 ## 自作CPUでプログラムを動かそう
