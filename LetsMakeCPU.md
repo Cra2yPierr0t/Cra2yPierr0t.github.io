@@ -167,7 +167,7 @@ GTKwaveの使い方は気合で慣れてください。信号を選択してAppe
 
 以上の通り、Verilog HDLでディジタル回路とテストベンチを記述し、シミュレーションを実行。波形を見てデバッグ、そして再びシミュレーションを実行という流れになります。この流れは今後何度も繰り返します。今全てを覚える必要はありませんので大丈夫です、そのうち手癖で開発を回せるようになります。
 
-### 最低限のVerilogの文法を学ぼう
+### Verilogの文法を学ぼう(基礎１)
 
 では本格的にVerilog HDLを学んでいきましょう。最初は必須の構文です。
 
@@ -221,27 +221,69 @@ wire 信号線名;
 ```
 
 #### 演算子
+
+Verilog HDLには様々な演算子が存在します。これらの演算子は複数ビットを纏めて演算が可能です。以下によく使う演算子を載せておくきますので適宜参照してください。
+
 #### assign文
 
-型が`wire`の信号にはキーワード`assign`を用いて入力できる。`assign`を用いて書かれた回路は、入力が変化すると即座に出力が変化する**組み合わせ回路**となる。型が`reg`の信号には入力できないので注意。
+`wire`で作られた信号線にはキーワード`assign`を用いて入力できます。`assign`を用いて書かれた回路は、入力が変化すると即座に出力が変化する**組み合わせ回路**となります。
+以下のコードでは`test_output0`に`test_input`の値をそのまま入力しています。
+
 ```verilog
 module test_module (
     input [9:0] test_input,
-    output wire [4:0] test_output
+    output wire [9:0] test_output0,
+    output wire [4:0] test_output1
 );
+    assign test_output0 = test_input;
     // 入力の上位5ビットを出力に直結している
-    assign test_output = test_input[9:5]; 
+    assign test_output1 = test_input[9:5]; 
 endmodule
 ```
-`assign`の`test_input`の直後に書いてある`[9:5]`は**スライス**という操作であり、その信号の5ビットから9ビットの計5ビットを抜き出すことが出来る。
+`test_output1`に入力している`test_input`の直後に書いてある`[9:5]`は**スライス**という操作であり、`test_input`の5ビットから9ビットの計5ビットを抜き出して、`test_output1`に出力しています。スライスはよく使う操作ですので覚えておきましょう。
 
 #### 数値リテラル
-Verilog HDLで数値を記述する際は、`ビット幅'進数 数値`という形式で記述する。`進数`に関しては`b`で2進数、`d`で10進数、`h`で16進数となる。`ビット幅`を指定しない場合は処理系による(Quartusでは32ビット)。
+
+Verilog HDLで数値を記述する際は、`ビット幅'進数 数値`という形式で記述します。`進数`は`b`で2進数、`d`で10進数、`h`で16進数です。`ビット幅`を指定しない場合は処理系によりけりです(Quartusでは32ビット)。
 ```verilog
     assign test_wire1 = 5'b10101; //2進5ビット
     assign test_wire2 = 8'd43;    //10進8ビット 
     assign test_wire3 = 16'hdead; //16進16ビット
 ```
+
+### Verilogの文法を学ぼう(練習１)
+
+覚えてばかりもつまらないでしょうし、ここで少し手を動かしてみましょう。
+
+#### 練習問題１
+
+以下の回路と同等のモジュール`problem1`を作成してください。入出力は画像の通りです。
+
+![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/LetsMakeCPU/problem1.png)
+
+出来ましたか？模範解答はこちらです。
+
+<details><summary>模範解答(クリックで表示)</summary><div>
+
+```verilog
+module problem1(
+  input       [7:0] i_p0,
+  input       [7:0] i_p1,
+  input       [7:0] i_p2,
+  output wire [7:0] o_p
+);
+
+    wire [7:0] w_p;
+
+    assign w_p = i_p0 & i_p1;
+    assign o_p = w_p | i_p2;
+
+endmodule
+```
+
+</div></details>
+
+
 
 #### 定数
 Verilogには定数として`define`と`parameter`が存在するが、`define`は定数の利用時に定数名の前に｀が必要でキモいので`parameter`を使うことを推奨する。
@@ -470,7 +512,7 @@ gtkwave wave.vcd &
 ### 書き込み
 
 ## プログラミング入門
-CPUを作るために読んでるのに、なんでプログラミングを勉強しなければならないんだと思われるかもしれません。CPUを作る前に、CPUはどの様に使うものなのか、そのイメージを持つことは非常に役に立ちます。
+CPUを作るために読んでるのに、なんでプログラミングを勉強しなければならないんだと思われるかもしれません。CPUとはプログラムを動かすために存在しています。ここで一度プログラミングを学び、これから作るものがどの様に使われるのか、確固たるイメージを持っておきましょう。
 
 ### プログラムが動く流れ
 ### ちいさなプログラムを書こう
