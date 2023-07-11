@@ -8,6 +8,7 @@
   author: jun1okamura
   date: 2023/07/10
   link: awesome-opensource-asic-resources.html
+  icon: link
 
 - title: SHAMIKO (tentative) project
   author: ykm11
@@ -18,11 +19,13 @@
   author: Cra2yPierr0t
   date: 2022/12/14
   link: RgGenxOpenMPW.html#rggen--openmpwでlsiを焼こう
+  icon: dir
 
 - title: RgGen ✕ OpenMPW Walkthrough
   author: Cra2yPierr0t
   date: 2022/12/14
   link: RgGenxOpenMPW_eng.html#rggen--openmpw-walkthrough
+  icon: dir
 
 - title: ダーリン！OpenRAMを使うっちゃ！
   author: Cra2yPierr0t
@@ -38,11 +41,13 @@
   author: Cra2yPierr0t
   date: 2023/05/18
   link: tsukaouOpenCL.html#軽率にgpuを使っていこうopencl入門
+  icon: dir
 
 - title:  OpenMPW入門
   author: Cra2yPierr0t
   date:  2022/12/14
   link: OpenMPW.html#openmpw入門-改訂版
+  icon: dir
 
 - title: OpenMPWでSRAMを使う
   author: Cra2yPierr0t
@@ -53,6 +58,7 @@
   author: Cra2yPierr0t
   date: 2022/12/14
   link: Introduction_to_OpenMPW.html#introduction-to-openmpw
+  icon: dir
 
 - title: Using SRAM with OpenMPW
   author: Cra2yPierr0t
@@ -63,11 +69,13 @@
   author: Cra2yPierr0t
   date: 2023/07/10
   link: LetsMakeCPU.html#無から始める自作cpu作成中
+  icon: dir
 
 - title: OpenLANEと半導体設計入門
   author: Cra2yPierr0t
   date: 2022/07/24
   link: learn_lsi.html#openlaneと半導体設計入門
+  icon: dir
 
 - title: Implementing Hardware Extensions for Muticore RISC-V GPUsを読む
   author: Cra2yPierr0t
@@ -83,3 +91,4 @@
   author: Cra2yPierr0t
   date: 2023/07/11
   link: links.html
+  icon: link
