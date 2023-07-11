@@ -58,6 +58,9 @@ title: VLSI.JP
             a.dir {
                 background : url("./images/file.png") left top no-repeat;
             }
+            a.link {
+                background : url("./images/link.png") left top no-repeat;
+            }
             a.up {
                 background : url("./images/file.png") left top no-repeat;
             }
@@ -127,7 +130,16 @@ title: VLSI.JP
               {% for article_list in site.data.article_list %}
               <tr>
                   <td>
-                    <a class="icon dir" href="/{{ article_list.link }}">{{ article_list.title }}/</a>
+                    {% case article_list.icon %}
+                      {% when "dir" %}
+                        <a class="icon dir" href="/{{ article_list.link }}">{{ article_list.title }}/</a>
+                      {% when "file" %}
+                        <a class="icon file" href="/{{ article_list.link }}">{{ article_list.title }}</a>
+                      {% when "link" %}
+                        <a class="icon link" href="/{{ article_list.link }}">{{ article_list.title }}</a>
+                      {% else %}
+                        <a class="icon file" href="/{{ article_list.link }}">{{ article_list.title }}</a>
+                    {% endcase %}
                   </td>
                   <td class="detailsColumn" >{{ article_list.author }}</td>
                   <td class="detailsColumn" >{{ article_list.date }}</td>
