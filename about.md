@@ -24,10 +24,10 @@ title: About me
 
 ## Awards
 
-- 情報処理学会 第85回全国大会 学生奨励賞
+- 2023/03 情報処理学会 第85回全国大会 学生奨励賞
 
 ## Background
-- (2022/5 - Present) : Intern at PEZY Computing Inc.
-- (2022/5 - Present) : Intern at TIER IV, Inc.
-- (2019/4 - Preesnt) : Student at Information Security Engineering Program, University of Electro-Communications
-- (2020/9 - 2020/9)  : Engineer at ConnectFree
+- 2022/05 - Present : Intern at PEZY Computing Inc.
+- 2022/05 - Present : Intern at TIER IV, Inc.
+- 2019/04 - Preesnt : Student at Information Security Engineering Program, University of Electro-Communications
+- 2020/09 - 2020/09 : Engineer at ConnectFree
