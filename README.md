@@ -23,6 +23,8 @@ title: 記事のタイトル
 5. プルリクを出す
 6. HAPPY
 
+Optional : `_data/article_list.yml`に`icon: `でアイコンを変更できる。`dir`, `file`, `link`が使用可能。無指定なら`file`になります。
+
 不明な点があったり↑の手順がダルかったりIndex of VLSI.JPにリンクだけ置きたい場合は@Cra2yPierr0tマデ、私は遍在します。
 
 ## ☆☆☆☆☆記事の追加方法(自分用)☆☆☆☆☆
