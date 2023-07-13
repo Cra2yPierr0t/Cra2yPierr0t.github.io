@@ -597,6 +597,9 @@ PCの次は**Decoder**です。これは**デコーダ**と呼び、命令から
 ![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/LetsMakeCPU/path_store.png)
 
 ##### 算術命令
+
+![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/LetsMakeCPU/path_exe.png)
+
 ##### ジャンプ命令
 ##### 分岐命令
 
