@@ -27,6 +27,12 @@
   link: RgGenxOpenMPW_eng.html#rggen--openmpw-walkthrough
   icon: dir
 
+- title: 無から始める自作CPU(作成中)
+  author: Cra2yPierr0t
+  date: 2023/07/14
+  link: LetsMakeCPU.html#無から始める自作cpu作成中
+  icon: dir
+
 - title: ダーリン！OpenRAMを使うっちゃ！
   author: Cra2yPierr0t
   date: 2022/12/01
@@ -64,12 +70,6 @@
   author: Cra2yPierr0t
   date: 2022/10/11
   link: OpenMPWSRAM_eng.html#using-sram-with-openmpw
-
-- title: 無から始める自作CPU(作成中)
-  author: Cra2yPierr0t
-  date: 2023/07/10
-  link: LetsMakeCPU.html#無から始める自作cpu作成中
-  icon: dir
 
 - title: OpenLANEと半導体設計入門
   author: Cra2yPierr0t
