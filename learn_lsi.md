@@ -47,7 +47,46 @@ OpenLANEの全体的なフローは次のようになっている。[^1]
 
 以上を見たところで半導体設計もOpenLANEも完全に理解出来る訳が無いので、これから各項目について説明していく。楽しみましょう。
 
+本記事では以下の適当に作ったALU(`learn_lsi.v`)を題材に解説をしていきます。
+
+```verilog
+module learn_lsi(
+  input  i_rstn,
+  input  i_clk,
+  input  [1:0]  i_ctrl,
+  input  [31:0] i_data_a,
+  input  [31:0] i_data_b,
+  output [31:0] o_data
+);
+
+  always @(posedge i_clk, negedge i_rstn) begin
+    if(!i_rstn) begin
+      o_data    <= 32'h0000_0000;
+    end else begin
+      case(i_ctrl)
+        2'b00   : o_data    <= i_data_a + i_data_b;
+        2'b01   : o_data    <= i_data_a | i_data_b;
+        2'b10   : o_data    <= i_data_a & i_data_b;
+        2'b11   : o_data    <= i_data_a ^ i_data_b;
+        default : o_data    <= 32'h0000_0000;
+      endcase
+    end
+  end
+
+endmodule
+```
+
 ## 1. Synthesis
+
+### Logic Synthesis
+
+Logic Synthesis、またの名を**論理合成**とは、HDLで書かれた内容をANDやORのような論理ゲートやFF等に変換する処理の事を指します。
+
+![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/learn_lsi/synthesis.png)
+
+Yosysはこの論理合成を行うツールです。
+
+
 勉強中
 ## 2. Floorplan and PDN
 勉強中
