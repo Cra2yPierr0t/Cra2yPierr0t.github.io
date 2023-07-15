@@ -1,6 +1,7 @@
 ---
 layout: default
 title: OpenLANEと半導体設計入門
+image: "https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/learn_lsi/synthesis.png"
 ---
 # OpenLANEと半導体設計入門
 質問、修正案、その他連絡は@Cra2yPierr0tマデ
