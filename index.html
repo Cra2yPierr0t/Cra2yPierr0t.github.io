@@ -61,8 +61,8 @@ title: VLSI.JP
             a.link {
                 background : url("./images/link.png") left top no-repeat;
             }
-            a.up {
-                background : url("./images/file.png") left top no-repeat;
+            a.out {
+                background : url("./images/outlink.png") left top no-repeat;
             }
             body {
                 height: auto;
@@ -137,6 +137,8 @@ title: VLSI.JP
                         <a class="icon file" href="/{{ article_list.link }}">{{ article_list.title }}</a>
                       {% when "link" %}
                         <a class="icon link" href="/{{ article_list.link }}">{{ article_list.title }}</a>
+                      {% when "out" %}
+                        <a class="icon out" href="{{ article_list.link }}" target="_blank">{{ article_list.title }}</a>
                       {% else %}
                         <a class="icon file" href="/{{ article_list.link }}">{{ article_list.title }}</a>
                     {% endcase %}
