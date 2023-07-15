@@ -80,12 +80,150 @@ endmodule
 
 ### Logic Synthesis
 
-Logic Synthesis、またの名を**論理合成**とは、HDLで書かれた内容をANDやORのような論理ゲートやFF等に変換する処理の事を指します。
+Logic Synthesis、またの名を**論理合成**とは、HDLで書かれた内容をより単純なANDやORのような論理ゲートやFF等のディジタル回路に変換する処理の事を指します。
 
 ![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/learn_lsi/synthesis.png)
 
-Yosysはこの論理合成を行うツールです。
+Yosysはこの論理合成を行うツールというわけです。ですがちょっと待ってください、HDLをディジタル回路に変換すると言いましたが、例えばVerilog HDLで書いた回路が実際何に変換されるのか気になりませんか？気になりますね、気になるという事にしましょう。
+実はYosysの場合、Verilog HDLで書かれた回路は、より単純なVerilog HDLに変換されます。実際にYosysを動かして見てみましょう。
 
+yosysの起動、exitコマンドで抜けられます。
+```bash
+$ yosys
+-----------
+なんやかんや
+-----------
+
+yosys> 
+```
+
+SystemVerilogモードでVerilogファイルの読み込む。VerilogだけどSVモードなのは気にしなくていい(多分)。
+```bash
+yosys> read -sv learn_lsi.v
+```
+
+トップモジュールを指定して階層構造をチェック
+```bash
+yosys> hierarchy -top learn_lsi
+```
+
+Yosysが処理しやすいように整形してシンプルな最適化を掛ける
+```bash
+yosys> proc
+yosys> opt
+```
+
+ちなみにここで`show`コマンドを使うと回路図が見られる。
+
+![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/learn_lsi/circuit_draw.png)
+
+
+ディジタル回路を論理回路に変換してシンプルな最適化を掛ける
+```bash
+yosys> techmap
+yosys> opt
+```
+
+Verilogファイル`synth.v`に出力
+```bash
+yosys> write_verilog synth.v
+```
+
+さて、出力された`synth.v`が論理合成後のVerilog HDLです。中身を見てみましょう。
+
+```verilog
+module learn_lsi(i_rstn, i_clk, i_ctrl, i_data_a, i_data_b, o_data);
+  wire _000_;
+  wire _001_;
+  wire [1:0] _002_;
+  wire [1:0] _003_;
+  wire [1:0] _004_;
+  wire [1:0] _005_;
+  wire [1:0] _006_;
+  wire [1:0] _007_;
+```
+
+なるほどね
+
+```verilog
+  assign _008_[1] = _040_[89] |(* src = "learn_lsi.v:0.0-0.0|learn_lsi.v:14.7-20.14|/usr/bin/../share/yosys/techmap.v:593.20-593.31" *)  _040_[121];
+  assign _043_[25] = _008_[0] |(* src = "learn_lsi.v:0.0-0.0|learn_lsi.v:14.7-20.14|/usr/bin/../share/yosys/techmap.v:593.20-593.31" *)  _008_[1];
+  assign _009_[0] = _040_[24] |(* src = "learn_lsi.v:0.0-0.0|learn_lsi.v:14.7-20.14|/usr/bin/../share/yosys/techmap.v:593.20-593.31" *)  _040_[56];
+  assign _009_[1] = _040_[88] |(* src = "learn_lsi.v:0.0-0.0|learn_lsi.v:14.7-20.14|/usr/bin/../share/yosys/techmap.v:593.20-593.31" *)  _040_[120];
+  assign _043_[24] = _009_[0] |(* src = "learn_lsi.v:0.0-0.0|learn_lsi.v:14.7-20.14|/usr/bin/../share/yosys/techmap.v:593.20-593.31" *)  _009_[1];
+  assign _010_[0] = _040_[23] |(* src = "learn_lsi.v:0.0-0.0|learn_lsi.v:14.7-20.14|/usr/bin/../share/yosys/techmap.v:593.20-593.31" *)  _040_[55];
+  assign _010_[1] = _040_[87] |(* src = "learn_lsi.v:0.0-0.0|learn_lsi.v:14.7-20.14|/usr/bin/../share/yosys/techmap.v:593.20-593.31" *)  _040_[119];
+  assign _043_[23] = _010_[0] |(* src = "learn_lsi.v:0.0-0.0|learn_lsi.v:14.7-20.14|/usr/bin/../share/yosys/techmap.v:593.20-593.31" *)  _010_[1];
+```
+
+なるほど、ちょっと意味が分からないですね。読めるわけがない。
+
+多分我々が読むには`learn_lsi.v`は複雑すぎました。以下の`simple.v`で試してみましょう。
+
+```verilog
+module simple(
+  input i_clk,
+  input i_data_a,
+  input i_data_b,
+  input i_ctrl,
+  output o_data
+);
+
+  always @(posedge i_clk) begin
+    if(i_ctrl) begin
+      o_data    <= i_data_a & i_data_b;
+    end else begin
+      o_data    <= i_data_a | i_data_b;
+    end
+  end
+
+endmodule
+```
+
+Yosysで論理合成
+
+```bash
+yosys> read -sv simple.v
+yosys> hierarchy -top simple
+yosys> proc; opt
+yosys> techmap; opt
+yosys> write_verilog synth.v
+```
+
+さて`synth.v`を覗いてみましょう。
+```verilog
+module simple(i_clk, i_data_a, i_data_b, i_ctrl, o_data);
+  (* src = "simple.v:9.3-15.6" *)
+  wire _0_;
+  (* src = "simple.v:11.20-11.39" *)
+  wire _1_;
+  (* src = "simple.v:13.20-13.39" *)
+  wire _2_;
+  (* src = "simple.v:2.9-2.14" *)
+  input i_clk;
+  wire i_clk;
+  (* src = "simple.v:5.9-5.15" *)
+  input i_ctrl;
+  wire i_ctrl;
+  (* src = "simple.v:3.9-3.17" *)
+  input i_data_a;
+  wire i_data_a;
+  (* src = "simple.v:4.9-4.17" *)
+  input i_data_b;
+  wire i_data_b;
+  (* src = "simple.v:6.10-6.16" *)
+  output o_data;
+  reg o_data;
+  (* src = "simple.v:9.3-15.6" *)
+  always @(posedge i_clk)
+    o_data <= _0_;
+  assign _0_ = i_ctrl ? (* src = "simple.v:10.8-10.14|simple.v:10.5-14.8" *) _1_ : _2_;
+  assign _1_ = i_data_a &(* src = "simple.v:11.20-11.39" *)  i_data_b;
+  assign _2_ = i_data_a |(* src = "simple.v:13.20-13.39" *)  i_data_b;
+endmodule
+```
+
+あーギリ読めますね、なんか`(**)`で囲われた何かが付いてますが`endmodule`から4行が本体ですね。if文が三項演算子に変換されています。
 
 勉強中
 ## 2. Floorplan and PDN
