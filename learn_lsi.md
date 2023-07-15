@@ -88,10 +88,10 @@ Logic Synthesis、またの名を**論理合成**とは、HDLで書かれた内�
 
 ![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/learn_lsi/synthesis.png)
 
-Yosysはこの論理合成を行うツールというわけです。ですがちょっと待ってください、HDLをディジタル回路に変換すると言いましたが、例えばVerilog HDLで書いた回路が実際何に変換されるのか気になりませんか？気になりますね、気になるという事にしましょう。
+Yosysはこの論理合成を行うツールの一つです。HDLを単純なディジタル回路に変換すると言いましたが、例えばVerilog HDLで書いた回路が実際どんな形式のファイルに変換されるのか気になりませんか？気になりますね、気になるという事にしましょう。
 実はYosysの場合、Verilog HDLで書かれた回路は、より単純なVerilog HDLに変換されます。実際にYosysを動かして見てみましょう。
 
-yosysの起動、exitコマンドで抜けられます。
+yosysの起動。yosysはexitコマンドで抜けられます。
 ```bash
 $ yosys
 -----------
@@ -162,7 +162,7 @@ module learn_lsi(i_rstn, i_clk, i_ctrl, i_data_a, i_data_b, o_data);
 
 なるほど、ちょっと意味が分からないですね。読めるわけがない。
 
-多分我々が読むには`learn_lsi.v`は複雑すぎました。以下の`simple.v`で試してみましょう。
+我々が読むには`learn_lsi.v`は複雑すぎました。以下の`simple.v`で試してみましょう。
 
 ```verilog
 module simple(
@@ -227,7 +227,7 @@ module simple(i_clk, i_data_a, i_data_b, i_ctrl, o_data);
 endmodule
 ```
 
-あーギリ読めますね、なんか`(**)`で囲われた何かが付いてますが`endmodule`から4行が本体ですね。if文が三項演算子に変換されています。
+あーギリ読めますね、なんか`(* *)`で囲われた何か(正式名称: Attribute)が付いてますが`endmodule`から4行が本体ですね。if文が三項演算子に変換されているのが分かります。
 
 勉強中
 ## 2. Floorplan and PDN
