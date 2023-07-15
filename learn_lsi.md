@@ -1,6 +1,6 @@
 ---
 layout: default
-title: OpenLANE
+title: OpenLANEと半導体設計入門
 ---
 # OpenLANEと半導体設計入門
 質問、修正案、その他連絡は@Cra2yPierr0tマデ
