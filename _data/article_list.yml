@@ -4,6 +4,12 @@
   date: 
   link: Shrine.html
 
+- title: 半導体初学者むけ単語集
+  author: jun1okamura
+  date: 2023/07/15
+  link: https://github.com/jun1okamura/glossary_semiconductor_design_terms_for_beginners/
+  icon: out
+
 - title: オープンソースASIC関連リンク集
   author: jun1okamura
   date: 2023/07/10
@@ -29,7 +35,7 @@
 
 - title: 無から始める自作CPU(作成中)
   author: Cra2yPierr0t
-  date: 2023/07/14
+  date: 2023/07/15
   link: LetsMakeCPU.html#無から始める自作cpu作成中
   icon: dir
 
