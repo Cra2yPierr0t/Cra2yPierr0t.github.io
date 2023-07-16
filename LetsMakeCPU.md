@@ -73,7 +73,7 @@ CPUは**ディジタル回路**というもので構成されています。デ�
 
 #### OR
 
-次は**ORゲート**です。これは入力の論理和、つまり入力に一つでも1があるなら1を出力し、入力が全て0なら0を出力します。
+次は**ORゲート**です。これは入力の論理和、入力に一つでも1があるなら1を出力し、入力が全て0なら0を出力します。
 
 ![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/LetsMakeCPU/or.png)
 
@@ -89,9 +89,74 @@ CPUは**ディジタル回路**というもので構成されています。デ�
 記号としては`a | b`が使われがちです。
 
 #### AND
-#### NOR
+
+次は**ANDゲート**です。これは入力の論理積、入力の全てが1なら1を出力し、それ以外なら0を出力します。
+
+![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/LetsMakeCPU/and.png)
+
+真理値表は以下の通りです。
+
+| A | B | A AND B |
+| - | - | ------- |
+| 0 | 0 | 0 |
+| 0 | 1 | 0 |
+| 1 | 0 | 0 |
+| 1 | 1 | 1 |
+
+記号としては`a & b`が使われがちです。そのまんまですね。
+
 #### NAND
+
+次は**NANDゲート**、これはANDゲートの出力にNOTしたものです、入力の全てが1なら0を出力し、それ以外なら1を出力します。
+
+![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/LetsMakeCPU/nand.png)
+
+真理値表は以下の通りです。
+
+| A | B | A NAND B |
+| - | - | ------- |
+| 0 | 0 | 1 |
+| 0 | 1 | 1 |
+| 1 | 0 | 1 |
+| 1 | 1 | 0 |
+
+記号としては`~(a & b)`で表せます。少し難易度が上がりましたかね？
+
+NANDゲートの面白い特徴として、NANDゲートから他の全ての論理回路を構成できるという性質があります(Functional completeness)。実際にNANDゲートからORゲートを作るとこんな感じになります。
+
+![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/LetsMakeCPU/or_nand.png)
+
+本当にORゲートになってるかわからない？真理値表を書くとこの通り、ORゲートになっている事が分かります。
+
+| A | B | A NAND A | B NAND B | (A NAND A) NAND (B NAND B) |
+| - | - | -------- | -------- | -------------------------- |
+| 0 | 0 |       1  |        1 |                         0  |
+| 0 | 1 |       1  |        0 |                         1  |
+| 1 | 0 |       0  |        1 |                         1  |
+| 1 | 1 |       0  |        0 |                         1  |
+
+このNANDゲートから他のディジタル回路を作り、それらを組み合わせCPUを作り、OSをその上で動かして、そのOSの上でテトリスを動かそうぜ！という熱い本が存在します。買うといいです。
+
+[コンピュータシステムの理論と実装](https://amzn.asia/d/bmBqWAs)
+
 #### XOR
+
+論理回路ラスト、**XORゲート**です。これは**排他的論理和**と呼び、入力が異なる場合に1を出力し、同じ場合に0を出力します。
+
+![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/LetsMakeCPU/xor.png)
+
+真理値表は以下の通りです。
+
+| A | B | A XOR B |
+| - | - | ------- |
+| 0 | 0 | 0 |
+| 0 | 1 | 1 |
+| 1 | 0 | 1 |
+| 1 | 1 | 0 |
+
+記号としては`a ^ b`が使われがちです。
+
+#### D-FF
 
 ### FPGA
 
