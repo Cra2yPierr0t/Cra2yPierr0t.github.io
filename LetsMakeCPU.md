@@ -193,13 +193,23 @@ NANDゲートの面白い特徴として、NANDゲートから他の全ての論
 
 クロックとは一定の周波数で0と1を行ったり来たりする信号を指します。クロックに関係する用語として、0から1になる**立ち上がりエッジ(posedge)**と、1から0になる**立ち下がりエッジ(negedge)**がありますので覚えておきましょう。
 
-クロックを理解した所でこのD-FF、これは信号を記憶する論理素子です。具体的な動作としては、クロックの立ち上がりエッジに入力を出力します。図にすると分かりやすいです。
+クロックを理解した所でこのD-FF、これは信号を記憶する論理素子です。具体的な動作としては、クロックの立ち上がりエッジで入力を出力し、その他のタイミングでは出力を維持します。図にすると分かりやすいです。
 
 ![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/LetsMakeCPU/dff_wave.png)
 
 このフリップフロップ、別名レジスタ(register)とも呼ばれる事があります、覚えておいて損はないです。
 
 #### MUXによるD-FFの改良
+
+最後にこのD-FFをMUXで少し改良して、データを記憶するタイミングを制御できるようにしましょう。
+
+以下では、MUXの`w_en`でD-FFへの入力を、D-FFからの出力か外部からの入力`w_data`かを選択できるようにしています。
+
+![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/LetsMakeCPU/dff_improve.png)
+
+波形は以下の通りです。`w_en`でD-FFに対する書き込みを制御出来ていますね。
+
+![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/LetsMakeCPU/dff_improve_wave.png)
 
 以上で我々はディジタル回路の基礎を完全に理解することが出来ました。やったね。次はこのディジタル回路を作り出せる、FPGAの紹介です。
 
