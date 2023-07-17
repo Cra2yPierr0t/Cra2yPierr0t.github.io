@@ -12,5 +12,6 @@ image: "https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/ma
 [![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/kanade.png)](https://kanade-k-1228.github.io)
 * [花園シャトー107号室](https://hanazonochateau.net) : オタク(575)
 * [primeのページ](https://poyo.me) : オタク(計算機)(すごいはやい)
+* [LOST IN BLUE](https://kokeshing.com) : オタク(貯金)
 
 <img src="https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/bosyuu.png?raw=true" width="200">
