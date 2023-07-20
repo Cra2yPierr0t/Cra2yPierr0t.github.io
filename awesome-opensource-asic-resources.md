@@ -1,1 +1,0 @@
-awesome-opensource-asic-resources/README.md
