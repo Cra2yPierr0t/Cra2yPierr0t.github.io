@@ -248,7 +248,8 @@ $$
 
 ![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/LetsMakeCPU/adder4.png)
 
-二進数の4桁の加算
+二進数の4桁の加算の例
+
 $$
 \begin{align}
 0011_{(2)} + 1001_{(2)} &= 1100_{(2)} \\
