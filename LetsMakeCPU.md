@@ -248,6 +248,14 @@ $$
 
 ![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/LetsMakeCPU/adder4.png)
 
+二進数の4桁の加算
+$$
+\begin{align}
+0011_{(2)} + 1001_{(2)} &= 1100_{(2)} \\
+0010_{(2)} + 0011_{(2)} &= 0101_{(2)}
+\end{align}
+$$
+
 この例は4桁の加算器ですが、8桁でも32桁でも作ることが出来ます。この世の足し算はこの回路で実行されているんですね。
 
 #### D-FF
