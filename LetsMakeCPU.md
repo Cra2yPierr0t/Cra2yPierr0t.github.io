@@ -290,14 +290,31 @@ $$
 
 ![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/LetsMakeCPU/dff_improve_wave.png)
 
-以上で我々はディジタル回路の基礎を完全に理解することが出来ました。やったね。次はこのディジタル回路を作り出せる、FPGAの紹介です。
+以上で我々はディジタル回路の基礎を完全に理解することが出来ました。やったね。
+次はこのディジタル回路を作り出せる、FPGAの紹介です。
 
 ### FPGA
 
-* FPGA : ディジタル回路を内部に生成できる半導体
-* HDL : ディジタル回路(RTL)を記述する言語の種類
-* Quartus : Intel FPGAの開発環境 Vivadoの敵
-* Vivado : Xilinx FPGAの開発環境 Quartusの敵
+ディジタル回路を現実世界で実装したい時、選択肢は主に３つ存在しています。ちなみに下記の３つ以外でCPUを作っている人を見かけたらそいつは異常な変態ですので近づきましょう。
+
+1. ロジックIC
+2. LSI
+3. FPGA
+
+ロジックICは秋葉で以下の黒いムカデみたいな奴を沢山買ってきて無限に半田付けするやつですね。
+
+![](https://2.bp.blogspot.com/-khfR1UvFhbw/XDXbZILRDOI/AAAAAAABQ_k/FVT0GCYVkV4PgTySWyA63UIkk29pP0DkwCLcBGAs/s800/computer_ic_syusekikairo_long.png)
+
+楽しいですが骨が折れるので今回はパス。
+
+次のLSIですが工場に土下座して大金を払って石を焼いてもらう奴ですね。最近は土下座だけで焼かせてくれるようになりましたが土下座はしたくないのでパス。
+
+![](https://user-images.githubusercontent.com/48832611/205153031-033603ce-ccac-4f02-b91a-920f15859ff1.png)
+
+そして最後の選択肢、**FPGA**です。**FPGA**とはField Programmable Gate Arrayの略で、一言で言ってしまうとディジタル回路を内部で自由に生成できるチップです。
+詳しい仕組みの説明はここでは省きますが、どんな論理ゲートにもなれる特殊な論理ゲートが大量に詰まっていると思って頂ければ十分です。このFPGAでディジタル回路を作る場合、HDLというディジタル回路を設計する為の言語を使い、まるでプログラミングの様に回路を作る事が出来ます。
+
+以後ではHDLの一種である、Verilog HDLを学んでいきましょう。
 
 ## Verilog HDL入門
 
