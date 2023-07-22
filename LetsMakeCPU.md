@@ -311,7 +311,12 @@ $$
 
 ![](https://user-images.githubusercontent.com/48832611/205153031-033603ce-ccac-4f02-b91a-920f15859ff1.png)
 
+↑ 工場に土下座した例
+
 そして最後の選択肢、**FPGA**です。**FPGA**とはField Programmable Gate Arrayの略で、一言で言ってしまうとディジタル回路を内部で自由に生成できるチップです。
+
+![](https://raw.githubusercontent.com/Cra2yPierr0t/Cra2yPierr0t.github.io/master/images/LetsMakeCPU/fpga.png)
+
 詳しい仕組みの説明はここでは省きますが、どんな論理ゲートにもなれる特殊な論理ゲートが大量に詰まっていると思って頂ければ十分です。このFPGAでディジタル回路を作る場合、HDLというディジタル回路を設計する為の言語を使い、まるでプログラミングの様に回路を作る事が出来ます。
 
 以後ではHDLの一種である、Verilog HDLを学んでいきましょう。
